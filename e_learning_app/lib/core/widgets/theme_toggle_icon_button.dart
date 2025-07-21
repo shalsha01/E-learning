@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../notifiers/theme_notifier.dart';
 
-class ThemeToggleIconButton extends StatelessWidget {
+class ThemeToggleIconButton extends ConsumerWidget {
   const ThemeToggleIconButton({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
-    final isDark = themeNotifier.isDark;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeNotifierProvider);
+    final isDark = themeMode == ThemeMode.dark;
     final colorScheme = Theme.of(context).colorScheme;
 
     return Tooltip(
       message: isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode',
       child: InkWell(
-        onTap: themeNotifier.toggleTheme,
+        onTap: () => ref.read(themeNotifierProvider.notifier).toggleTheme(),
         borderRadius: BorderRadius.circular(100),
         child: Container(
           width: 36,

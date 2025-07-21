@@ -18,7 +18,7 @@ class IntroductionScreen extends HookWidget {
   const IntroductionScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final pageController = usePageController();

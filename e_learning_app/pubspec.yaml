@@ -17,9 +17,14 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   flutter_hooks: ^0.21.2
   auto_route: ^10.1.0+1
-  provider: ^6.1.5
   image_picker: ^1.1.2
   intl: ^0.20.2
+  hooks_riverpod: ^2.5.1
+  shared_preferences: ^2.2.2
+  riverpod_cache: ^0.0.5
+  flutter_riverpod: ^2.5.1
+
+
 
 dev_dependencies:
   flutter_test:

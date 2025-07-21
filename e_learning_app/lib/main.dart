@@ -1,59 +1,38 @@
-import 'package:flutter/material.dart'; 
-import 'package:provider/provider.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:e_learning_app/l10n/app_localizations.dart';
-
-import 'core/theme/app_theme.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/notifiers/theme_notifier.dart';
 import 'core/notifiers/language_notifier.dart';
-import 'features/router/app_router.dart';
-
-final appRouter = AppRouter();
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'l10n/app_localizations.dart'; 
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ThemeNotifier()),
-        ChangeNotifierProvider(create: (_) => LanguageNotifier()),
-      ],
-      child: const MyApp(),
-    ),
-  );
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
-    final languageNotifier = Provider.of<LanguageNotifier>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeNotifierProvider);
+    final locale = ref.watch(languageNotifierProvider);
 
-    return MaterialApp.router(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Telead App',
-      routerConfig: appRouter.config(),
-      theme: AppThemes.lightTheme,
-      darkTheme: AppThemes.darkTheme,
-      themeMode: themeNotifier.value,
-      locale: languageNotifier.locale,
-      supportedLocales: AppLocalizations.supportedLocales,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: themeMode,
+      locale: locale,
+      supportedLocales: const [Locale('en'), Locale('ar')],
       localizationsDelegates: const [
-        AppLocalizations.delegate,
+        AppLocalizations.delegate, 
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      builder: (context, child) {
-        
-        return Directionality(
-          textDirection: languageNotifier.locale.languageCode == 'ar'
-              ? TextDirection.rtl
-              : TextDirection.ltr,
-          child: child!,
-        );
-      },
+      home: const Scaffold(
+        body: Center(child: Text("My App")),
+      ),
     );
   }
 }
