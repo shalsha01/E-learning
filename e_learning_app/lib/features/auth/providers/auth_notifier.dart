@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_cache/riverpod_cache.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/login_request.dart';
 import '../models/user_model.dart';
 import '../repository/auth_repository.dart';
@@ -14,9 +14,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = AuthLoading();
     try {
       final user = await repository.login(request);
-      await Cache.instance.write('token', user.token);
-      await Cache.instance.write('email', user.email);
-      await Cache.instance.write('name', user.name);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', user.token);
+      await prefs.setString('email', user.email);
+      await prefs.setString('name', user.name);
       state = AuthSuccess(user);
     } catch (e) {
       state = AuthError(e.toString());
@@ -28,9 +29,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
     try {
       // For demo, use the same repository.login (replace with repository.register if available)
       final user = await repository.login(request);
-      await Cache.instance.write('token', user.token);
-      await Cache.instance.write('email', user.email);
-      await Cache.instance.write('name', user.name);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', user.token);
+      await prefs.setString('email', user.email);
+      await prefs.setString('name', user.name);
       state = AuthSuccess(user);
     } catch (e) {
       state = AuthError(e.toString());
@@ -38,9 +40,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   Future<bool> checkLogin() async {
-    final token = await Cache.instance.read('token');
-    final email = await Cache.instance.read('email');
-    final name = await Cache.instance.read('name');
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final email = prefs.getString('email');
+    final name = prefs.getString('name');
     if (token != null && email != null && name != null) {
       state = AuthSuccess(UserModel(token: token, email: email, name: name));
       return true;

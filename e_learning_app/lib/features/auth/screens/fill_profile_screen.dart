@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../../../core/constants/spacing.dart';
 import '../../../../features/router/app_router.dart';
@@ -22,7 +23,7 @@ final selectedImageProvider = StateProvider<File?>((ref) => null);
 
 @RoutePage()
 class FillProfilePage extends HookConsumerWidget {
-  const FillProfilePage({super.key});
+  const FillProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

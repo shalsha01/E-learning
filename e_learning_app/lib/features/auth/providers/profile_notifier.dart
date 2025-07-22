@@ -38,7 +38,6 @@ class ProfileNotifier extends StateNotifier<ProfileState> {
       await prefs.setString('profile_email', email);
       await prefs.setString('profile_phone', phone);
       await prefs.setString('profile_gender', gender ?? '');
-      // For image, you may want to save the path or base64 string
       if (image != null) {
         await prefs.setString('profile_image', image.path);
       }

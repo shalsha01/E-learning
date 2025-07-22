@@ -45,11 +45,7 @@ class MyApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      routerConfig: _appRouter.config(
-        initialRoutes: [
-          isLoggedIn ? const HomeRoute() : const IntroductionRoute(),
-        ],
-      ),
+      routerConfig: _appRouter.config(),
     );
   }
 }
