@@ -104,4 +104,41 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dont_have_acount => 'ليس لديك اي حساب ؟';
+
+  @override
+  String get forgot_password_title => 'نسيت كلمة المرور';
+
+  @override
+  String get reset_password_instruction =>
+      'حدد وسيلة الاتصال التي نستخدمها لإعادة تعيين كلمة المرور الخاصة بك';
+
+  @override
+  String get via_email => 'عبر البريد الإلكتروني';
+
+  @override
+  String get via_sms => 'عبر الرسائل النصية';
+
+  @override
+  String get code_sent_to => 'تم إرسال الكود إلى';
+
+  @override
+  String resend_code_in(Object seconds) {
+    return 'يمكنك إعادة إرسال الكود خلال $seconds ثانية';
+  }
+
+  @override
+  String get verify => 'تحقق';
+
+  @override
+  String get create_new_password_title => 'إنشاء كلمة مرور جديدة';
+
+  @override
+  String get password_reset_success_title => 'تهانينا';
+
+  @override
+  String get password_reset_success_message =>
+      'تم إعداد حسابك. سيتم تحويلك إلى الصفحة الرئيسية خلال لحظات.';
+
+  @override
+  String get otp_example => '* * 8 *';
 }

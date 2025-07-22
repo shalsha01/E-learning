@@ -289,6 +289,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Don’t have an Account?'**
   String get dont_have_acount;
+
+  /// No description provided for @forgot_password_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password'**
+  String get forgot_password_title;
+
+  /// No description provided for @reset_password_instruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Select which contact details should we use to reset your password'**
+  String get reset_password_instruction;
+
+  /// No description provided for @via_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Via Email'**
+  String get via_email;
+
+  /// No description provided for @via_sms.
+  ///
+  /// In en, this message translates to:
+  /// **'Via SMS'**
+  String get via_sms;
+
+  /// No description provided for @code_sent_to.
+  ///
+  /// In en, this message translates to:
+  /// **'Code has been sent to'**
+  String get code_sent_to;
+
+  /// Message showing seconds remaining before code can be resent
+  ///
+  /// In en, this message translates to:
+  /// **'Resend Code in {seconds}s'**
+  String resend_code_in(Object seconds);
+
+  /// No description provided for @verify.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get verify;
+
+  /// No description provided for @create_new_password_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Your New Password'**
+  String get create_new_password_title;
+
+  /// No description provided for @password_reset_success_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Congratulations'**
+  String get password_reset_success_title;
+
+  /// No description provided for @password_reset_success_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account is ready to use. You will be redirected to the Home Page in a few seconds.'**
+  String get password_reset_success_message;
+
+  /// No description provided for @otp_example.
+  ///
+  /// In en, this message translates to:
+  /// **'* * 8 *'**
+  String get otp_example;
 }
 
 class _AppLocalizationsDelegate

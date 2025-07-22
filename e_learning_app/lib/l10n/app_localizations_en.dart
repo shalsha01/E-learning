@@ -108,4 +108,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dont_have_acount => 'Don’t have an Account?';
+
+  @override
+  String get forgot_password_title => 'Forgot Password';
+
+  @override
+  String get reset_password_instruction =>
+      'Select which contact details should we use to reset your password';
+
+  @override
+  String get via_email => 'Via Email';
+
+  @override
+  String get via_sms => 'Via SMS';
+
+  @override
+  String get code_sent_to => 'Code has been sent to';
+
+  @override
+  String resend_code_in(Object seconds) {
+    return 'Resend Code in ${seconds}s';
+  }
+
+  @override
+  String get verify => 'Verify';
+
+  @override
+  String get create_new_password_title => 'Create Your New Password';
+
+  @override
+  String get password_reset_success_title => 'Congratulations';
+
+  @override
+  String get password_reset_success_message =>
+      'Your account is ready to use. You will be redirected to the Home Page in a few seconds.';
+
+  @override
+  String get otp_example => '* * 8 *';
 }

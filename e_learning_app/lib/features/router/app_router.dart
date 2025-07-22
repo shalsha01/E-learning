@@ -3,7 +3,12 @@ import 'package:e_learning_app/features/auth/fill_profile_screen.dart';
 import 'package:e_learning_app/features/auth/login_screen.dart';
 import 'package:e_learning_app/features/auth/register_screen.dart';
 import 'package:e_learning_app/features/onboarding/smooth_page_indicator.dart';
+import 'package:e_learning_app/features/auth/forgot_password/forgot_password_method_page.dart'; 
+import 'package:e_learning_app/features/auth/forgot_password/otp_verification_page.dart';
+import 'package:e_learning_app/features/auth/forgot_password/create_new_password_page.dart';
+import 'package:e_learning_app/features/auth/forgot_password/password_reset_success_page.dart';
 import 'package:e_learning_app/home.dart';
+
 
 
 
@@ -28,7 +33,22 @@ class AppRouter extends RootStackRouter {
         ),
         AutoRoute(
           page: HomeRoute.page,
+        ),     // Forgot Password Flow
+        AutoRoute(
+          page:ForgotPasswordMethodRoute.page
+          ),
+        AutoRoute(
+          page:OTPVerificationRoute.page
         ),
-
-      ];
+        AutoRoute(
+          page: CreateNewPasswordRoute.page
+          ),
+        AutoRoute(
+          page: PasswordResetSuccessRoute.page
+          ),
+  ];
 }
+
+        
+
+    

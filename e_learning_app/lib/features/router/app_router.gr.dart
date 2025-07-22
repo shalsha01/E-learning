@@ -11,6 +11,22 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [CreateNewPasswordPage]
+class CreateNewPasswordRoute extends PageRouteInfo<void> {
+  const CreateNewPasswordRoute({List<PageRouteInfo>? children})
+      : super(CreateNewPasswordRoute.name, initialChildren: children);
+
+  static const String name = 'CreateNewPasswordRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CreateNewPasswordPage();
+    },
+  );
+}
+
+/// generated route for
 /// [FillProfilePage]
 class FillProfileRoute extends PageRouteInfo<void> {
   const FillProfileRoute({List<PageRouteInfo>? children})
@@ -22,6 +38,22 @@ class FillProfileRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const FillProfilePage();
+    },
+  );
+}
+
+/// generated route for
+/// [ForgotPasswordMethodPage]
+class ForgotPasswordMethodRoute extends PageRouteInfo<void> {
+  const ForgotPasswordMethodRoute({List<PageRouteInfo>? children})
+      : super(ForgotPasswordMethodRoute.name, initialChildren: children);
+
+  static const String name = 'ForgotPasswordMethodRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ForgotPasswordMethodPage();
     },
   );
 }
@@ -70,6 +102,38 @@ class LoginRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const LoginPage();
+    },
+  );
+}
+
+/// generated route for
+/// [OTPVerificationPage]
+class OTPVerificationRoute extends PageRouteInfo<void> {
+  const OTPVerificationRoute({List<PageRouteInfo>? children})
+      : super(OTPVerificationRoute.name, initialChildren: children);
+
+  static const String name = 'OTPVerificationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const OTPVerificationPage();
+    },
+  );
+}
+
+/// generated route for
+/// [PasswordResetSuccessPage]
+class PasswordResetSuccessRoute extends PageRouteInfo<void> {
+  const PasswordResetSuccessRoute({List<PageRouteInfo>? children})
+      : super(PasswordResetSuccessRoute.name, initialChildren: children);
+
+  static const String name = 'PasswordResetSuccessRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PasswordResetSuccessPage();
     },
   );
 }

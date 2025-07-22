@@ -125,8 +125,11 @@ class LoginPage extends HookWidget {
                       style: TextStyle(color: colorScheme.onSurface),
                     ),
                     const Spacer(),
+                    
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.router.push(const ForgotPasswordMethodRoute());
+                      },
                       child: Text(
                         tr.forgot_password,
                         style: TextStyle(color: colorScheme.primary),
