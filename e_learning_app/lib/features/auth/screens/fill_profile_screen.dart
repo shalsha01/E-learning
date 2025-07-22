@@ -5,33 +5,43 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../core/constants/spacing.dart';
 import '../../../../features/router/app_router.dart';
 import '../../../../core/widgets/primary_button.dart';
+import '../providers/profile_notifier.dart';
+
+final fullNameProvider = StateProvider<String>((ref) => '');
+final nickNameProvider = StateProvider<String>((ref) => '');
+final dobProvider = StateProvider<String>((ref) => '');
+final profileEmailProvider = StateProvider<String>((ref) => '');
+final phoneProvider = StateProvider<String>((ref) => '');
+final genderProvider = StateProvider<String?>((ref) => null);
+final selectedImageProvider = StateProvider<File?>((ref) => null);
 
 @RoutePage()
-class FillProfilePage extends HookWidget {
+class FillProfilePage extends HookConsumerWidget {
   const FillProfilePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-
-    final fullName = useTextEditingController();
-    final nickName = useTextEditingController();
-    final dob = useTextEditingController();
-    final email = useTextEditingController();
-    final phone = useTextEditingController();
-    final gender = useState<String?>(null);
-    final selectedImage = useState<File?>(null);
-
+    final fullName = ref.watch(fullNameProvider);
+    final nickName = ref.watch(nickNameProvider);
+    final dob = ref.watch(dobProvider);
+    final email = ref.watch(profileEmailProvider);
+    final phone = ref.watch(phoneProvider);
+    final gender = ref.watch(genderProvider);
+    final selectedImage = ref.watch(selectedImageProvider);
     final colorScheme = Theme.of(context).colorScheme;
+    final profileState = ref.watch(profileNotifierProvider);
+    final profileNotifier = ref.read(profileNotifierProvider.notifier);
 
     Future<void> pickImage() async {
       final picked = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (picked != null) {
-        selectedImage.value = File(picked.path);
+        ref.read(selectedImageProvider.notifier).state = File(picked.path);
       }
     }
 
@@ -43,7 +53,7 @@ class FillProfilePage extends HookWidget {
         lastDate: DateTime.now(),
       );
       if (pickedDate != null) {
-        dob.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+        ref.read(dobProvider.notifier).state = DateFormat('yyyy-MM-dd').format(pickedDate);
       }
     }
 
@@ -69,10 +79,10 @@ class FillProfilePage extends HookWidget {
                   CircleAvatar(
                     radius: 50,
                     backgroundColor: colorScheme.primary.withOpacity(0.1),
-                    backgroundImage: selectedImage.value != null
-                        ? FileImage(selectedImage.value!)
+                    backgroundImage: selectedImage != null
+                        ? FileImage(selectedImage)
                         : null,
-                    child: selectedImage.value == null
+                    child: selectedImage == null
                         ? Icon(Icons.person, size: 50, color:colorScheme.primary)
                         : null,
                   ),
@@ -89,7 +99,8 @@ class FillProfilePage extends HookWidget {
               const SizedBox(height: Spacing.large),
 
               TextFormField(
-                controller: fullName,
+                initialValue: fullName,
+                onChanged: (value) => ref.read(fullNameProvider.notifier).state = value,
                 decoration: InputDecoration(
                   hintText: l10n.full_name,
                   prefixIcon: const Icon(Icons.person),
@@ -98,7 +109,8 @@ class FillProfilePage extends HookWidget {
               const SizedBox(height: Spacing.medium),
 
               TextFormField(
-                controller: nickName,
+                initialValue: nickName,
+                onChanged: (value) => ref.read(nickNameProvider.notifier).state = value,
                 decoration: InputDecoration(
                   hintText: l10n.nick_name,
                   prefixIcon: const Icon(Icons.person_outline),
@@ -110,7 +122,7 @@ class FillProfilePage extends HookWidget {
                 onTap: pickDate,
                 child: AbsorbPointer(
                   child: TextFormField(
-                    controller: dob,
+                    initialValue: dob,
                     decoration: InputDecoration(
                       hintText: l10n.dob,
                       prefixIcon: const Icon(Icons.date_range),
@@ -121,7 +133,8 @@ class FillProfilePage extends HookWidget {
               const SizedBox(height: Spacing.medium),
 
               TextFormField(
-                controller: email,
+                initialValue: email,
+                onChanged: (value) => ref.read(profileEmailProvider.notifier).state = value,
                 decoration: InputDecoration(
                   hintText: l10n.email,
                   prefixIcon: const Icon(Icons.email),
@@ -130,7 +143,8 @@ class FillProfilePage extends HookWidget {
               const SizedBox(height: Spacing.medium),
 
               TextFormField(
-                controller: phone,
+                initialValue: phone,
+                onChanged: (value) => ref.read(phoneProvider.notifier).state = value,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   hintText: '724-848-1225',
@@ -149,7 +163,7 @@ class FillProfilePage extends HookWidget {
               const SizedBox(height: Spacing.medium),
 
               DropdownButtonFormField<String>(
-                value: gender.value,
+                value: gender,
                 decoration: InputDecoration(
                   hintText: l10n.gender,
                   prefixIcon: const Icon(Icons.person_outline),
@@ -158,16 +172,33 @@ class FillProfilePage extends HookWidget {
                   DropdownMenuItem(value: 'male', child: Text(l10n.male)),
                   DropdownMenuItem(value: 'female', child: Text(l10n.female)),
                 ],
-                onChanged: (value) => gender.value = value,
+                onChanged: (value) => ref.read(genderProvider.notifier).state = value,
               ),
               const SizedBox(height: Spacing.large),
 
-              PrimaryButton(
-                text: l10n.continueLabel,
-                onPressed: () {
-                  context.router.replaceAll([const HomeRoute()]);
-                },
-              ),
+              if (profileState.error != null)
+                Text(
+                  profileState.error!,
+                  style: TextStyle(color: colorScheme.error),
+                ),
+              if (profileState.isLoading)
+                const CircularProgressIndicator()
+              else
+                PrimaryButton(
+                  text: l10n.continueLabel,
+                  onPressed: () {
+                    profileNotifier.saveProfile(
+                      fullName: fullName,
+                      nickName: nickName,
+                      dob: dob,
+                      email: email,
+                      phone: phone,
+                      gender: gender,
+                      image: selectedImage,
+                    );
+                    context.router.replaceAll([const HomeRoute()]);
+                  },
+                ),
               const SizedBox(height: Spacing.medium),
 
               TextButton(

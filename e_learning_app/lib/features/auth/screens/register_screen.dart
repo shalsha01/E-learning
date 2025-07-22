@@ -9,20 +9,41 @@ import '../../../../../core/constants/spacing.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/widgets/theme_toggle_icon_button.dart';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:e_learning_app/features/auth/providers/auth_notifier.dart';
+import 'package:e_learning_app/features/auth/models/login_request.dart';
+import 'package:e_learning_app/features/auth/providers/auth_state.dart';
+import 'package:e_learning_app/features/router/app_router.dart';
+
+final registerEmailProvider = StateProvider<String>((ref) => '');
+final registerPasswordProvider = StateProvider<String>((ref) => '');
+
 @RoutePage()
-class RegisterPage extends HookWidget {
+class RegisterPage extends HookConsumerWidget {
   const RegisterPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final email = useTextEditingController();
-    final password = useTextEditingController();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final email = ref.watch(registerEmailProvider);
+    final password = ref.watch(registerPasswordProvider);
     final isPasswordVisible = useState(false);
     final agreed = useState(false);
 
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final tr = AppLocalizations.of(context)!;
+
+    // Show loading and error states for registration
+    final authState = ref.watch(authNotifierProvider);
+    final authNotifier = ref.read(authNotifierProvider.notifier);
+    useEffect(() {
+      if (authState is AuthSuccess) {
+        Future.microtask(() {
+          context.router.replace(const FillProfileRoute());
+        });
+      }
+      return null;
+    }, [authState]);
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
@@ -45,7 +66,6 @@ class RegisterPage extends HookWidget {
                 const SizedBox(height: Spacing.huge),
                 SvgPicture.asset('assets/images/telead.svg', height: 80),
                 const SizedBox(height: Spacing.xxxLarge),
-
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
@@ -57,7 +77,6 @@ class RegisterPage extends HookWidget {
                   ),
                 ),
                 const SizedBox(height: Spacing.small),
-
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
@@ -69,9 +88,9 @@ class RegisterPage extends HookWidget {
                   ),
                 ),
                 const SizedBox(height: Spacing.xxLarge),
-
                 TextFormField(
-                  controller: email,
+                  initialValue: email,
+                  onChanged: (value) => ref.read(registerEmailProvider.notifier).state = value,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.email_outlined),
@@ -83,9 +102,9 @@ class RegisterPage extends HookWidget {
                   ),
                 ),
                 const SizedBox(height: Spacing.large),
-
                 TextFormField(
-                  controller: password,
+                  initialValue: password,
+                  onChanged: (value) => ref.read(registerPasswordProvider.notifier).state = value,
                   obscureText: !isPasswordVisible.value,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.lock_outline),
@@ -108,7 +127,6 @@ class RegisterPage extends HookWidget {
                   ),
                 ),
                 const SizedBox(height: Spacing.small),
-
                 Row(
                   children: [
                     Checkbox(
@@ -126,17 +144,27 @@ class RegisterPage extends HookWidget {
                   ],
                 ),
                 const SizedBox(height: Spacing.medium),
-
-                PrimaryButton(
-                  text: tr.sign_up,
-                  onPressed: () {
-                    if (agreed.value) {
-                      // Handle registration logic here
-                    }
-                  },
-                ),
+                if (authState is AuthError)
+                  Text(
+                    authState.message,
+                    style: TextStyle(color: colorScheme.error),
+                  ),
+                if (authState is AuthLoading)
+                  const CircularProgressIndicator()
+                else
+                  PrimaryButton(
+                    text: tr.sign_up,
+                    onPressed: () {
+                      if (agreed.value) {
+                        final request = LoginRequest(
+                          email: email.trim(),
+                          password: password.trim(),
+                        );
+                        authNotifier.register(request);
+                      }
+                    },
+                  ),
                 const SizedBox(height: Spacing.xxxLarge),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

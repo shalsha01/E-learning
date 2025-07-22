@@ -14,14 +14,17 @@ import '../models/login_request.dart';
 import '../providers/auth_notifier.dart';
 import '../providers/auth_state.dart';
 
+final emailProvider = StateProvider<String>((ref) => '');
+final passwordProvider = StateProvider<String>((ref) => '');
+
 @RoutePage()
 class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final email = useTextEditingController();
-    final password = useTextEditingController();
+    final email = ref.watch(emailProvider);
+    final password = ref.watch(passwordProvider);
     final rememberMe = useState(false);
     final isPasswordVisible = useState(false);
 
@@ -59,7 +62,6 @@ class LoginPage extends HookConsumerWidget {
                 const SizedBox(height: Spacing.huge),
                 SvgPicture.asset('assets/images/telead.svg', height: 80),
                 const SizedBox(height: Spacing.xxxLarge),
-
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
@@ -80,10 +82,9 @@ class LoginPage extends HookConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: Spacing.xxLarge),
-
-                
                 TextFormField(
-                  controller: email,
+                  initialValue: email,
+                  onChanged: (value) => ref.read(emailProvider.notifier).state = value,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.email_outlined),
                     hintText: tr.email,
@@ -95,10 +96,9 @@ class LoginPage extends HookConsumerWidget {
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: Spacing.large),
-
-                
                 TextFormField(
-                  controller: password,
+                  initialValue: password,
+                  onChanged: (value) => ref.read(passwordProvider.notifier).state = value,
                   obscureText: !isPasswordVisible.value,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.lock_outline),
@@ -121,8 +121,6 @@ class LoginPage extends HookConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: Spacing.small),
-
-
                 Row(
                   children: [
                     Checkbox(
@@ -149,15 +147,11 @@ class LoginPage extends HookConsumerWidget {
                   ],
                 ),
                 const SizedBox(height: Spacing.medium),
-
-              
                 if (authState is AuthError)
                   Text(
                     authState.message,
                     style: TextStyle(color: colorScheme.error),
                   ),
-
-            
                 if (authState is AuthLoading)
                   const CircularProgressIndicator()
                 else
@@ -165,15 +159,13 @@ class LoginPage extends HookConsumerWidget {
                     text: tr.sign_in,
                     onPressed: () {
                       final request = LoginRequest(
-                        email: email.text.trim(),
-                        password: password.text.trim(),
+                        email: email.trim(),
+                        password: password.trim(),
                       );
                       authNotifier.login(request);
                     },
                   ),
-
                 const SizedBox(height: Spacing.xxxLarge),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
