@@ -15,7 +15,10 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme =Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
 
     return GestureDetector(
       onTap: onPressed,
@@ -42,12 +45,12 @@ class PrimaryButton extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style:textTheme.titleMedium!.copyWith(
                   color: colorScheme.onPrimary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: AppFontSizes.sm,
-                  height: 2.2,
+                  fontSize: AppFontSizes.md,
+               
                 ),
+            
               ),
             ),
             const SizedBox(width: Spacing.medium),

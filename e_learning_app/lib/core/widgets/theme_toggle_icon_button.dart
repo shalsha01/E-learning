@@ -13,10 +13,11 @@ class ThemeToggleIconButton extends StatelessWidget {
 
     return Tooltip(
       message: isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode',
-      child: InkWell(
+      child: GestureDetector(
         onTap: themeNotifier.toggleTheme,
-        borderRadius: BorderRadius.circular(100),
+        // borderRadius: BorderRadius.circular(100),
         child: Container(
+          margin: const EdgeInsetsDirectional.only(start: 10.0),
           width: 36,
           height: 36,
           decoration: BoxDecoration(

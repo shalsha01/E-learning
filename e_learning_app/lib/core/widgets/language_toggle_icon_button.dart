@@ -12,7 +12,7 @@ class LanguageToggleIconButton extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8.0), // يمكنك تعديل القيمة حسب الحاجة
+      margin: const EdgeInsets.symmetric(horizontal: 8.0), 
       child: IconButton(
         icon: const Icon(Icons.language),
         tooltip: currentLocale == 'en' ? 'Change Language' : 'تغيير اللغة',
