@@ -1,11 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:e_learning_app/core/constants/app_text_styles.dart';
+import 'package:e_learning_app/core/constants/prefs_keys.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/notifiers/shared_preferences_provider.dart';
 import 'package:e_learning_app/features/onboarding/model/intro_item_data.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
 
@@ -14,15 +17,15 @@ import '../../../core/widgets/theme_toggle_icon_button.dart';
 import '../../../core/widgets/language_toggle_icon_button.dart';
 
 @RoutePage()
-class IntroductionScreen extends HookWidget {
+class IntroductionScreen extends HookConsumerWidget {
   const IntroductionScreen({super.key});
 
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final pageController = usePageController();
-    final currentIndex = useState(0); 
+    final currentIndex = useState(0);
     final l10n = AppLocalizations.of(context)!;
 
     final List<IntroItemData> pages = [
@@ -43,7 +46,10 @@ class IntroductionScreen extends HookWidget {
       ),
     ];
 
-    void onFinish() {
+    Future<void> onFinish() async {
+      final prefs = ref.read(sharedPreferencesProvider);
+      await prefs.setBool(PrefsKeys.isSeenOnboarding, true);
+      if (!context.mounted) return;
       context.router.replace(const LoginRoute());
     }
 
@@ -57,15 +63,15 @@ class IntroductionScreen extends HookWidget {
         onFinish();
       }
     }
-       return Scaffold(
+
+    return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
-         elevation: 0,
+        elevation: 0,
         leading: const Padding(
           padding: EdgeInsets.only(left: Spacing.medium),
           child: ThemeToggleIconButton(),
         ),
-
         actions: [
           const LanguageToggleIconButton(),
           if (currentIndex.value != pages.length - 1)
@@ -105,7 +111,7 @@ class IntroductionScreen extends HookWidget {
           right: Spacing.large,
           top: Spacing.medium,
           bottom: Spacing.xxxxLarge,
-        ), 
+        ),
         child: Row(
           children: [
             SmoothPageIndicator(
@@ -145,7 +151,7 @@ class IntroductionScreen extends HookWidget {
 class _OnboardingPage extends StatelessWidget {
   final IntroItemData data;
 
-  const _OnboardingPage({super.key, required this.data});
+  const _OnboardingPage({required this.data});
 
   @override
   Widget build(BuildContext context) {

@@ -765,6 +765,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.5"
+  riverpod_hook_mutation:
+    dependency: "direct main"
+    description:
+      name: riverpod_hook_mutation
+      sha256: b17a58d2444c90eddcaa72f061f550cc5d46a9cca6034e77529a0deed41b0af6
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   shared_preferences:
     dependency: "direct main"
     description:

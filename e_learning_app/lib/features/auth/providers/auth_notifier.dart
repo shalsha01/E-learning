@@ -10,7 +10,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   AuthNotifier(this.repository) : super(AuthInitial());
 
-  Future<void> login(LoginRequest request) async {
+  Future<UserModel> login(LoginRequest request) async {
     state = AuthLoading();
     try {
       final user = await repository.login(request);
@@ -19,9 +19,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
       await prefs.setString('email', user.email);
       await prefs.setString('name', user.name);
       state = AuthSuccess(user);
+      return user;
     } catch (e) {
       state = AuthError(e.toString());
     }
+     return UserModel(token: '', email: '', name: '');
   }
 
   Future<void> register(LoginRequest request) async {

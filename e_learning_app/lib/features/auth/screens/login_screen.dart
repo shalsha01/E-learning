@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:e_learning_app/features/auth/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
+import 'package:riverpod_hook_mutation/riverpod_hook_mutation.dart';
 
 import '../../../../../core/constants/app_text_styles.dart';
 import '../../../../../core/constants/spacing.dart';
@@ -14,8 +16,7 @@ import '../models/login_request.dart';
 import '../providers/auth_notifier.dart';
 import '../providers/auth_state.dart';
 
-final emailProvider = StateProvider<String>((ref) => '');
-final passwordProvider = StateProvider<String>((ref) => '');
+
 
 @RoutePage()
 class LoginPage extends HookConsumerWidget {
@@ -23,8 +24,12 @@ class LoginPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final email = ref.watch(emailProvider);
-    final password = ref.watch(passwordProvider);
+  
+
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
+    final formKey = useMemoized(() => GlobalKey<FormState>());
+    
     final rememberMe = useState(false);
     final isPasswordVisible = useState(false);
 
@@ -33,15 +38,16 @@ class LoginPage extends HookConsumerWidget {
 
     final authState = ref.watch(authNotifierProvider);
     final authNotifier = ref.read(authNotifierProvider.notifier);
+    final mutation = useMutation<UserModel>();
 
-    useEffect(() {
-      if (authState is AuthSuccess) {
-        Future.microtask(() {
-          context.router.replace(const FillProfileRoute());
-        });
-      }
-      return null;
-    }, [authState]);
+    // useEffect(() {
+    //   if (authState is AuthSuccess) {
+    //     Future.microtask(() {
+    //       context.router.replace(const FillProfileRoute());
+    //     });
+    //   }
+    //   return null;
+    // }, [authState]);
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
@@ -56,138 +62,163 @@ class LoginPage extends HookConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: Spacing.large),
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: Spacing.huge),
-                SvgPicture.asset('assets/images/telead.svg', height: 80),
-                const SizedBox(height: Spacing.xxxLarge),
-                Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text(
-                    tr.sign_in,
-                    style: AppTextStyles.title.copyWith(
-                      color: colorScheme.onSurface,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: Spacing.small),
-                Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text(
-                    tr.login_subtitle,
-                    style: AppTextStyles.body.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: Spacing.xxLarge),
-                TextFormField(
-                  initialValue: email,
-                  onChanged: (value) => ref.read(emailProvider.notifier).state = value,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.email_outlined),
-                    hintText: tr.email,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                const SizedBox(height: Spacing.large),
-                TextFormField(
-                  initialValue: password,
-                  onChanged: (value) => ref.read(passwordProvider.notifier).state = value,
-                  obscureText: !isPasswordVisible.value,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.lock_outline),
-                    hintText: tr.password,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
-                    ),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        isPasswordVisible.value
-                            ? Icons.visibility
-                            : Icons.visibility_off,
+            child: Form(
+              key:formKey ,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: Spacing.huge),
+                  SvgPicture.asset('assets/images/telead.svg', height: 80),
+                  const SizedBox(height: Spacing.xxxLarge),
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      tr.sign_in,
+                      style: AppTextStyles.title.copyWith(
                         color: colorScheme.onSurface,
                       ),
-                      onPressed: () {
-                        isPasswordVisible.value = !isPasswordVisible.value;
-                      },
                     ),
                   ),
-                ),
-                const SizedBox(height: Spacing.small),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: rememberMe.value,
-                      onChanged: (v) => rememberMe.value = v ?? false,
-                      activeColor: colorScheme.primary,
-                      checkColor: colorScheme.onPrimary,
-                      side: BorderSide(color: colorScheme.primary, width: 2.0),
-                    ),
-                    Text(
-                      tr.remember_me,
-                      style: TextStyle(color: colorScheme.onSurface),
-                    ),
-                    const Spacer(),
-                    TextButton(
-                      onPressed: () {
-                        // TODO: handle forgot password
-                      },
-                      child: Text(
-                        tr.forgot_password,
-                        style: TextStyle(color: colorScheme.primary),
+                  const SizedBox(height: Spacing.small),
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      tr.login_subtitle,
+                      style: AppTextStyles.body.copyWith(
+                        color: colorScheme.onSurfaceVariant,
                       ),
                     ),
-                  ],
-                ),
-                const SizedBox(height: Spacing.medium),
-                if (authState is AuthError)
-                  Text(
-                    authState.message,
-                    style: TextStyle(color: colorScheme.error),
                   ),
-                if (authState is AuthLoading)
-                  const CircularProgressIndicator()
-                else
-                  PrimaryButton(
-                    text: tr.sign_in,
-                    onPressed: () {
-                      final request = LoginRequest(
-                        email: email.trim(),
-                        password: password.trim(),
-                      );
-                      authNotifier.login(request);
-                    },
-                  ),
-                const SizedBox(height: Spacing.xxxLarge),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "${tr.dont_have_acount} ",
-                      style: TextStyle(color: colorScheme.onSurface),
+                  const SizedBox(height: Spacing.xxLarge),
+                  TextFormField(
+                    controller: emailController,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.email_outlined),
+                      hintText: tr.email,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
-                    GestureDetector(
-                      onTap: () => context.router.push(const RegisterRoute()),
-                      child: Text(
-                        tr.sign_up,
-                        style: AppTextStyles.body.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: colorScheme.primary,
-                          decoration: TextDecoration.underline,
+                    keyboardType: TextInputType.emailAddress,
+                 validator: (value) => value == null || value.isEmpty
+                        ? "tr.email_required"
+                        : null,
+                  ),
+                  const SizedBox(height: Spacing.large),
+                  TextFormField(
+                   controller: passwordController,
+                    obscureText: !isPasswordVisible.value,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.lock_outline),
+                      hintText: tr.password,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          isPasswordVisible.value
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: colorScheme.onSurface,
+                        ),
+                        onPressed: () {
+                          isPasswordVisible.value = !isPasswordVisible.value;
+                        },
+                      ),
+                    ),
+                 
+                    validator: (value) => value == null || value.isEmpty
+                        ? "tr.password_required"
+                        : null,
+                  ),
+                  const SizedBox(height: Spacing.small),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: rememberMe.value,
+                        onChanged: (v) => rememberMe.value = v ?? false,
+                        activeColor: colorScheme.primary,
+                        checkColor: colorScheme.onPrimary,
+                        side: BorderSide(color: colorScheme.primary, width: 2.0),
+                      ),
+                      Text(
+                        tr.remember_me,
+                        style: TextStyle(color: colorScheme.onSurface),
+                      ),
+                      const Spacer(),
+                      TextButton(
+                        onPressed: () {
+                          // TODO: handle forgot password
+                        },
+                        child: Text(
+                          tr.forgot_password,
+                          style: TextStyle(color: colorScheme.primary),
                         ),
                       ),
+                    ],
+                  ),
+                  const SizedBox(height: Spacing.medium),
+                  if (authState is AuthError)
+                    Text(
+                      authState.message,
+                      style: TextStyle(color: colorScheme.error),
                     ),
-                  ],
-                ),
-                const SizedBox(height: Spacing.large),
-              ],
+                  if (authState is AuthLoading)
+                    const CircularProgressIndicator()
+                  else
+                    PrimaryButton(
+                      text: tr.sign_in,
+                      onPressed: () {
+                        if (!formKey.currentState!.validate()) return;
+                        final request = LoginRequest(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
+                        );
+                        // final notifier =ref.read(authNotifierProvider.notifier);
+                        mutation.mutate(
+                         ()=> authNotifier.login(request) ,
+                          context: context,
+                          data: (data) {
+                            print(data);
+                            context.router.replace(const FillProfileRoute());
+                          },
+                          error: (error, stackTrace) {
+                            print("Error: $error");
+              
+                            // Handle error if needed
+                          },
+                          loading: () => 
+                            const CircularProgressIndicator(),
+                        );
+                        // authNotifier.login(request);
+                      },
+                    ),
+                  const SizedBox(height: Spacing.xxxLarge),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "${tr.dont_have_acount} ",
+                        style: TextStyle(color: colorScheme.onSurface),
+                      ),
+                      GestureDetector(
+                        onTap: () => context.router.push(const RegisterRoute()),
+                        child: Text(
+                          tr.sign_up,
+                          style: AppTextStyles.body.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: colorScheme.primary,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: Spacing.large),
+                ],
+              ),
             ),
           ),
         ),
