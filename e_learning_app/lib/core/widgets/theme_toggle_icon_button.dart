@@ -1,4 +1,3 @@
-// lib/widgets/theme_toggle_icon_button.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/theme_provider.dart';
@@ -32,7 +31,9 @@ class ThemeToggleIconButton extends ConsumerWidget {
             ],
           ),
           child: Icon(
-            isDark ? Icons.wb_sunny_outlined : Icons.nightlight_round,
+            isDark 
+            ? Icons.wb_sunny_outlined 
+            : Icons.nightlight_round,
             size: 20,
             color: colorScheme.primary,
           ),
