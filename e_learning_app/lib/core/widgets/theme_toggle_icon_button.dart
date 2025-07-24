@@ -1,21 +1,21 @@
+// lib/widgets/theme_toggle_icon_button.dart
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../notifiers/theme_notifier.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/theme_provider.dart';
 
-class ThemeToggleIconButton extends StatelessWidget {
+class ThemeToggleIconButton extends ConsumerWidget {
   const ThemeToggleIconButton({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeNotifier = ref.watch(themeNotifierProvider);
     final isDark = themeNotifier.isDark;
     final colorScheme = Theme.of(context).colorScheme;
 
     return Tooltip(
       message: isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode',
       child: GestureDetector(
-        onTap: themeNotifier.toggleTheme,
-        // borderRadius: BorderRadius.circular(100),
+        onTap: () => ref.read(themeNotifierProvider).toggleTheme(),
         child: Container(
           margin: const EdgeInsetsDirectional.only(start: 10.0),
           width: 36,

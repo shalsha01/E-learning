@@ -9,3 +9,4 @@ class ThemeNotifier extends ValueNotifier<ThemeMode> {
 
   bool get isDark => value == ThemeMode.dark;
 }
+

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../notifiers/language_notifier.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/language_provider.dart';
 
-class LanguageToggleIconButton extends StatelessWidget {
+class LanguageToggleIconButton extends ConsumerWidget {
   const LanguageToggleIconButton({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final languageNotifier = Provider.of<LanguageNotifier>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final languageNotifier = ref.watch(languageNotifierProvider);
     final currentLocale = languageNotifier.locale.languageCode;
     final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8.0), 
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
       child: IconButton(
         icon: const Icon(Icons.language),
         tooltip: currentLocale == 'en' ? 'Change Language' : 'تغيير اللغة',
@@ -27,12 +27,9 @@ class LanguageToggleIconButton extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ListTile(
-                    title: const Text(
-                      'English',
-                      textAlign: TextAlign.start,
-                    ),
+                    title: const Text('English'),
                     onTap: () {
-                      languageNotifier.setLanguage(const Locale('en'));
+                      ref.read(languageNotifierProvider).setLanguage(const Locale('en'));
                       Navigator.of(context).pop();
                     },
                     trailing: currentLocale == 'en'
@@ -40,12 +37,9 @@ class LanguageToggleIconButton extends StatelessWidget {
                         : null,
                   ),
                   ListTile(
-                    title: const Text(
-                      'العربية',
-                      textAlign: TextAlign.start,
-                    ),
+                    title: const Text('العربية'),
                     onTap: () {
-                      languageNotifier.setLanguage(const Locale('ar'));
+                      ref.read(languageNotifierProvider).setLanguage(const Locale('ar'));
                       Navigator.of(context).pop();
                     },
                     trailing: currentLocale == 'ar'
