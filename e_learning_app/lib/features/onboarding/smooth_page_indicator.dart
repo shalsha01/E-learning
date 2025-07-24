@@ -143,7 +143,7 @@ class IntroductionScreen extends HookWidget {
 class _OnboardingPage extends StatelessWidget {
   final IntroItemData data;
 
-  const _OnboardingPage({super.key, required this.data});
+  const _OnboardingPage({required this.data});
 
   @override
   Widget build(BuildContext context) {

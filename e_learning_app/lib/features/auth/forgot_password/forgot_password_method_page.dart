@@ -74,7 +74,9 @@ class _ContactOption extends StatelessWidget {
       padding: const EdgeInsets.all(Spacing.medium),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Spacing.small),
+        // ignore: deprecated_member_use
         color: colorScheme.surfaceVariant.withOpacity(0.1),
+        // ignore: deprecated_member_use
         border: Border.all(color: colorScheme.outline.withOpacity(0.2)),
       ),
       child: Row(

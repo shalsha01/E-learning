@@ -31,6 +31,7 @@ class HomePage extends StatelessWidget {
             Center(
               child: CircleAvatar(
                 radius: 50,
+                // ignore: deprecated_member_use
                 backgroundColor: colorScheme.primary.withOpacity(0.1),
                 child: Icon(Icons.person, size: 50, color: colorScheme.primary),
               ),
