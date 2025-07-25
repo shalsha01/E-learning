@@ -6,9 +6,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
 
-import '../../../../core/constants/spacing.dart';
-import '../../../features/router/app_router.dart';
-import '../../../core/widgets/primary_button.dart';
+import '../../../../../core/constants/spacing.dart';
+import '../../../../features/router/app_router.dart';
+import '../../../../core/widgets/primary_button.dart';
 
 @RoutePage()
 class FillProfilePage extends HookWidget {

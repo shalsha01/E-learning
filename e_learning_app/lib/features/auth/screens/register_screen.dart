@@ -4,22 +4,21 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
 
-import '../../../../core/constants/app_text_styles.dart';
-import '../../../../core/constants/spacing.dart';
-import '../../../core/widgets/primary_button.dart';
-import '../../../core/widgets/theme_toggle_icon_button.dart';
-import '../../../features/router/app_router.dart';
+import '../../../../../core/constants/app_text_styles.dart';
+import '../../../../../core/constants/spacing.dart';
+import '../../../../core/widgets/primary_button.dart';
+import '../../../../core/widgets/theme_toggle_icon_button.dart';
 
 @RoutePage()
-class LoginPage extends HookWidget {
-  const LoginPage({super.key});
+class RegisterPage extends HookWidget {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final email = useTextEditingController();
     final password = useTextEditingController();
-    final rememberMe = useState(false);
     final isPasswordVisible = useState(false);
+    final agreed = useState(false);
 
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -29,9 +28,12 @@ class LoginPage extends HookWidget {
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
         elevation: 0,
-        leading:ThemeToggleIconButton(),
+        backgroundColor: Colors.transparent,
+        leading: const Padding(
+          padding: EdgeInsets.only(left: Spacing.medium),
+          child: ThemeToggleIconButton(),
         ),
-      
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: Spacing.large),
@@ -47,7 +49,7 @@ class LoginPage extends HookWidget {
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
-                    tr.sign_in,
+                    tr.getting_started,
                     style: AppTextStyles.title.copyWith(
                       color: colorScheme.onSurface,
                     ),
@@ -59,7 +61,7 @@ class LoginPage extends HookWidget {
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
-                    tr.login_subtitle,
+                    tr.register_subtitle,
                     style: AppTextStyles.body.copyWith(
                       color: colorScheme.onSurfaceVariant,
                     ),
@@ -70,6 +72,7 @@ class LoginPage extends HookWidget {
 
                 TextFormField(
                   controller: email,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.email_outlined),
                     hintText: tr.email,
@@ -78,8 +81,6 @@ class LoginPage extends HookWidget {
                       borderSide: BorderSide.none,
                     ),
                   ),
-                  keyboardType: TextInputType.emailAddress,
-                  textAlign: TextAlign.start,
                 ),
                 const SizedBox(height: Spacing.large),
 
@@ -105,42 +106,33 @@ class LoginPage extends HookWidget {
                       },
                     ),
                   ),
-                  textAlign: TextAlign.start,
                 ),
                 const SizedBox(height: Spacing.small),
 
                 Row(
                   children: [
                     Checkbox(
-                      value: rememberMe.value,
-                      onChanged: (v) => rememberMe.value = v ?? false,
+                      value: agreed.value,
+                      onChanged: (v) => agreed.value = v ?? false,
                       side: BorderSide(color: colorScheme.primary, width: 2.0),
                       activeColor: colorScheme.primary,
+                      shape: const CircleBorder(),
                       checkColor: colorScheme.onPrimary,
                     ),
                     Text(
-                      tr.remember_me,
+                      tr.agree_terms,
                       style: TextStyle(color: colorScheme.onSurface),
-                    ),
-                    const Spacer(),
-                    
-                    TextButton(
-                      onPressed: () {
-                        context.router.push(const ForgotPasswordMethodRoute());
-                      },
-                      child: Text(
-                        tr.forgot_password,
-                        style: TextStyle(color: colorScheme.primary),
-                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: Spacing.medium),
 
                 PrimaryButton(
-                  text: tr.sign_in,
+                  text: tr.sign_up,
                   onPressed: () {
-                    context.router.push(const FillProfileRoute());
+                    if (agreed.value) {
+                      // Handle registration logic here
+                    }
                   },
                 ),
                 const SizedBox(height: Spacing.xxxLarge),
@@ -149,13 +141,13 @@ class LoginPage extends HookWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "${tr.dont_have_acount} ",
+                      "${tr.have_acount} ",
                       style: TextStyle(color: colorScheme.onSurface),
                     ),
                     GestureDetector(
-                      onTap: () => context.router.push(const RegisterRoute()),
+                      onTap: () => context.router.pop(),
                       child: Text(
-                        tr.sign_up,
+                        tr.sign_in,
                         style: AppTextStyles.body.copyWith(
                           fontWeight: FontWeight.bold,
                           color: colorScheme.primary,
