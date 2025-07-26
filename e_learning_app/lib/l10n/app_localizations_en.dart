@@ -145,4 +145,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get otp_example => '* * 8 *';
+
+  @override
+  String get email_required => 'email is required';
+
+  @override
+  String get password_required => 'password is required';
 }

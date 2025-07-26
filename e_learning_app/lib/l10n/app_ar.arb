@@ -48,5 +48,7 @@
   "create_new_password_title": "إنشاء كلمة مرور جديدة",
   "password_reset_success_title": "تهانينا",
   "password_reset_success_message": "تم إعداد حسابك. سيتم تحويلك إلى الصفحة الرئيسية خلال لحظات.",
-  "otp_example": "* * 8 *"
+  "otp_example": "* * 8 *",
+  "email_required":"الايميل مطلوب",
+  "password_required": "كلمة السر مطلوبة"
 }

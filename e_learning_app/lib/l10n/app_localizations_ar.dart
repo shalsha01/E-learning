@@ -141,4 +141,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get otp_example => '* * 8 *';
+
+  @override
+  String get email_required => 'الايميل مطلوب';
+
+  @override
+  String get password_required => 'كلمة السر مطلوبة';
 }

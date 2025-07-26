@@ -48,5 +48,7 @@
   "create_new_password_title": "Create Your New Password",
   "password_reset_success_title": "Congratulations",
   "password_reset_success_message": "Your account is ready to use. You will be redirected to the Home Page in a few seconds.",
-  "otp_example": "* * 8 *"
+  "otp_example": "* * 8 *",
+  "email_required": "email is required",
+  "password_required": "password is required"
 }

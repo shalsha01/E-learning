@@ -355,6 +355,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'* * 8 *'**
   String get otp_example;
+
+  /// No description provided for @email_required.
+  ///
+  /// In en, this message translates to:
+  /// **'email is required'**
+  String get email_required;
+
+  /// No description provided for @password_required.
+  ///
+  /// In en, this message translates to:
+  /// **'password is required'**
+  String get password_required;
 }
 
 class _AppLocalizationsDelegate

@@ -1,17 +1,19 @@
+import 'package:e_learning_app/features/auth/models/login_request.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_model.dart';
 
 class AuthRepository {
-  Future<UserModel> login(String email, String password) async {
 
-    await Future.delayed(const Duration(seconds: 2));
-  
-    return UserModel(
-      token: 'fake_token_123',
-      email: email,
-      name: 'Shahad',
-    );
-  }
+ Future<UserModel> login(LoginRequest request) async {
+  await Future.delayed(const Duration(seconds: 2));
+
+  return UserModel(
+    token: 'fake_token_123',
+    email: request.email,
+    name: 'Shahad',
+  );
+}
+
 
   Future<void> saveUser(UserModel user) async {
     final prefs = await SharedPreferences.getInstance();
