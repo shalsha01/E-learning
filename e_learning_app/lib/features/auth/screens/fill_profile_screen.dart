@@ -17,6 +17,7 @@ class FillProfilePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final formKey = useMemoized(() => GlobalKey<FormState>());
 
     final fullName = useTextEditingController();
     final nickName = useTextEditingController();
@@ -59,127 +60,150 @@ class FillProfilePage extends HookWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: Spacing.large),
-          child: Column(
-            children: [
-              const SizedBox(height: Spacing.large),
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                const SizedBox(height: Spacing.large),
+                // Profile image picker
+                Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: colorScheme.primary.withOpacity(0.1),
+                      backgroundImage: selectedImage.value != null
+                          ? FileImage(selectedImage.value!)
+                          : null,
+                      child: selectedImage.value == null
+                          ? Icon(Icons.person, size: 50, color: colorScheme.primary)
+                          : null,
+                    ),
+                    InkWell(
+                      onTap: pickImage,
+                      child: CircleAvatar(
+                        radius: 16,
+                        backgroundColor: colorScheme.secondary,
+                        child: Icon(Icons.edit, size: 16, color: colorScheme.onPrimary),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: Spacing.large),
 
-              Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  CircleAvatar(
-                    radius: 50,
-                    // ignore: deprecated_member_use
-                    backgroundColor: colorScheme.primary.withOpacity(0.1),
-                    backgroundImage: selectedImage.value != null
-                        ? FileImage(selectedImage.value!)
-                        : null,
-                    child: selectedImage.value == null
-                        ? Icon(Icons.person, size: 50, color:colorScheme.primary)
-                        : null,
+                // Full Name
+                TextFormField(
+                  controller: fullName,
+                  decoration: InputDecoration(
+                    hintText: l10n.full_name,
+                    prefixIcon: const Icon(Icons.person),
                   ),
-                  InkWell(
-                    onTap: pickImage,
-                    child: CircleAvatar(
-                      radius: 16,
-                      backgroundColor: colorScheme.secondary,
-                      child:Icon(Icons.edit, size:16,color:colorScheme.onPrimary),
+                  validator: (value) =>
+                      value == null || value.isEmpty ? l10n.full_name_required : null,
+                ),
+                const SizedBox(height: Spacing.medium),
+
+                // Nick Name
+                TextFormField(
+                  controller: nickName,
+                  decoration: InputDecoration(
+                    hintText: l10n.nick_name,
+                    prefixIcon: const Icon(Icons.person_outline),
+                  ),
+                  validator: (value) =>
+                      value == null || value.isEmpty ? l10n.nick_name_required : null,
+                ),
+                const SizedBox(height: Spacing.medium),
+
+                // Date of Birth
+                GestureDetector(
+                  onTap: pickDate,
+                  child: AbsorbPointer(
+                    child: TextFormField(
+                      controller: dob,
+                      decoration: InputDecoration(
+                        hintText: l10n.dob,
+                        prefixIcon: const Icon(Icons.date_range),
+                      ),
+                      validator: (value) =>
+                          value == null || value.isEmpty ? l10n.dob_required : null,
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(height: Spacing.large),
-
-              TextFormField(
-                controller: fullName,
-                decoration: InputDecoration(
-                  hintText: l10n.full_name,
-                  prefixIcon: const Icon(Icons.person),
                 ),
-              ),
-              const SizedBox(height: Spacing.medium),
+                const SizedBox(height: Spacing.medium),
 
-              TextFormField(
-                controller: nickName,
-                decoration: InputDecoration(
-                  hintText: l10n.nick_name,
-                  prefixIcon: const Icon(Icons.person_outline),
+                // Email
+                TextFormField(
+                  controller: email,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    hintText: l10n.email,
+                    prefixIcon: const Icon(Icons.email),
+                  ),
+                  validator: (value) =>
+                      value == null || value.isEmpty ? l10n.email_required : null,
                 ),
-              ),
-              const SizedBox(height: Spacing.medium),
+                const SizedBox(height: Spacing.medium),
 
-              GestureDetector(
-                onTap: pickDate,
-                child: AbsorbPointer(
-                  child: TextFormField(
-                    controller: dob,
-                    decoration: InputDecoration(
-                      hintText: l10n.dob,
-                      prefixIcon: const Icon(Icons.date_range),
+                // Phone
+                TextFormField(
+                  controller: phone,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    hintText: '724-848-1225',
+                    prefixIcon: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        SizedBox(width: 10),
+                        Icon(Icons.flag),
+                        SizedBox(width: 6),
+                        Text("(+1)"),
+                        SizedBox(width: 6),
+                      ],
                     ),
                   ),
+                  validator: (value) =>
+                      value == null || value.isEmpty ? l10n.phone_required : null,
                 ),
-              ),
-              const SizedBox(height: Spacing.medium),
+                const SizedBox(height: Spacing.medium),
 
-              TextFormField(
-                controller: email,
-                decoration: InputDecoration(
-                  hintText: l10n.email,
-                  prefixIcon: const Icon(Icons.email),
+                // Gender
+                DropdownButtonFormField<String>(
+                  value: gender.value,
+                  decoration: InputDecoration(
+                    hintText: l10n.gender,
+                    prefixIcon: const Icon(Icons.person_outline),
+                  ),
+                  items: [
+                    DropdownMenuItem(value: 'male', child: Text(l10n.male)),
+                    DropdownMenuItem(value: 'female', child: Text(l10n.female)),
+                  ],
+                  onChanged: (value) => gender.value = value,
+                  validator: (value) =>
+                      value == null ? l10n.gender_required : null,
                 ),
-              ),
-              const SizedBox(height: Spacing.medium),
+                const SizedBox(height: Spacing.large),
 
-              TextFormField(
-                controller: phone,
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                  hintText: '724-848-1225',
-                  prefixIcon: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      SizedBox(width: 10),
-                      Icon(Icons.flag),
-                      SizedBox(width: 6),
-                      Text("(+1)"),
-                      SizedBox(width: 6),
-                    ],
+                PrimaryButton(
+                  text: l10n.continueLabel,
+                  onPressed: () {
+                    if (formKey.currentState?.validate() ?? false) {
+                      context.router.replaceAll([const HomeRoute()]);
+                    }
+                  },
+                ),
+                const SizedBox(height: Spacing.medium),
+
+                TextButton(
+                  onPressed: () => context.router.replaceAll([const HomeRoute()]),
+                  child: Text(
+                    l10n.skip_for_now,
+                    style: TextStyle(color: colorScheme.primary),
                   ),
                 ),
-              ),
-              const SizedBox(height: Spacing.medium),
-
-              DropdownButtonFormField<String>(
-                value: gender.value,
-                decoration: InputDecoration(
-                  hintText: l10n.gender,
-                  prefixIcon: const Icon(Icons.person_outline),
-                ),
-                items: [
-                  DropdownMenuItem(value: 'male', child: Text(l10n.male)),
-                  DropdownMenuItem(value: 'female', child: Text(l10n.female)),
-                ],
-                onChanged: (value) => gender.value = value,
-              ),
-              const SizedBox(height: Spacing.large),
-
-              PrimaryButton(
-                text: l10n.continueLabel,
-                onPressed: () {
-                  context.router.replaceAll([const HomeRoute()]);
-                },
-              ),
-              const SizedBox(height: Spacing.medium),
-
-              TextButton(
-                onPressed: () => context.router.replaceAll([const HomeRoute()]),
-                child: Text(
-                  l10n.skip_for_now,
-                  style: TextStyle(color: colorScheme.primary),
-                ),
-              ),
-              const SizedBox(height: Spacing.large),
-            ],
+                const SizedBox(height: Spacing.large),
+              ],
+            ),
           ),
         ),
       ),

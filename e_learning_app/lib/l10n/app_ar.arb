@@ -50,5 +50,22 @@
   "password_reset_success_message": "تم إعداد حسابك. سيتم تحويلك إلى الصفحة الرئيسية خلال لحظات.",
   "otp_example": "* * 8 *",
   "email_required":"الايميل مطلوب",
-  "password_required": "كلمة السر مطلوبة"
+  "password_required": "كلمة السر مطلوبة",
+   "fill_profile": "املأ ملفك الشخصي",
+  "full_name": "الاسم الكامل",
+  "full_name_required": "الاسم الكامل مطلوب",
+  "nick_name": "الاسم المستعار",
+  "nick_name_required": "الاسم المستعار مطلوب",
+  "dob": "تاريخ الميلاد",
+  "dob_required": "تاريخ الميلاد مطلوب",
+  "email": "البريد الإلكتروني",
+  "email_required": "البريد الإلكتروني مطلوب",
+  "phone_required": "رقم الهاتف مطلوب",
+  "gender": "الجنس",
+  "gender_required": "يرجى اختيار الجنس",
+  "male": "ذكر",
+  "female": "أنثى",
+  "continueLabel": "متابعة",
+  "skip_for_now": "تخطي الآن"
+
 }

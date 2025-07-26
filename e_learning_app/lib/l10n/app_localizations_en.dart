@@ -56,7 +56,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get full_name => 'Full Name';
 
   @override
-  String get nick_name => 'Nick Name';
+  String get nick_name => 'Nickname';
 
   @override
   String get dob => 'Date of Birth';
@@ -147,8 +147,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get otp_example => '* * 8 *';
 
   @override
-  String get email_required => 'email is required';
+  String get email_required => 'Email is required';
 
   @override
   String get password_required => 'password is required';
+
+  @override
+  String get full_name_required => 'Full name is required';
+
+  @override
+  String get nick_name_required => 'Nickname is required';
+
+  @override
+  String get dob_required => 'Date of birth is required';
+
+  @override
+  String get phone_required => 'Phone number is required';
+
+  @override
+  String get gender_required => 'Please select your gender';
 }

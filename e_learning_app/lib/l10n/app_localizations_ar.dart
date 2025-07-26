@@ -69,7 +69,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get female => 'أنثى';
 
   @override
-  String get fill_profile => 'اكمل ملفك الشخصي';
+  String get fill_profile => 'املأ ملفك الشخصي';
 
   @override
   String get complete_profile => 'إكمال الملف الشخصي';
@@ -143,8 +143,23 @@ class AppLocalizationsAr extends AppLocalizations {
   String get otp_example => '* * 8 *';
 
   @override
-  String get email_required => 'الايميل مطلوب';
+  String get email_required => 'البريد الإلكتروني مطلوب';
 
   @override
   String get password_required => 'كلمة السر مطلوبة';
+
+  @override
+  String get full_name_required => 'الاسم الكامل مطلوب';
+
+  @override
+  String get nick_name_required => 'الاسم المستعار مطلوب';
+
+  @override
+  String get dob_required => 'تاريخ الميلاد مطلوب';
+
+  @override
+  String get phone_required => 'رقم الهاتف مطلوب';
+
+  @override
+  String get gender_required => 'يرجى اختيار الجنس';
 }

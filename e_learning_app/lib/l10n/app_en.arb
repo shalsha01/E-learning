@@ -50,5 +50,21 @@
   "password_reset_success_message": "Your account is ready to use. You will be redirected to the Home Page in a few seconds.",
   "otp_example": "* * 8 *",
   "email_required": "email is required",
-  "password_required": "password is required"
+  "password_required": "password is required",
+  "fill_profile": "Fill Your Profile",
+  "full_name": "Full Name",
+  "full_name_required": "Full name is required",
+  "nick_name": "Nickname",
+  "nick_name_required": "Nickname is required",
+  "dob": "Date of Birth",
+  "dob_required": "Date of birth is required",
+  "email": "Email",
+  "email_required": "Email is required",
+  "phone_required": "Phone number is required",
+  "gender": "Gender",
+  "gender_required": "Please select your gender",
+  "male": "Male",
+  "female": "Female",
+  "continueLabel": "Continue",
+  "skip_for_now": "Skip for now"
 }

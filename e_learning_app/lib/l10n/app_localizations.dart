@@ -191,7 +191,7 @@ abstract class AppLocalizations {
   /// No description provided for @nick_name.
   ///
   /// In en, this message translates to:
-  /// **'Nick Name'**
+  /// **'Nickname'**
   String get nick_name;
 
   /// No description provided for @dob.
@@ -359,7 +359,7 @@ abstract class AppLocalizations {
   /// No description provided for @email_required.
   ///
   /// In en, this message translates to:
-  /// **'email is required'**
+  /// **'Email is required'**
   String get email_required;
 
   /// No description provided for @password_required.
@@ -367,6 +367,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'password is required'**
   String get password_required;
+
+  /// No description provided for @full_name_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Full name is required'**
+  String get full_name_required;
+
+  /// No description provided for @nick_name_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Nickname is required'**
+  String get nick_name_required;
+
+  /// No description provided for @dob_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of birth is required'**
+  String get dob_required;
+
+  /// No description provided for @phone_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number is required'**
+  String get phone_required;
+
+  /// No description provided for @gender_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select your gender'**
+  String get gender_required;
 }
 
 class _AppLocalizationsDelegate

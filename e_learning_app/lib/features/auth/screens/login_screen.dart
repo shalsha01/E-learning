@@ -133,7 +133,7 @@ class LoginPage extends HookConsumerWidget {
                       const Spacer(),
                       TextButton(
                         onPressed: () {
-                          // Forgot password action
+                          context.router.push(const ForgotPasswordMethodRoute());
                         },
                         child: Text(
                           tr.forgot_password,
