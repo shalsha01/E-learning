@@ -12,9 +12,8 @@ import '../../../../../core/constants/spacing.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/widgets/theme_toggle_icon_button.dart';
 import '../../../../features/router/app_router.dart';
+import '../providers/auth_controller.dart';
 import '../models/login_request.dart';
-import '../providers/auth_notifier.dart';
-import '../providers/auth_state.dart';
 
 @RoutePage()
 class LoginPage extends HookConsumerWidget {
@@ -32,8 +31,8 @@ class LoginPage extends HookConsumerWidget {
     final tr = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
 
-    final authState = ref.watch(authNotifierProvider);
-    final authNotifier = ref.read(authNotifierProvider.notifier);
+    final authState = ref.watch(authControllerProvider);
+    final authController = ref.read(authControllerProvider.notifier);
     final mutation = useMutation<UserModel>();
 
     return Scaffold(
@@ -112,9 +111,8 @@ class LoginPage extends HookConsumerWidget {
                             !isPasswordVisible.value,
                       ),
                     ),
-                    validator: (value) => value == null || value.isEmpty
-                        ? tr.password_required
-                        : null,
+                    validator: (value) =>
+                        value == null || value.isEmpty ? tr.password_required : null,
                   ),
                   const SizedBox(height: Spacing.small),
                   Row(
@@ -143,12 +141,13 @@ class LoginPage extends HookConsumerWidget {
                     ],
                   ),
                   const SizedBox(height: Spacing.medium),
-                  if (authState is AuthError)
+
+                  if (authState.hasError)
                     Text(
-                      authState.message,
+                      authState.error.toString(),
                       style: TextStyle(color: colorScheme.error),
-                    ),
-                  if (authState is AuthLoading)
+                    )
+                  else if (authState.isLoading)
                     const CircularProgressIndicator()
                   else
                     PrimaryButton(
@@ -161,18 +160,19 @@ class LoginPage extends HookConsumerWidget {
                         );
 
                         mutation.mutate(
-                          () => authNotifier.login(request),
+                          () => authController.login(request),
                           context: context,
                           data: (user) {
                             context.router.replace(const FillProfileRoute());
                           },
                           error: (error, stackTrace) {
-                            print('Login error: $error');
                           },
                         );
                       },
                     ),
+
                   const SizedBox(height: Spacing.xxxLarge),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -181,8 +181,7 @@ class LoginPage extends HookConsumerWidget {
                         style: TextStyle(color: colorScheme.onSurface),
                       ),
                       GestureDetector(
-                        onTap: () =>
-                            context.router.push(const RegisterRoute()),
+                        onTap: () => context.router.push(const RegisterRoute()),
                         child: Text(
                           tr.sign_up,
                           style: AppTextStyles.body.copyWith(

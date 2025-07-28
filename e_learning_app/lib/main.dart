@@ -41,14 +41,7 @@ class MyApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      builder: (context, child) {
-        return Directionality(
-          textDirection: locale.languageCode == 'ar'
-              ? TextDirection.rtl
-              : TextDirection.ltr,
-          child: child!,
-        );
-      },
+     
     );
   }
 }

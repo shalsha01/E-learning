@@ -71,6 +71,7 @@ class FillProfilePage extends HookWidget {
                   children: [
                     CircleAvatar(
                       radius: 50,
+                      // ignore: deprecated_member_use
                       backgroundColor: colorScheme.primary.withOpacity(0.1),
                       backgroundImage: selectedImage.value != null
                           ? FileImage(selectedImage.value!)

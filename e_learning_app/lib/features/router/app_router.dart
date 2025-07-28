@@ -11,7 +11,6 @@ import 'package:e_learning_app/features/auth/screens/forgot_password/create_new_
 import 'package:e_learning_app/features/auth/screens/forgot_password/password_reset_success_page.dart';
 import 'package:e_learning_app/home.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -20,17 +19,13 @@ part 'app_router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page|Screen,Route')
 class AppRouter extends RootStackRouter {
-  late final Ref ref;
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
           page: IntroductionRoute.page,
-          initial: true,
-          guards: [IsNotSeenOnboardingGuard(ref)],
         ),
         AutoRoute(
           page: LoginRoute.page,
-          guards: [IsSeeOnboardingGuard(ref)],
         ),
         AutoRoute(
           page: RegisterRoute.page,

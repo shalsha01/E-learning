@@ -13,7 +13,7 @@ import '../../../../core/widgets/theme_toggle_icon_button.dart';
 import '../../../../features/router/app_router.dart';
 import '../models/login_request.dart';
 import '../models/user_model.dart';
-import '../providers/auth_notifier.dart';
+import '../providers/auth_controller.dart'; // تأكد من هذا المسار
 
 @RoutePage()
 class RegisterPage extends HookConsumerWidget {
@@ -30,8 +30,6 @@ class RegisterPage extends HookConsumerWidget {
 
     final colorScheme = Theme.of(context).colorScheme;
     final tr = AppLocalizations.of(context)!;
-
-    final authNotifier = ref.read(authNotifierProvider.notifier);
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
@@ -152,7 +150,7 @@ class RegisterPage extends HookConsumerWidget {
                         );
 
                         mutation.mutate(
-                          () => authNotifier.register(request),
+                          () => ref.read(authControllerProvider.notifier).register(request),
                           context: context,
                           data: (user) {
                             context.router.replace(const FillProfileRoute());

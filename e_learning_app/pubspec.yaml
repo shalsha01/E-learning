@@ -24,6 +24,7 @@ dependencies:
   riverpod_cache: ^0.0.5
   flutter_riverpod: ^2.5.1
   riverpod_hook_mutation: ^1.0.0
+  riverpod_generator: ^2.6.5
 
 
 dev_dependencies:
