@@ -1,18 +1,23 @@
+import 'package:e_learning_app/features/auth/providers/shared_preferences_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/theme/app_theme.dart';
 import 'core/providers/theme_provider.dart';
 import 'core/providers/language_provider.dart';
 import 'features/router/app_router.dart';
 
-final appRouter = AppRouter();
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final pref = await SharedPreferences.getInstance();
   runApp(
-    const ProviderScope(
+    ProviderScope(
+      overrides: [
+        sharedPreferencesProvider.overrideWithValue(pref),
+      ],
       child: MyApp(),
     ),
   );
@@ -25,6 +30,8 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeNotifierProvider).value;
     final locale = ref.watch(languageNotifierProvider).locale;
+
+    final appRouter = ref.read(appRouterProvider);
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
@@ -41,8 +48,6 @@ class MyApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-     
     );
   }
 }
-

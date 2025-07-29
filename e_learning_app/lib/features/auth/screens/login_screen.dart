@@ -166,6 +166,7 @@ class LoginPage extends HookConsumerWidget {
                             context.router.replace(const FillProfileRoute());
                           },
                           error: (error, stackTrace) {
+                            print('Login error: $error');
                           },
                         );
                       },
