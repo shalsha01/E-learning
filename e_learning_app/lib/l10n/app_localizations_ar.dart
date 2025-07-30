@@ -146,7 +146,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get email_required => 'البريد الإلكتروني مطلوب';
 
   @override
-  String get password_required => 'كلمة السر مطلوبة';
+  String get password_required => 'كلمة المرور مطلوبة';
 
   @override
   String get full_name_required => 'الاسم الكامل مطلوب';
@@ -162,4 +162,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get gender_required => 'يرجى اختيار الجنس';
+
+  @override
+  String get passwords_do_not_match => 'كلمتا المرور غير متطابقتين';
+
+  @override
+  String get fix_errors_first => 'يرجى تصحيح الأخطاء أولاً';
 }

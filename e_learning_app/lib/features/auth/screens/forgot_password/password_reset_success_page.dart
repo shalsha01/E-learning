@@ -14,35 +14,48 @@ class PasswordResetSuccessPage extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final tr = AppLocalizations.of(context)!;
 
+    // Redirect to Login screen after 3 seconds
     Future.delayed(const Duration(seconds: 3), () {
-      // ignore: use_build_context_synchronously
-      context.router.replace(const HomeRoute());
+      context.router.replace(const LoginRoute());
     });
 
     return Scaffold(
-      backgroundColor: colorScheme.primaryContainer,
+      backgroundColor: colorScheme.primaryContainer.withOpacity(0.95),
       body: Center(
-        child: Container(
+        child: Padding(
           padding: const EdgeInsets.all(Spacing.large),
-          decoration: BoxDecoration(
-            color: colorScheme.surface,
-            borderRadius: BorderRadius.circular(Spacing.large),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.lock_open_rounded, size: 80, color: Colors.green),
-              const SizedBox(height: Spacing.medium),
-              Text(tr.password_reset_success_title, style: AppTextStyles.title),
-              const SizedBox(height: Spacing.small),
-              Text(
-                tr.password_reset_success_message,
-                textAlign: TextAlign.center,
-                style: AppTextStyles.body,
-              ),
-              const SizedBox(height: Spacing.medium),
-              const CircularProgressIndicator(),
-            ],
+          child: Container(
+            padding: const EdgeInsets.all(Spacing.large),
+            decoration: BoxDecoration(
+              color: colorScheme.surface,
+              borderRadius: BorderRadius.circular(Spacing.large),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 12,
+                  offset: const Offset(0, 6),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.verified_user_rounded, size: 80, color: Colors.green),
+                const SizedBox(height: Spacing.medium),
+                Text(
+                  tr.password_reset_success_title, // e.g., "Congratulations"
+                  style: AppTextStyles.title,
+                ),
+                const SizedBox(height: Spacing.small),
+                Text(
+                  tr.password_reset_success_message, // e.g., "Your Account is Ready to Use..."
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.body,
+                ),
+                const SizedBox(height: Spacing.large),
+                const CircularProgressIndicator(),
+              ],
+            ),
           ),
         ),
       ),

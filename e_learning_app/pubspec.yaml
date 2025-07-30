@@ -25,6 +25,7 @@ dependencies:
   flutter_riverpod: ^2.5.1
   riverpod_hook_mutation: ^1.0.0
   riverpod_annotation: ^2.6.1
+  pinput: ^2.0.0
 
 
 dev_dependencies:

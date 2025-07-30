@@ -66,6 +66,10 @@
   "male": "ذكر",
   "female": "أنثى",
   "continueLabel": "متابعة",
-  "skip_for_now": "تخطي الآن"
-
+  "skip_for_now": "تخطي الآن",
+  "password_required": "كلمة المرور مطلوبة",
+  "passwords_do_not_match": "كلمتا المرور غير متطابقتين",
+  "fix_errors_first": "يرجى تصحيح الأخطاء أولاً"
 }
+
+

@@ -66,5 +66,9 @@
   "male": "Male",
   "female": "Female",
   "continueLabel": "Continue",
-  "skip_for_now": "Skip for now"
+  "skip_for_now": "Skip for now",
+  "password_required": "The password is required",
+  "passwords_do_not_match": "The passwords do not match",
+  "fix_errors_first": "Please correct errors first"
 }
+

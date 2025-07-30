@@ -108,18 +108,49 @@ class LoginRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [OTPVerificationPage]
-class OTPVerificationRoute extends PageRouteInfo<void> {
-  const OTPVerificationRoute({List<PageRouteInfo>? children})
-      : super(OTPVerificationRoute.name, initialChildren: children);
+class OTPVerificationRoute extends PageRouteInfo<OTPVerificationRouteArgs> {
+  OTPVerificationRoute(String s, {
+    Key? key,
+    required String method,
+    List<PageRouteInfo>? children,
+  }) : super(
+          OTPVerificationRoute.name,
+          args: OTPVerificationRouteArgs(key: key, method: method),
+          initialChildren: children,
+        );
 
   static const String name = 'OTPVerificationRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const OTPVerificationPage();
+      final args = data.argsAs<OTPVerificationRouteArgs>();
+      return OTPVerificationPage(key: args.key, method: args.method);
     },
   );
+}
+
+class OTPVerificationRouteArgs {
+  const OTPVerificationRouteArgs({this.key, required this.method});
+
+  final Key? key;
+
+  final String method;
+
+  @override
+  String toString() {
+    return 'OTPVerificationRouteArgs{key: $key, method: $method}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! OTPVerificationRouteArgs) return false;
+    return key == other.key && method == other.method;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ method.hashCode;
 }
 
 /// generated route for

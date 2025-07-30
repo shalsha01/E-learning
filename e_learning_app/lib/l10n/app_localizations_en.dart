@@ -150,7 +150,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get email_required => 'Email is required';
 
   @override
-  String get password_required => 'password is required';
+  String get password_required => 'The password is required';
 
   @override
   String get full_name_required => 'Full name is required';
@@ -166,4 +166,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get gender_required => 'Please select your gender';
+
+  @override
+  String get passwords_do_not_match => 'The passwords do not match';
+
+  @override
+  String get fix_errors_first => 'Please correct errors first';
 }

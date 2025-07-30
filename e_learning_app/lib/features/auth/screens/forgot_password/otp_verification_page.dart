@@ -8,12 +8,19 @@ import '../../../router/app_router.dart';
 
 @RoutePage()
 class OTPVerificationPage extends StatelessWidget {
-  const OTPVerificationPage({super.key});
+  final String method;
+
+  const OTPVerificationPage({super.key, required this.method});
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final tr = AppLocalizations.of(context)!;
+
+    // بناء النص بحسب الوسيلة
+    String methodText = method == 'email'
+        ? 'priscilla.frank26@gmail.com'
+        : '(+1) *** *** 5529';
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
@@ -26,19 +33,27 @@ class OTPVerificationPage extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: Spacing.xxLarge),
-            Text("${tr.code_sent_to} (+1) *** *** 5529", style: AppTextStyles.body),
+            Text("${tr.code_sent_to} $methodText", style: AppTextStyles.body),
             const SizedBox(height: Spacing.xLarge),
+
+            // مربعات الكود (مثال توضيحي)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(4, (index) => _otpBox(context, tr.otp_example[index * 2])),
+              children: List.generate(
+                4,
+                (index) => _otpBox(context, '•'), // Placeholder
+              ),
             ),
+
             const SizedBox(height: Spacing.large),
             Text(tr.resend_code_in('59'), style: AppTextStyles.body),
-            
+
             const SizedBox(height: Spacing.xxLarge),
             PrimaryButton(
               text: tr.verify,
-              onPressed: () => context.router.push(const CreateNewPasswordRoute()),
+              onPressed: () {
+                context.router.push(const CreateNewPasswordRoute());
+              },
             ),
           ],
         ),
