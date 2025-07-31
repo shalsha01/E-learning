@@ -43,12 +43,12 @@ class PasswordResetSuccessPage extends StatelessWidget {
                 const Icon(Icons.verified_user_rounded, size: 80, color: Colors.green),
                 const SizedBox(height: Spacing.medium),
                 Text(
-                  tr.password_reset_success_title, // e.g., "Congratulations"
+                  tr.password_reset_success_title, 
                   style: AppTextStyles.title,
                 ),
                 const SizedBox(height: Spacing.small),
                 Text(
-                  tr.password_reset_success_message, // e.g., "Your Account is Ready to Use..."
+                  tr.password_reset_success_message, 
                   textAlign: TextAlign.center,
                   style: AppTextStyles.body,
                 ),

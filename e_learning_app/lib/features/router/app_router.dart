@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:e_learning_app/features/auth/screens/pin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,6 +15,7 @@ import 'package:e_learning_app/features/auth/screens/forgot_password/create_new_
 import 'package:e_learning_app/features/auth/screens/forgot_password/password_reset_success_page.dart';
 import 'package:e_learning_app/home.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:e_learning_app/features/auth/screens/pin_screen.dart';
 
 part 'app_router.gr.dart';
 part 'app_router.g.dart';
@@ -33,7 +35,7 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
         AutoRoute(
           page: IntroductionRoute.page,
-          initial: true,
+        
           // guards: [IsNotSeenOnboardingGuard(ref)],
         ),
         AutoRoute(
@@ -47,6 +49,8 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: OTPVerificationRoute.page),
         AutoRoute(page: CreateNewPasswordRoute.page),
         AutoRoute(page: PasswordResetSuccessRoute.page),
+        AutoRoute(page: CreatePinRoute.page,  initial: true,),
+        
       ];
 }
 

@@ -27,6 +27,22 @@ class CreateNewPasswordRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CreatePinScreen]
+class CreatePinRoute extends PageRouteInfo<void> {
+  const CreatePinRoute({List<PageRouteInfo>? children})
+      : super(CreatePinRoute.name, initialChildren: children);
+
+  static const String name = 'CreatePinRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CreatePinScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [FillProfilePage]
 class FillProfileRoute extends PageRouteInfo<void> {
   const FillProfileRoute({List<PageRouteInfo>? children})

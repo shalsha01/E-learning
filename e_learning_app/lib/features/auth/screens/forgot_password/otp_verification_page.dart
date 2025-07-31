@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
 import '../../../../../core/constants/app_text_styles.dart';
@@ -14,7 +15,7 @@ class OTPVerificationPage extends StatefulWidget {
 
   const OTPVerificationPage({super.key, required this.method});
 
-  @override
+  @override 
   State<OTPVerificationPage> createState() => _OTPVerificationPageState();
 }
 
@@ -50,7 +51,6 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
 
   void _verifyCode() {
     if (_pinController.text.length == 4) {
-     
       context.router.push(const CreateNewPasswordRoute());
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -81,6 +81,8 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
             Pinput(
               controller: _pinController,
               length: 4,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               defaultPinTheme: PinTheme(
                 width: 56,
                 height: 64,
@@ -90,15 +92,13 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                   borderRadius: BorderRadius.circular(Spacing.small),
                 ),
               ),
-              keyboardType: TextInputType.number,
             ),
 
             const SizedBox(height: Spacing.large),
 
-            // ✅ Timer
             Text(
               _secondsRemaining > 0
-                  ? tr.resend_code_in('${_secondsRemaining}s')
+                  ? tr.resend_code_in('${_secondsRemaining}')
                   : tr.resend_code_in('0s'),
               style: AppTextStyles.body,
             ),

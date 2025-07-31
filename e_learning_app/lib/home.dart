@@ -76,6 +76,14 @@ class HomePage extends StatelessWidget {
                 context.router.push(const IntroductionRoute());
               },
             ),
+            ListTile(
+              leading: Icon(Icons.logout, color: const Color.fromARGB(255, 82, 229, 255)),
+              title: const Text("PIN Screen"),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                context.router.push(const CreatePinRoute());
+              },
+            ),
           ],
         ),
       ),
