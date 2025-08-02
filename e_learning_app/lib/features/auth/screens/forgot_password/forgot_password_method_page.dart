@@ -62,7 +62,8 @@ class _ForgotPasswordMethodPageState extends State<ForgotPasswordMethodPage> {
               text: tr.continueLabel,
               onPressed: () {
                 if (selectedMethod != null) {
-                  context.router.push(OTPVerificationRoute(selectedMethod!, method: ''));
+                  context.router
+                      .push(OTPVerificationRoute(method: selectedMethod!));
                 }
               },
             ),

@@ -13,7 +13,7 @@ import '../../../../core/widgets/theme_toggle_icon_button.dart';
 import '../../../../features/router/app_router.dart';
 import '../models/login_request.dart';
 import '../models/user_model.dart';
-import '../providers/auth_controller.dart'; // تأكد من هذا المسار
+import '../providers/authentication_provider.dart'; // تأكد من هذا المسار
 
 @RoutePage()
 class RegisterPage extends HookConsumerWidget {
@@ -150,15 +150,13 @@ class RegisterPage extends HookConsumerWidget {
                         );
 
                         mutation.mutate(
-                          () => ref.read(authControllerProvider.notifier).register(request),
+                          () => ref.read(authenticationProvider.notifier).register(request),
                           context: context,
                           data: (user) {
                             context.router.replace(const FillProfileRoute());
                           },
-                          error: (e, stack) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("فشل")),
-                            );
+                          error: (error, stackTrace) {
+                            print('Login error: $error');
                           },
                         );
                       },

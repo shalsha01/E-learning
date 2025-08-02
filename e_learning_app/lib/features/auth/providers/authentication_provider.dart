@@ -3,15 +3,15 @@ import 'package:e_learning_app/features/auth/models/user_model.dart';
 import 'package:e_learning_app/features/auth/repository/auth_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'auth_controller.g.dart';
+part 'authentication_provider.g.dart';
 
 @riverpod
-class AuthController extends _$AuthController {
-  get _repository => ref.watch(authRepositoryProvider);
+class Authentication extends _$Authentication {
+  AuthRepository get _repository => ref.read(authRepositoryProvider);
 
   @override
   FutureOr<UserModel?> build() async {
-    // Check if user exists in cache
+  
     final cachedUser = await _repository.getUser();
     return cachedUser;
   }

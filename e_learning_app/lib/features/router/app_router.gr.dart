@@ -125,7 +125,7 @@ class LoginRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [OTPVerificationPage]
 class OTPVerificationRoute extends PageRouteInfo<OTPVerificationRouteArgs> {
-  OTPVerificationRoute(String s, {
+  OTPVerificationRoute({
     Key? key,
     required String method,
     List<PageRouteInfo>? children,

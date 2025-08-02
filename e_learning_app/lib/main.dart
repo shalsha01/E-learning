@@ -1,53 +1,27 @@
+import 'package:e_learning_app/app.dart';
 import 'package:e_learning_app/features/auth/providers/shared_preferences_provider.dart';
+import 'package:e_learning_app/features/auth/repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:e_learning_app/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'core/theme/app_theme.dart';
-import 'core/providers/theme_provider.dart';
-import 'core/providers/language_provider.dart';
-import 'features/router/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final pref = await SharedPreferences.getInstance();
+
+  final overrides = await getOverrides();
+
   runApp(
     ProviderScope(
-      overrides: [
-        sharedPreferencesProvider.overrideWithValue(pref),
-      ],
-      child: MyApp(),
+      overrides: overrides,
+      child: MainApp(),
     ),
   );
 }
 
-class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themeNotifierProvider).value;
-    final locale = ref.watch(languageNotifierProvider).locale;
-
-    final appRouter = ref.read(appRouterProvider);
-
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      title: 'Telead App',
-      routerConfig: appRouter.config(),
-      theme: AppThemes.lightTheme,
-      darkTheme: AppThemes.darkTheme,
-      themeMode: themeMode,
-      locale: locale,
-      supportedLocales: AppLocalizations.supportedLocales,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-    );
-  }
+Future<List<Override>> getOverrides() async {
+  final pref = await SharedPreferences.getInstance();
+  return [
+    sharedPreferencesProvider.overrideWithValue(pref),
+    authRepositoryProvider.overrideWithValue(MockAuthRepository()),
+  ];
 }

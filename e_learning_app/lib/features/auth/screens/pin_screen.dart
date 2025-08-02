@@ -31,7 +31,7 @@ class _CreatePinScreenState extends ConsumerState<CreatePinScreen> {
         actions: [
           TextButton(
             onPressed: () => context.router.replace(const HomeRoute()),
-            child: const Text("Go to Home"),
+            child: const Text("Go to Home page"),
           ),
         ],
       ),

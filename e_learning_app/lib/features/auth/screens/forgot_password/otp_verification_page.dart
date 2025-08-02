@@ -9,6 +9,7 @@ import '../../../../../core/constants/spacing.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../router/app_router.dart';
 
+
 @RoutePage()
 class OTPVerificationPage extends StatefulWidget {
   final String method;

@@ -5,29 +5,27 @@ import 'package:e_learning_app/features/auth/models/user_model.dart';
 import 'package:e_learning_app/features/auth/models/login_request.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+part 'auth_repository.mock.dart';
+
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepository();
 });
 
-class AuthRepository {
-  static const String _userKey = 'auth_user';
+class AuthRepository extends StateNotifier<AsyncValue<void>> {
+  AuthRepository() : super(const AsyncData(null));
+  static const String _userKey = 'user';
 
   Future<UserModel> login(LoginRequest request) async {
+    state = const AsyncLoading();
     await Future.delayed(const Duration(seconds: 2));
-    return UserModel(
-      token: 'fake_token_123',
-      email: request.email,
-      name: 'Shahad',
-    );
+    throw UnimplementedError('Login method not implemented');
+
   }
 
   Future<UserModel> register(LoginRequest request) async {
+    state = const AsyncLoading();
     await Future.delayed(const Duration(seconds: 2));
-    return UserModel(
-      token: 'new_user_token_456',
-      email: request.email,
-      name: 'New User',
-    );
+    throw UnimplementedError('Register method not implemented');
   }
 
   Future<void> saveUser(UserModel user) async {

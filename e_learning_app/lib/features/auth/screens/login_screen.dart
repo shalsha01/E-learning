@@ -12,7 +12,7 @@ import '../../../../../core/constants/spacing.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/widgets/theme_toggle_icon_button.dart';
 import '../../../../features/router/app_router.dart';
-import '../providers/auth_controller.dart';
+import '../providers/authentication_provider.dart';
 import '../models/login_request.dart';
 
 @RoutePage()
@@ -30,9 +30,7 @@ class LoginPage extends HookConsumerWidget {
 
     final tr = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
-
-    final authState = ref.watch(authControllerProvider);
-    final authController = ref.read(authControllerProvider.notifier);
+    final provider = ref.read(authenticationProvider.notifier);
     final mutation = useMutation<UserModel>();
 
     return Scaffold(
@@ -142,12 +140,8 @@ class LoginPage extends HookConsumerWidget {
                   ),
                   const SizedBox(height: Spacing.medium),
 
-                  if (authState.hasError)
-                    Text(
-                      authState.error.toString(),
-                      style: TextStyle(color: colorScheme.error),
-                    )
-                  else if (authState.isLoading)
+              
+                   if (mutation.isLoading)
                     const CircularProgressIndicator()
                   else
                     PrimaryButton(
@@ -160,7 +154,7 @@ class LoginPage extends HookConsumerWidget {
                         );
 
                         mutation.mutate(
-                          () => authController.login(request),
+                          () => provider.login(request),
                           context: context,
                           data: (user) {
                             context.router.replace(const FillProfileRoute());

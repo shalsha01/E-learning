@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:auto_route/auto_route.dart';
+import 'package:e_learning_app/features/auth/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
+import 'package:riverpod_hook_mutation/riverpod_hook_mutation.dart';
 
 import '../../../../../core/constants/spacing.dart';
 import '../../../../features/router/app_router.dart';
@@ -28,6 +30,8 @@ class FillProfilePage extends HookWidget {
     final selectedImage = useState<File?>(null);
 
     final colorScheme = Theme.of(context).colorScheme;
+    final mutation = useMutation<UserModel>();
+
 
     Future<void> pickImage() async {
       final picked = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -189,14 +193,17 @@ class FillProfilePage extends HookWidget {
                   text: l10n.continueLabel,
                   onPressed: () {
                     if (formKey.currentState?.validate() ?? false) {
-                      context.router.replaceAll([const HomeRoute()]);
+                      context.router.replaceAll([const CreatePinRoute()]);
                     }
                   },
                 ),
+                mutation.isLoading
+                    ? const CircularProgressIndicator()
+                    : const SizedBox.shrink(),
                 const SizedBox(height: Spacing.medium),
 
                 TextButton(
-                  onPressed: () => context.router.replaceAll([const HomeRoute()]),
+                  onPressed: () => context.router.replaceAll([const CreatePinRoute()]),
                   child: Text(
                     l10n.skip_for_now,
                     style: TextStyle(color: colorScheme.primary),
