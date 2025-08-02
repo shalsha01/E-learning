@@ -13,8 +13,7 @@ import '../../../../core/widgets/theme_toggle_icon_button.dart';
 import '../../../../features/router/app_router.dart';
 import '../models/login_request.dart';
 import '../models/user_model.dart';
-import '../providers/authentication_provider.dart'; // تأكد من هذا المسار
-
+import '../providers/authentication_provider.dart'; 
 @RoutePage()
 class RegisterPage extends HookConsumerWidget {
   const RegisterPage({super.key});
@@ -35,7 +34,6 @@ class RegisterPage extends HookConsumerWidget {
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.transparent,
         leading: const Padding(
           padding: EdgeInsets.only(left: Spacing.medium),
           child: ThemeToggleIconButton(),

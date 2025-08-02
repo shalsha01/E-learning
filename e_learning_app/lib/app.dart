@@ -1,3 +1,4 @@
+import 'package:e_learning_app/core/providers/app_settings_provider.dart';
 import 'package:e_learning_app/core/providers/language_provider.dart';
 import 'package:e_learning_app/core/providers/theme_provider.dart';
 import 'package:e_learning_app/core/theme/app_theme.dart';
@@ -12,8 +13,10 @@ class MainApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themeNotifierProvider).value;
-    final locale = ref.watch(languageNotifierProvider).locale;
+    // final themeMode = ref.watch(themeNotifierProvider).value;
+    // final locale = ref.watch(languageNotifierProvider).locale;
+
+    final appSettings = ref.watch(appSettingsProvider);
 
     final appRouter = ref.read(appRouterProvider);
 
@@ -23,8 +26,8 @@ class MainApp extends ConsumerWidget {
       routerConfig: appRouter.config(),
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
-      themeMode: themeMode,
-      locale: locale,
+      themeMode: appSettings.theme ?? ThemeMode.system,
+      locale: appSettings.getLocale,
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [
         AppLocalizations.delegate,

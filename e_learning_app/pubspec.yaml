@@ -26,6 +26,8 @@ dependencies:
   riverpod_hook_mutation: ^1.0.0
   riverpod_annotation: ^2.6.1
   pinput: ^2.0.0
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.9.0
 
 
 dev_dependencies:
@@ -37,6 +39,8 @@ dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   riverpod_generator: ^2.6.5
   riverpod_lint: ^2.6.5
+  freezed: ^3.1.0
+  json_serializable: ^6.9.5
 
 flutter:
   generate: true 
