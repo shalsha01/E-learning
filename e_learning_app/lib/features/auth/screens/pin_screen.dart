@@ -2,11 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pinput/pinput.dart';
-import '../../../../core/constants/app_text_styles.dart';
-import '../../../../core/constants/spacing.dart';
-import '../../../../core/widgets/primary_button.dart';
-import '../../router/app_router.dart';
-import '../providers/pin_controller.dart';
+import 'package:e_learning_app/core/constants/app_text_styles.dart';
+import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/widgets/primary_button.dart';
+import 'package:e_learning_app/features/router/app_router.dart';
+import 'package:e_learning_app/features/auth/providers/pin_controller.dart';
 
 
 @RoutePage()

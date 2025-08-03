@@ -1,7 +1,6 @@
 import 'package:e_learning_app/core/providers/app_settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/language_provider.dart';
 
 class LanguageToggleIconButton extends ConsumerWidget {
   const LanguageToggleIconButton({super.key});

@@ -9,9 +9,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
 
-import '../../../core/widgets/primary_button.dart';
-import '../../../core/widgets/theme_toggle_icon_button.dart';
-import '../../../core/widgets/language_toggle_icon_button.dart';
+import 'package:e_learning_app/core/widgets/primary_button.dart';
+import 'package:e_learning_app/core/widgets/theme_toggle_icon_button.dart';
+import 'package:e_learning_app/core/widgets/language_toggle_icon_button.dart';
 
 @RoutePage()
 class IntroductionScreen extends HookWidget {

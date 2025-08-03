@@ -1,6 +1,4 @@
 import 'package:e_learning_app/core/providers/app_settings_provider.dart';
-import 'package:e_learning_app/core/providers/language_provider.dart';
-import 'package:e_learning_app/core/providers/theme_provider.dart';
 import 'package:e_learning_app/core/theme/app_theme.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:e_learning_app/core/constants/prefs_keys.dart';
 import 'package:e_learning_app/features/auth/providers/shared_preferences_provider.dart';
 import 'package:flutter/material.dart';
@@ -58,4 +57,5 @@ class AppSettings extends _$AppSettings {
     final json = state.toJson();
     await pref.setString(PrefsKeys.appSettings, jsonEncode(json));
   }
+  
 }

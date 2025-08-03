@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
-import '../constants/font_sizes.dart';
+import 'package:e_learning_app/core/constants/font_sizes.dart';
 
 class AppThemes {
   static ThemeData lightTheme = ThemeData(

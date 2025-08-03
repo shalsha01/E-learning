@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import '../../../core/constants/app_text_styles.dart';
-import '../../../core/constants/spacing.dart';
-import '../../../features/router/app_router.dart';
+import 'package:e_learning_app/core/constants/app_text_styles.dart';
+import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/features/router/app_router.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {

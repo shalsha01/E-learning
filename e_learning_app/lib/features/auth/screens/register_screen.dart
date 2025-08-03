@@ -6,12 +6,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
 import 'package:riverpod_hook_mutation/riverpod_hook_mutation.dart';
 
-import '../../../../../core/constants/app_text_styles.dart';
-import '../../../../../core/constants/spacing.dart';
-import '../../../../core/widgets/primary_button.dart';
-import '../../../../core/widgets/theme_toggle_icon_button.dart';
-import '../../../../features/router/app_router.dart';
-import '../models/login_request.dart';
+import 'package:e_learning_app/core/constants/app_text_styles.dart';
+import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/widgets/primary_button.dart';
+import 'package:e_learning_app/core/widgets/theme_toggle_icon_button.dart';
+import 'package:e_learning_app/features/router/app_router.dart';
+import 'package:e_learning_app/features/auth/models/login_request.dart';
 import '../models/user_model.dart';
 import '../providers/authentication_provider.dart'; 
 @RoutePage()
