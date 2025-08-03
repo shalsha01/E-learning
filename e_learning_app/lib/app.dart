@@ -30,7 +30,7 @@ class _MainAppState extends ConsumerState<MainApp> {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Telead App',
-      routerConfig: _appRouter.config(), // don't recreate router on rebuild
+      routerConfig: _appRouter.config(), 
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
       themeMode: appSettings.theme ?? ThemeMode.system,

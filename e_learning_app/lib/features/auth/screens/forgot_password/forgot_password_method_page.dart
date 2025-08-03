@@ -6,6 +6,7 @@ import 'package:e_learning_app/core/constants/app_text_styles.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
 import 'package:e_learning_app/core/widgets/primary_button.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
+import 'package:e_learning_app/features/auth/screens/forgot_password/widget/contact_option.dart';
 
 @RoutePage()
 class ForgotPasswordMethodPage extends HookWidget {
@@ -14,41 +15,47 @@ class ForgotPasswordMethodPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final selectedMethod = useState<String?>(null);
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
+    final colorScheme = Theme.of(context).colorScheme;
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
+        backgroundColor: colorScheme.surface,
         elevation: 0,
-        title: Text(l10n.forgot_password_title, style: AppTextStyles.title),
         leading: const BackButton(),
+        title: Text(
+          l10n.forgot_password_title,
+          style: AppTextStyles.title.copyWith(color: colorScheme.onSurface),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(Spacing.large),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: Spacing.large),
+            const SizedBox(height: Spacing.xxLarge),
             Text(
               l10n.reset_password_instruction,
-              style: AppTextStyles.body
-                  .copyWith(color: colorScheme.onSurfaceVariant),
+              style: AppTextStyles.body.copyWith(
+                color: colorScheme.onSurfaceVariant,
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: Spacing.xLarge),
-            _ContactOption(
-              icon: Icons.email_outlined,
+            const SizedBox(height: Spacing.xxxLarge),
+            ContactOption(
+              icon: Icons.mail_outline,
               title: l10n.via_email,
               subtitle: 'priscilla.frank26@gmail.com',
               isSelected: selectedMethod.value == 'email',
               onTap: () => selectedMethod.value = 'email',
             ),
             const SizedBox(height: Spacing.medium),
-            _ContactOption(
+            ContactOption(
               icon: Icons.sms_outlined,
               title: l10n.via_sms,
-              subtitle: '(+1) 480-894-5529',
+              subtitle: '( +1 ) 480-894-5529',
               isSelected: selectedMethod.value == 'sms',
               onTap: () => selectedMethod.value = 'sms',
             ),
@@ -57,8 +64,9 @@ class ForgotPasswordMethodPage extends HookWidget {
               text: l10n.continueLabel,
               onPressed: () {
                 if (selectedMethod.value != null) {
-                  context.router
-                      .push(OTPVerificationRoute(method: selectedMethod.value!));
+                  context.router.push(
+                    OTPVerificationRoute(method: selectedMethod.value!),
+                  );
                 }
               },
             ),
@@ -69,59 +77,3 @@ class ForgotPasswordMethodPage extends HookWidget {
   }
 }
 
-class _ContactOption extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  const _ContactOption({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(Spacing.medium),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Spacing.small),
-          color: isSelected
-              ? colorScheme.primary.withOpacity(0.1)
-              : colorScheme.surfaceVariant.withOpacity(0.1),
-          border: Border.all(
-            color: isSelected
-                ? colorScheme.primary
-                : colorScheme.outline.withOpacity(0.2),
-            width: 2,
-          ),
-        ),
-        child: Row(
-          children: [
-            Icon(icon, size: 28, color: colorScheme.primary),
-            const SizedBox(width: Spacing.medium),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: AppTextStyles.body),
-                Text(
-                  subtitle,
-                  style: AppTextStyles.body.copyWith(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
