@@ -168,4 +168,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get fix_errors_first => 'يرجى تصحيح الأخطاء أولاً';
+
+  @override
+  String get enter_code_message => 'ادخل الكود المكون من  اربع ارقام';
 }

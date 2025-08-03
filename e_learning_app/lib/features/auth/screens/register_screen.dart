@@ -27,8 +27,9 @@ class RegisterPage extends HookConsumerWidget {
     final formKey = useMemoized(() => GlobalKey<FormState>());
     final mutation = useMutation<UserModel>();
 
-    final colorScheme = Theme.of(context).colorScheme;
-    final tr = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
@@ -54,7 +55,7 @@ class RegisterPage extends HookConsumerWidget {
                   Align(
                     alignment: AlignmentDirectional.centerStart,
                     child: Text(
-                      tr.getting_started,
+                      l10n.getting_started,
                       style: AppTextStyles.title.copyWith(
                         color: colorScheme.onSurface,
                       ),
@@ -64,7 +65,7 @@ class RegisterPage extends HookConsumerWidget {
                   Align(
                     alignment: AlignmentDirectional.centerStart,
                     child: Text(
-                      tr.register_subtitle,
+                      l10n.register_subtitle,
                       style: AppTextStyles.body.copyWith(
                         color: colorScheme.onSurfaceVariant,
                       ),
@@ -76,14 +77,14 @@ class RegisterPage extends HookConsumerWidget {
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.email_outlined),
-                      hintText: tr.email,
+                      hintText: l10n.email,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none,
                       ),
                     ),
                     validator: (value) => value == null || value.isEmpty
-                        ? tr.email_required
+                        ? l10n.email_required
                         : null,
                   ),
                   const SizedBox(height: Spacing.large),
@@ -92,7 +93,7 @@ class RegisterPage extends HookConsumerWidget {
                     obscureText: !isPasswordVisible.value,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.lock_outline),
-                      hintText: tr.password,
+                      hintText: l10n.password,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none,
@@ -110,7 +111,7 @@ class RegisterPage extends HookConsumerWidget {
                       ),
                     ),
                     validator: (value) => value == null || value.isEmpty
-                        ? tr.password_required
+                        ? l10n.password_required
                         : null,
                   ),
                   const SizedBox(height: Spacing.small),
@@ -126,7 +127,7 @@ class RegisterPage extends HookConsumerWidget {
                       ),
                       Expanded(
                         child: Text(
-                          tr.agree_terms,
+                          l10n.agree_terms,
                           style: TextStyle(color: colorScheme.onSurface),
                         ),
                       ),
@@ -137,7 +138,7 @@ class RegisterPage extends HookConsumerWidget {
                     const CircularProgressIndicator()
                   else
                     PrimaryButton(
-                      text: tr.sign_up,
+                      text: l10n.sign_up,
                       onPressed: () {
                         if (!formKey.currentState!.validate()) return;
                         if (!agreed.value) return;
@@ -164,13 +165,13 @@ class RegisterPage extends HookConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "${tr.have_acount} ",
+                        "${l10n.have_acount} ",
                         style: TextStyle(color: colorScheme.onSurface),
                       ),
                       GestureDetector(
                         onTap: () => context.router.pop(),
                         child: Text(
-                          tr.sign_in,
+                          l10n.sign_in,
                           style: AppTextStyles.body.copyWith(
                             fontWeight: FontWeight.bold,
                             color: colorScheme.primary,

@@ -42,11 +42,11 @@ class _CreatePinScreenState extends ConsumerState<CreatePinScreen> {
   Widget build(BuildContext context) {
     final pinState = ref.watch(pinControllerProvider);
     final pinNotifier = ref.read(pinControllerProvider.notifier);
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return Scaffold(
       appBar: AppBar(title: const Text("Create New Pin")),
-      backgroundColor: colorScheme.surface,
       body: Padding(
         padding: const EdgeInsets.all(Spacing.large),
         child: Align(

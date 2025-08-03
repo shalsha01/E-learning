@@ -29,7 +29,8 @@ class LoginPage extends HookConsumerWidget {
     final isPasswordVisible = useState(false);
 
     final tr = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final provider = ref.read(authenticationProvider.notifier);
     final mutation = useMutation<UserModel>();
 

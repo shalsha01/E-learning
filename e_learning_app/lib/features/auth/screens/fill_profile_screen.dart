@@ -29,7 +29,8 @@ class FillProfilePage extends HookWidget {
     final gender = useState<String?>(null);
     final selectedImage = useState<File?>(null);
 
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final mutation = useMutation<UserModel>();
 
 

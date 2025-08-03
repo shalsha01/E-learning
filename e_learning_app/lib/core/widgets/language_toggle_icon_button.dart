@@ -9,8 +9,9 @@ class LanguageToggleIconButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final languageNotifier = ref.watch(languageNotifierProvider);
     // final currentLocale = languageNotifier.locale.languageCode;
-    final colorScheme = Theme.of(context).colorScheme;
-
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    
     final provider = appSettingsProvider;
     final state = ref.watch(provider);
     final notifire = ref.read(appSettingsProvider.notifier);

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
 import 'package:e_learning_app/core/constants/app_text_styles.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
@@ -7,29 +8,18 @@ import 'package:e_learning_app/core/widgets/primary_button.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
 
 @RoutePage()
-class CreateNewPasswordPage extends StatefulWidget {
+class CreateNewPasswordPage extends HookWidget {
   const CreateNewPasswordPage({super.key});
 
   @override
-  State<CreateNewPasswordPage> createState() => _CreateNewPasswordPageState();
-}
-
-class _CreateNewPasswordPageState extends State<CreateNewPasswordPage> {
-  final _formKey = GlobalKey<FormState>();
-  final _newPassword = TextEditingController();
-  final _confirmPassword = TextEditingController();
-
-  @override
-  void dispose() {
-    _newPassword.dispose();
-    _confirmPassword.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final l10n = AppLocalizations.of(context)!;
+
+    final newPasswordController = useTextEditingController();
+    final confirmPasswordController = useTextEditingController();
+    final formKey = useMemoized(() => GlobalKey<FormState>());
 
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +31,7 @@ class _CreateNewPasswordPageState extends State<CreateNewPasswordPage> {
       body: Padding(
         padding: const EdgeInsets.all(Spacing.large),
         child: Form(
-          key: _formKey,
+          key: formKey,
           child: Column(
             children: [
               const SizedBox(height: Spacing.xLarge),
@@ -56,7 +46,7 @@ class _CreateNewPasswordPageState extends State<CreateNewPasswordPage> {
               ),
               const SizedBox(height: Spacing.large),
               TextFormField(
-                controller: _newPassword,
+                controller: newPasswordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.lock_outline),
@@ -67,7 +57,7 @@ class _CreateNewPasswordPageState extends State<CreateNewPasswordPage> {
               ),
               const SizedBox(height: Spacing.medium),
               TextFormField(
-                controller: _confirmPassword,
+                controller: confirmPasswordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.lock_outline),
@@ -77,7 +67,7 @@ class _CreateNewPasswordPageState extends State<CreateNewPasswordPage> {
                   if (value == null || value.isEmpty) {
                     return l10n.password_required;
                   }
-                  if (value != _newPassword.text) {
+                  if (value != newPasswordController.text) {
                     return l10n.passwords_do_not_match;
                   }
                   return null;
@@ -87,7 +77,7 @@ class _CreateNewPasswordPageState extends State<CreateNewPasswordPage> {
               PrimaryButton(
                 text: l10n.continueLabel,
                 onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
+                  if (formKey.currentState?.validate() ?? false) {
                     context.router.push(const PasswordResetSuccessRoute());
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(

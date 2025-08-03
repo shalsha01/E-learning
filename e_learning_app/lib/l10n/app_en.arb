@@ -69,6 +69,7 @@
   "skip_for_now": "Skip for now",
   "password_required": "The password is required",
   "passwords_do_not_match": "The passwords do not match",
-  "fix_errors_first": "Please correct errors first"
+  "fix_errors_first": "Please correct errors first",
+  "enter_code_message": "Please enter the 4-digit code"
 }
 

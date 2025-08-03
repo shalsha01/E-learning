@@ -9,7 +9,8 @@ class ThemeToggleIconButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeNotifier = ref.watch(themeNotifierProvider);
     final isDark = themeNotifier.isDark;
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return Tooltip(
       message: isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode',

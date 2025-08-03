@@ -172,4 +172,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fix_errors_first => 'Please correct errors first';
+
+  @override
+  String get enter_code_message => 'Please enter the 4-digit code';
 }
