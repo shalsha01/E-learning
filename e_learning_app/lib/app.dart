@@ -6,22 +6,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MainApp extends ConsumerWidget {
+class MainApp extends ConsumerStatefulWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // final themeMode = ref.watch(themeNotifierProvider).value;
-    // final locale = ref.watch(languageNotifierProvider).locale;
+  ConsumerState<MainApp> createState() => _MainAppState();
+}
 
+class _MainAppState extends ConsumerState<MainApp> {
+  late final AppRouter _appRouter;
+
+  @override
+  void initState() {
+    super.initState();
+    // AppRouter should be created only once
+    _appRouter = ref.read(appRouterProvider);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final appSettings = ref.watch(appSettingsProvider);
-
-    final appRouter = ref.read(appRouterProvider);
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Telead App',
-      routerConfig: appRouter.config(),
+      routerConfig: _appRouter.config(), // don't recreate router on rebuild
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
       themeMode: appSettings.theme ?? ThemeMode.system,

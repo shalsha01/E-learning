@@ -28,7 +28,7 @@ class LoginPage extends HookConsumerWidget {
     final rememberMe = useState(false);
     final isPasswordVisible = useState(false);
 
-    final tr = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final provider = ref.read(authenticationProvider.notifier);
@@ -57,7 +57,7 @@ class LoginPage extends HookConsumerWidget {
                   Align(
                     alignment: AlignmentDirectional.centerStart,
                     child: Text(
-                      tr.sign_in,
+                      l10n.sign_in,
                       style: AppTextStyles.title.copyWith(
                         color: colorScheme.onSurface,
                       ),
@@ -67,7 +67,7 @@ class LoginPage extends HookConsumerWidget {
                   Align(
                     alignment: AlignmentDirectional.centerStart,
                     child: Text(
-                      tr.login_subtitle,
+                      l10n.login_subtitle,
                       style: AppTextStyles.body.copyWith(
                         color: colorScheme.onSurfaceVariant,
                       ),
@@ -78,7 +78,7 @@ class LoginPage extends HookConsumerWidget {
                     controller: emailController,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.email_outlined),
-                      hintText: tr.email,
+                      hintText: l10n.email,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none,
@@ -86,7 +86,7 @@ class LoginPage extends HookConsumerWidget {
                     ),
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) =>
-                        value == null || value.isEmpty ? tr.email_required : null,
+                        value == null || value.isEmpty ? l10n.email_required : null,
                   ),
                   const SizedBox(height: Spacing.large),
                   TextFormField(
@@ -94,7 +94,7 @@ class LoginPage extends HookConsumerWidget {
                     obscureText: !isPasswordVisible.value,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.lock_outline),
-                      hintText: tr.password,
+                      hintText: l10n.password,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none,
@@ -111,7 +111,7 @@ class LoginPage extends HookConsumerWidget {
                       ),
                     ),
                     validator: (value) =>
-                        value == null || value.isEmpty ? tr.password_required : null,
+                        value == null || value.isEmpty ? l10n.password_required : null,
                   ),
                   const SizedBox(height: Spacing.small),
                   Row(
@@ -124,7 +124,7 @@ class LoginPage extends HookConsumerWidget {
                         side: BorderSide(color: colorScheme.primary, width: 2.0),
                       ),
                       Text(
-                        tr.remember_me,
+                        l10n.remember_me,
                         style: TextStyle(color: colorScheme.onSurface),
                       ),
                       const Spacer(),
@@ -133,7 +133,7 @@ class LoginPage extends HookConsumerWidget {
                           context.router.push(const ForgotPasswordMethodRoute());
                         },
                         child: Text(
-                          tr.forgot_password,
+                          l10n.forgot_password,
                           style: TextStyle(color: colorScheme.primary),
                         ),
                       ),
@@ -146,7 +146,7 @@ class LoginPage extends HookConsumerWidget {
                     const CircularProgressIndicator()
                   else
                     PrimaryButton(
-                      text: tr.sign_in,
+                      text: l10n.sign_in,
                       onPressed: () {
                         if (!formKey.currentState!.validate()) return;
                         final request = LoginRequest(
@@ -173,13 +173,13 @@ class LoginPage extends HookConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "${tr.dont_have_acount} ",
+                        "${l10n.dont_have_acount} ",
                         style: TextStyle(color: colorScheme.onSurface),
                       ),
                       GestureDetector(
                         onTap: () => context.router.push(const RegisterRoute()),
                         child: Text(
-                          tr.sign_up,
+                          l10n.sign_up,
                           style: AppTextStyles.body.copyWith(
                             fontWeight: FontWeight.bold,
                             color: colorScheme.primary,
