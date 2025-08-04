@@ -6,14 +6,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
 import 'package:riverpod_hook_mutation/riverpod_hook_mutation.dart';
 
-import 'package:e_learning_app/core/constants/app_text_styles.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
 import 'package:e_learning_app/core/widgets/primary_button.dart';
 import 'package:e_learning_app/core/widgets/theme_toggle_icon_button.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
 import 'package:e_learning_app/features/auth/models/login_request.dart';
-import '../models/user_model.dart';
-import '../providers/authentication_provider.dart'; 
+import 'package:e_learning_app/features/auth/models/user_model.dart';
+import 'package:e_learning_app/features/auth/providers/authentication_provider.dart'; 
 @RoutePage()
 class RegisterPage extends HookConsumerWidget {
   const RegisterPage({super.key});
@@ -29,9 +28,10 @@ class RegisterPage extends HookConsumerWidget {
 
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
     final l10n = AppLocalizations.of(context)!;
 
-    return Scaffold(
+   return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
         elevation: 0,
@@ -56,8 +56,8 @@ class RegisterPage extends HookConsumerWidget {
                     alignment: AlignmentDirectional.centerStart,
                     child: Text(
                       l10n.getting_started,
-                      style: AppTextStyles.title.copyWith(
-                        color: colorScheme.onSurface,
+                      style: textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -66,9 +66,7 @@ class RegisterPage extends HookConsumerWidget {
                     alignment: AlignmentDirectional.centerStart,
                     child: Text(
                       l10n.register_subtitle,
-                      style: AppTextStyles.body.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
+                      style: textTheme.bodyMedium,
                     ),
                   ),
                   const SizedBox(height: Spacing.xxLarge),
@@ -128,7 +126,7 @@ class RegisterPage extends HookConsumerWidget {
                       Expanded(
                         child: Text(
                           l10n.agree_terms,
-                          style: TextStyle(color: colorScheme.onSurface),
+                          style: textTheme.bodyMedium,
                         ),
                       ),
                     ],
@@ -155,7 +153,7 @@ class RegisterPage extends HookConsumerWidget {
                             context.router.replace(const FillProfileRoute());
                           },
                           error: (error, stackTrace) {
-                            print('Login error: $error');
+                            print('Register error: $error');
                           },
                         );
                       },
@@ -166,13 +164,13 @@ class RegisterPage extends HookConsumerWidget {
                     children: [
                       Text(
                         "${l10n.have_acount} ",
-                        style: TextStyle(color: colorScheme.onSurface),
+                        style: textTheme.bodyMedium,
                       ),
                       GestureDetector(
                         onTap: () => context.router.pop(),
                         child: Text(
                           l10n.sign_in,
-                          style: AppTextStyles.body.copyWith(
+                          style: textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                             color: colorScheme.primary,
                             decoration: TextDecoration.underline,

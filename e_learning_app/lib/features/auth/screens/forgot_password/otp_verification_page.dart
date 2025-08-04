@@ -5,7 +5,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
-import 'package:e_learning_app/core/constants/app_text_styles.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
 import 'package:e_learning_app/core/widgets/primary_button.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
@@ -21,6 +20,7 @@ class OTPVerificationPage extends HookWidget {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
 
     final pinController = useTextEditingController();
     final secondsRemaining = useState(59);
@@ -66,7 +66,7 @@ class OTPVerificationPage extends HookWidget {
           alignment: Alignment.center,
           child: Text(
             number,
-            style: AppTextStyles.title.copyWith(fontSize: 24),
+            style: textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
       );
@@ -75,15 +75,28 @@ class OTPVerificationPage extends HookWidget {
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        title: Text(l10n.forgot_password_title, style: AppTextStyles.title),
+        elevation: 0,
         leading: const BackButton(),
+        backgroundColor: colorScheme.surface,
+        title: Text(
+          l10n.forgot_password_title,
+          style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(Spacing.large),
         child: Column(
           children: [
             const SizedBox(height: Spacing.xxLarge),
-            Text("${l10n.code_sent_to} $method", style: AppTextStyles.body),
+
+            Text(
+              "${l10n.code_sent_to} $method",
+              style: textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
+              textAlign: TextAlign.center,
+            ),
+
             const SizedBox(height: Spacing.xLarge),
 
             Pinput(
@@ -93,14 +106,12 @@ class OTPVerificationPage extends HookWidget {
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               animationCurve: Curves.easeInOut,
               animationDuration: const Duration(milliseconds: 200),
-              
               obscuringCharacter: '*',
               obscureText: true,
-            
               defaultPinTheme: PinTheme(
                 width: Spacing.xxxxxLarge,
                 height: Spacing.xxxxLarge,
-                textStyle: AppTextStyles.title,
+                textStyle: textTheme.headlineLarge,
                 decoration: BoxDecoration(
                   color: colorScheme.onPrimary,
                   boxShadow: [
@@ -121,7 +132,7 @@ class OTPVerificationPage extends HookWidget {
               secondsRemaining.value > 0
                   ? l10n.resend_code_in('${secondsRemaining.value}')
                   : l10n.resend_code_in('0'),
-              style: AppTextStyles.body.copyWith(
+              style: textTheme.bodyMedium?.copyWith(
                 color: colorScheme.primary,
                 fontWeight: FontWeight.bold,
               ),
@@ -139,13 +150,12 @@ class OTPVerificationPage extends HookWidget {
             Expanded(
               child: GridView.count(
                 crossAxisCount: 3,
-                mainAxisSpacing: Spacing.tiny, 
-                crossAxisSpacing: Spacing.tiny, 
-                childAspectRatio: 1.5,  
+                mainAxisSpacing: Spacing.small,
+                crossAxisSpacing: Spacing.small,
+                childAspectRatio: 1.6,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  ...List.generate(9, (index) => buildNumberButton('${index + 1}'),
-                  ),
+                  ...List.generate(9, (index) => buildNumberButton('${index + 1}')),
                   const SizedBox(),
                   buildNumberButton('0'),
                   GestureDetector(

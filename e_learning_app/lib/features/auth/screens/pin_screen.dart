@@ -2,12 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pinput/pinput.dart';
-import 'package:e_learning_app/core/constants/app_text_styles.dart';
+
 import 'package:e_learning_app/core/constants/spacing.dart';
 import 'package:e_learning_app/core/widgets/primary_button.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
 import 'package:e_learning_app/features/auth/providers/pin_controller.dart';
-
 
 @RoutePage()
 class CreatePinScreen extends ConsumerStatefulWidget {
@@ -26,7 +25,7 @@ class _CreatePinScreenState extends ConsumerState<CreatePinScreen> {
       barrierDismissible: false,
       builder: (_) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        title: const Icon(Icons.check_circle, color: Colors.green, size:Spacing.xxxLarge),
+        title: const Icon(Icons.check_circle, color: Colors.green, size: Spacing.xxxLarge),
         content: const Text("PIN created successfully!"),
         actions: [
           TextButton(
@@ -42,25 +41,24 @@ class _CreatePinScreenState extends ConsumerState<CreatePinScreen> {
   Widget build(BuildContext context) {
     final pinState = ref.watch(pinControllerProvider);
     final pinNotifier = ref.read(pinControllerProvider.notifier);
+
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Create New Pin")),
-      body: Padding(
-        padding: const EdgeInsets.all(Spacing.large),
-        child: Align(
-           alignment: Alignment.topCenter,
-           widthFactor: 2,
+      appBar: AppBar(title: Text("Create New Pin", style: textTheme.titleMedium)),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(Spacing.large),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-          
-            
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: Spacing.large),
               Text(
                 "Add a Pin Number to Make Your Account more Secure",
-                style: AppTextStyles.body,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurface,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: Spacing.xxLarge),
@@ -68,16 +66,19 @@ class _CreatePinScreenState extends ConsumerState<CreatePinScreen> {
                 controller: pinController,
                 length: 4,
                 obscureText: true,
+                keyboardType: TextInputType.number,
                 defaultPinTheme: PinTheme(
-                  width:Spacing.xxxxLarge,
+                  width: Spacing.xxxxLarge,
                   height: Spacing.xxxxLarge,
-                  textStyle: AppTextStyles.title,
+                  textStyle: textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: colorScheme.onSurface,
+                  ),
                   decoration: BoxDecoration(
                     border: Border.all(color: colorScheme.primary),
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                keyboardType: TextInputType.number,
               ),
               const SizedBox(height: Spacing.xxLarge),
               pinState.isLoading

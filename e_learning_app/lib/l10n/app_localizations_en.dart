@@ -175,4 +175,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enter_code_message => 'Please enter the 4-digit code';
+
+  @override
+  String get confirm_password => 'confirm password';
+
+  @override
+  String get redirecting_to_login => 'Redirect to login';
 }

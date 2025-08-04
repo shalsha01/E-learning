@@ -171,4 +171,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get enter_code_message => 'ادخل الكود المكون من  اربع ارقام';
+
+  @override
+  String get confirm_password => 'تأكيد كلمة السر ';
+
+  @override
+  String get redirecting_to_login => 'إعادة التوجيه لتسجيل الدخول';
 }

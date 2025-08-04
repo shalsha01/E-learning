@@ -7,13 +7,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
 import 'package:riverpod_hook_mutation/riverpod_hook_mutation.dart';
 
-import 'package:e_learning_app/core/constants/app_text_styles.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
 import 'package:e_learning_app/core/widgets/primary_button.dart';
 import 'package:e_learning_app/core/widgets/theme_toggle_icon_button.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
 import 'package:e_learning_app/features/auth/providers/authentication_provider.dart';
 import 'package:e_learning_app/features/auth/models/login_request.dart';
+
+
 
 @RoutePage()
 class LoginPage extends HookConsumerWidget {
@@ -31,6 +32,9 @@ class LoginPage extends HookConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+    
+    
     final provider = ref.read(authenticationProvider.notifier);
     final mutation = useMutation<UserModel>();
 
@@ -54,26 +58,29 @@ class LoginPage extends HookConsumerWidget {
                   const SizedBox(height: Spacing.huge),
                   SvgPicture.asset('assets/images/telead.svg', height: 80),
                   const SizedBox(height: Spacing.xxxLarge),
+
                   Align(
                     alignment: AlignmentDirectional.centerStart,
                     child: Text(
                       l10n.sign_in,
-                      style: AppTextStyles.title.copyWith(
-                        color: colorScheme.onSurface,
+                      style: textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
+
                   const SizedBox(height: Spacing.small),
+
                   Align(
                     alignment: AlignmentDirectional.centerStart,
                     child: Text(
                       l10n.login_subtitle,
-                      style: AppTextStyles.body.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
+                      style: textTheme.bodyMedium,
                     ),
                   ),
+
                   const SizedBox(height: Spacing.xxLarge),
+
                   TextFormField(
                     controller: emailController,
                     decoration: InputDecoration(
@@ -88,7 +95,9 @@ class LoginPage extends HookConsumerWidget {
                     validator: (value) =>
                         value == null || value.isEmpty ? l10n.email_required : null,
                   ),
+
                   const SizedBox(height: Spacing.large),
+
                   TextFormField(
                     controller: passwordController,
                     obscureText: !isPasswordVisible.value,
@@ -113,7 +122,9 @@ class LoginPage extends HookConsumerWidget {
                     validator: (value) =>
                         value == null || value.isEmpty ? l10n.password_required : null,
                   ),
+
                   const SizedBox(height: Spacing.small),
+
                   Row(
                     children: [
                       Checkbox(
@@ -125,7 +136,7 @@ class LoginPage extends HookConsumerWidget {
                       ),
                       Text(
                         l10n.remember_me,
-                        style: TextStyle(color: colorScheme.onSurface),
+                        style: textTheme.bodyMedium,
                       ),
                       const Spacer(),
                       TextButton(
@@ -134,15 +145,17 @@ class LoginPage extends HookConsumerWidget {
                         },
                         child: Text(
                           l10n.forgot_password,
-                          style: TextStyle(color: colorScheme.primary),
+                          style: textTheme.bodyMedium?.copyWith(
+                            color: colorScheme.primary,
+                          ),
                         ),
                       ),
                     ],
                   ),
+
                   const SizedBox(height: Spacing.medium),
 
-              
-                   if (mutation.isLoading)
+                  if (mutation.isLoading)
                     const CircularProgressIndicator()
                   else
                     PrimaryButton(
@@ -174,13 +187,13 @@ class LoginPage extends HookConsumerWidget {
                     children: [
                       Text(
                         "${l10n.dont_have_acount} ",
-                        style: TextStyle(color: colorScheme.onSurface),
+                        style: textTheme.bodyMedium,
                       ),
                       GestureDetector(
                         onTap: () => context.router.push(const RegisterRoute()),
                         child: Text(
                           l10n.sign_up,
-                          style: AppTextStyles.body.copyWith(
+                          style: textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                             color: colorScheme.primary,
                             decoration: TextDecoration.underline,
@@ -189,6 +202,7 @@ class LoginPage extends HookConsumerWidget {
                       ),
                     ],
                   ),
+
                   const SizedBox(height: Spacing.large),
                 ],
               ),

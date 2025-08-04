@@ -70,6 +70,9 @@
   "password_required": "The password is required",
   "passwords_do_not_match": "The passwords do not match",
   "fix_errors_first": "Please correct errors first",
-  "enter_code_message": "Please enter the 4-digit code"
+  "enter_code_message": "Please enter the 4-digit code",
+  "confirm_password": "confirm password",
+  "redirecting_to_login":"Redirect to login"
+
 }
 

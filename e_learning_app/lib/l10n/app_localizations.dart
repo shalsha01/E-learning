@@ -415,6 +415,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter the 4-digit code'**
   String get enter_code_message;
+
+  /// No description provided for @confirm_password.
+  ///
+  /// In en, this message translates to:
+  /// **'confirm password'**
+  String get confirm_password;
+
+  /// No description provided for @redirecting_to_login.
+  ///
+  /// In en, this message translates to:
+  /// **'Redirect to login'**
+  String get redirecting_to_login;
 }
 
 class _AppLocalizationsDelegate

@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
-import 'package:e_learning_app/core/constants/app_text_styles.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
 
@@ -10,22 +9,23 @@ import 'package:e_learning_app/features/router/app_router.dart';
 class PasswordResetSuccessPage extends HookWidget {
   const PasswordResetSuccessPage({super.key});
 
-  @override
+   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final tr = AppLocalizations.of(context)!;
+    final textTheme = theme.textTheme;
+    final l10n = AppLocalizations.of(context)!;
 
-    // useEffect to redirect after 3 seconds
+    // Redirect to login after 3 seconds
     useEffect(() {
       final timer = Future.delayed(const Duration(seconds: 3), () {
         context.router.replace(const LoginRoute());
       });
-      return null; // no cancel needed
+      return null;
     }, []);
 
     return Scaffold(
-      backgroundColor: colorScheme.primaryContainer.withOpacity(0.95),
+      backgroundColor: colorScheme.background,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(Spacing.large),
@@ -47,15 +47,27 @@ class PasswordResetSuccessPage extends HookWidget {
               children: [
                 const Icon(Icons.verified_user_rounded, size: 80, color: Colors.green),
                 const SizedBox(height: Spacing.medium),
-                Text(tr.password_reset_success_title, style: AppTextStyles.title),
+                Text(
+                  l10n.password_reset_success_title,
+                  style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                ),
                 const SizedBox(height: Spacing.small),
                 Text(
-                  tr.password_reset_success_message,
+                  l10n.password_reset_success_message,
                   textAlign: TextAlign.center,
-                  style: AppTextStyles.body,
+                  style: textTheme.bodyMedium?.copyWith(color: colorScheme.onSurfaceVariant),
                 ),
                 const SizedBox(height: Spacing.large),
-                const CircularProgressIndicator(),
+                Column(
+                  children: [
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: Spacing.small),
+                    Text(
+                      l10n.redirecting_to_login,
+                      style: textTheme.bodySmall,
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

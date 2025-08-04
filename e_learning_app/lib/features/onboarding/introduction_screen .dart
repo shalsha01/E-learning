@@ -1,14 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:e_learning_app/core/constants/app_text_styles.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
 import 'package:e_learning_app/features/onboarding/model/intro_item_data.dart';
+import 'package:e_learning_app/features/onboarding/widgets/onboarding_widget.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
-
 import 'package:e_learning_app/core/widgets/primary_button.dart';
 import 'package:e_learning_app/core/widgets/theme_toggle_icon_button.dart';
 import 'package:e_learning_app/core/widgets/language_toggle_icon_button.dart';
@@ -90,7 +88,7 @@ class IntroductionScreen extends HookWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: pages.length,
               onPageChanged: (index) => currentIndex.value = index,
-              itemBuilder: (context, index) => _OnboardingPage(
+              itemBuilder: (context, index) => OnboardingPage(
                 data: pages[index],
               ),
             ),
@@ -140,52 +138,3 @@ class IntroductionScreen extends HookWidget {
   }
 }
 
-class _OnboardingPage extends StatelessWidget {
-  final IntroItemData data;
-
-  const _OnboardingPage({required this.data});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final screenHeight = MediaQuery.of(context).size.height;
-
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: Spacing.large),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              data.imagePath,
-              height: screenHeight * 0.28,
-              fit: BoxFit.contain,
-              placeholderBuilder: (context) =>
-                  const CircularProgressIndicator(),
-            ),
-            const SizedBox(height: Spacing.xxLarge),
-            Text(
-              data.title,
-              style: AppTextStyles.title.copyWith(
-                color: colorScheme.onSurface,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: Spacing.small),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Spacing.medium),
-              child: Text(
-                data.description,
-                textAlign: TextAlign.center,
-                style: AppTextStyles.body.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

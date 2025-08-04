@@ -1,7 +1,5 @@
-import 'package:e_learning_app/core/constants/app_text_styles.dart';
-import 'package:e_learning_app/core/constants/spacing.dart';
 import 'package:flutter/material.dart';
-
+import 'package:e_learning_app/core/constants/spacing.dart';
 
 class ContactOption extends StatelessWidget {
   final IconData icon;
@@ -10,7 +8,8 @@ class ContactOption extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  const ContactOption({super.key, 
+  const ContactOption({
+    super.key,
     required this.icon,
     required this.title,
     required this.subtitle,
@@ -22,6 +21,7 @@ class ContactOption extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
 
     return GestureDetector(
       onTap: onTap,
@@ -32,14 +32,12 @@ class ContactOption extends StatelessWidget {
           color: colorScheme.onPrimary,
           borderRadius: BorderRadius.circular(Spacing.medium),
           border: Border.all(
-            color: isSelected
-                ? colorScheme.secondary
-                : colorScheme.onPrimary,
-            width: isSelected ? 2 : 1.5,
+            color: isSelected ? colorScheme.secondary : colorScheme.outline.withOpacity(0.2),
+            width: isSelected ? 2 : 1.2,
           ),
           boxShadow: [
             BoxShadow(
-              color: colorScheme.shadow.withOpacity(0.1),
+              color: colorScheme.shadow.withOpacity(0.08),
               blurRadius: 6,
               offset: const Offset(0, 2),
             ),
@@ -52,26 +50,33 @@ class ContactOption extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: colorScheme.secondary.withOpacity(0.1),
-                border: Border.all(
-                  color: colorScheme.secondary,
-                ),
+                border: Border.all(color: colorScheme.secondary),
               ),
-              child: Icon(icon, size:Spacing.large, color: colorScheme.secondary),
+              child: Icon(icon, size: Spacing.large, color: colorScheme.secondary),
             ),
             const SizedBox(width: Spacing.large),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: AppTextStyles.body),
-                const SizedBox(height: Spacing.tiny),
-                Text(
-                  subtitle,
-                  style: AppTextStyles.body.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: colorScheme.primary,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.onSurface,
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: Spacing.tiny),
+                  Text(
+                    subtitle,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: colorScheme.primary,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
