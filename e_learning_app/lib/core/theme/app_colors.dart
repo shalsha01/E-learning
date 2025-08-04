@@ -11,7 +11,7 @@ class AppColors {
   static const Color black = Color(0xFF000000);
   static const Color brightBlue = Color(0xFF0961F5);
   static const Color deepPurple = Color(0xFF332DA1);
-  static const Color lavender = Color(0xFFDBE8EC);
+  static const Color lavender = Color(0xFFF5F9FF);
   static const Color paleLavender = Color(0xFFE8F1FF);
   static const Color softOrange = Color(0xFFECC19C);
   static const Color lightGray = Color(0xFFFDEFEF);

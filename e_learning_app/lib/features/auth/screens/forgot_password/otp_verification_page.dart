@@ -46,6 +46,32 @@ class OTPVerificationPage extends HookWidget {
       }
     }
 
+    void onKeyboardTap(String value) {
+      if (value == 'del') {
+        if (pinController.text.isNotEmpty) {
+          pinController.text =
+              pinController.text.substring(0, pinController.text.length - 1);
+        }
+      } else {
+        if (pinController.text.length < 4) {
+          pinController.text += value;
+        }
+      }
+    }
+
+    Widget buildNumberButton(String number) {
+      return GestureDetector(
+        onTap: () => onKeyboardTap(number),
+        child: Container(
+          alignment: Alignment.center,
+          child: Text(
+            number,
+            style: AppTextStyles.title.copyWith(fontSize: 24),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
@@ -63,26 +89,42 @@ class OTPVerificationPage extends HookWidget {
             Pinput(
               controller: pinController,
               length: 4,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.none,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              animationCurve: Curves.easeInOut,
+              animationDuration: const Duration(milliseconds: 200),
+              
+              obscuringCharacter: '*',
+              obscureText: true,
+            
               defaultPinTheme: PinTheme(
-                width: 56,
-                height: 64,
+                width: Spacing.xxxxxLarge,
+                height: Spacing.xxxxLarge,
                 textStyle: AppTextStyles.title,
                 decoration: BoxDecoration(
-                  border: Border.all(color: colorScheme.primary),
-                  borderRadius: BorderRadius.circular(Spacing.small),
+                  color: colorScheme.onPrimary,
+                  boxShadow: [
+                    BoxShadow(
+                      color: colorScheme.shadow.withOpacity(0.2),
+                      blurRadius: Spacing.medium,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
             ),
 
-            const SizedBox(height: Spacing.large),
+            const SizedBox(height: Spacing.xxLarge),
 
             Text(
               secondsRemaining.value > 0
-                  ? l10n.resend_code_in('${secondsRemaining.value}s')
-                  : l10n.resend_code_in('0s'),
-              style: AppTextStyles.body,
+                  ? l10n.resend_code_in('${secondsRemaining.value}')
+                  : l10n.resend_code_in('0'),
+              style: AppTextStyles.body.copyWith(
+                color: colorScheme.primary,
+                fontWeight: FontWeight.bold,
+              ),
             ),
 
             const SizedBox(height: Spacing.xxLarge),
@@ -90,6 +132,28 @@ class OTPVerificationPage extends HookWidget {
             PrimaryButton(
               text: l10n.verify,
               onPressed: verifyCode,
+            ),
+
+            const SizedBox(height: Spacing.large),
+
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 3,
+                mainAxisSpacing: Spacing.tiny, 
+                crossAxisSpacing: Spacing.tiny, 
+                childAspectRatio: 1.5,  
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  ...List.generate(9, (index) => buildNumberButton('${index + 1}'),
+                  ),
+                  const SizedBox(),
+                  buildNumberButton('0'),
+                  GestureDetector(
+                    onTap: () => onKeyboardTap('del'),
+                    child: const Icon(Icons.backspace_outlined, size: 24),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

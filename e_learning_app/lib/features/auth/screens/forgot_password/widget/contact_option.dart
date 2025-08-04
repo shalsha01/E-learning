@@ -20,7 +20,8 @@ class ContactOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return GestureDetector(
       onTap: onTap,
@@ -28,12 +29,12 @@ class ContactOption extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.all(Spacing.large),
         decoration: BoxDecoration(
-          color: colorScheme.surface,
+          color: colorScheme.onPrimary,
           borderRadius: BorderRadius.circular(Spacing.medium),
           border: Border.all(
             color: isSelected
                 ? colorScheme.secondary
-                : colorScheme.outline.withOpacity(0.3),
+                : colorScheme.onPrimary,
             width: isSelected ? 2 : 1.5,
           ),
           boxShadow: [
@@ -55,19 +56,19 @@ class ContactOption extends StatelessWidget {
                   color: colorScheme.secondary,
                 ),
               ),
-              child: Icon(icon, size: 24, color: colorScheme.secondary),
+              child: Icon(icon, size:Spacing.large, color: colorScheme.secondary),
             ),
             const SizedBox(width: Spacing.large),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(title, style: AppTextStyles.body),
-                const SizedBox(height: 2),
+                const SizedBox(height: Spacing.tiny),
                 Text(
                   subtitle,
                   style: AppTextStyles.body.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: colorScheme.onSurface,
+                    color: colorScheme.primary,
                   ),
                 ),
               ],
