@@ -4,13 +4,26 @@ import 'package:e_learning_app/core/constants/font_sizes.dart';
 
 class AppThemes {
   static ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
     brightness: Brightness.light,
-    primaryColor: AppColors.brightBlue,
+    colorScheme: const ColorScheme(
+      brightness: Brightness.light,
+      primary: AppColors.primary,
+      onPrimary: AppColors.onPrimary,
+      secondary: AppColors.secondary,
+      onSecondary: AppColors.onSecondary,
+      background: AppColors.white,
+      onBackground: AppColors.onSurface,
+      surface: AppColors.surface,
+      onSurface: AppColors.onSurface,
+      error: AppColors.error,
+      onError: AppColors.white,
+    ),
     scaffoldBackgroundColor: AppColors.white,
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.transparent,
-      foregroundColor: AppColors.black,
+      backgroundColor: AppColors.white,
       elevation: 0,
+      foregroundColor: AppColors.onSurface,
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
@@ -19,33 +32,20 @@ class AppThemes {
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide.none,
       ),
-      contentPadding: const EdgeInsets.symmetric(
-        vertical: 14,
-        horizontal: 16,
-      ),
+      contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
       hintStyle: const TextStyle(color: AppColors.onSurfaceVariant),
-      prefixIconColor: AppColors.navyBlue,
-    ),
-
-    colorScheme: const ColorScheme.light(
-      primary: AppColors.brightBlue,
-      secondary: AppColors.tealGreen,
-      surface: AppColors.lavender,
-      surfaceContainer: AppColors.lightBlueGray,
-      onPrimary: AppColors.white,
-      onSecondary: AppColors.black,
-      onSurface: AppColors.onSurface,
+      prefixIconColor: AppColors.primary,
     ),
     textTheme: const TextTheme(
       displayLarge: TextStyle(
         fontSize: AppFontSizes.xxl,
         fontWeight: FontWeight.bold,
-        color: AppColors.black,
+        color: AppColors.onSurface,
       ),
       titleLarge: TextStyle(
         fontSize: AppFontSizes.xl,
         fontWeight: FontWeight.bold,
-        color: AppColors.black,
+        color: AppColors.onSurface,
       ),
       bodyLarge: TextStyle(
         fontSize: AppFontSizes.md,
@@ -57,25 +57,36 @@ class AppThemes {
       ),
       labelLarge: TextStyle(
         fontSize: AppFontSizes.base,
-        color: AppColors.navyBlue,
+        color: AppColors.primary,
       ),
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: AppColors.navyBlue,
+      backgroundColor: AppColors.primary,
       foregroundColor: AppColors.white,
     ),
   );
 
-
-
   static ThemeData darkTheme = ThemeData(
+    useMaterial3: true,
     brightness: Brightness.dark,
-    primaryColor: AppColors.deepPurple,
+    colorScheme: const ColorScheme(
+      brightness: Brightness.dark,
+      primary: AppColors.yellow,
+      onPrimary: AppColors.black,
+      secondary: AppColors.secondary,
+      onSecondary: AppColors.white,
+      background: AppColors.black,
+      onBackground: AppColors.white,
+      surface: Color(0xFF1E1E2C),
+      onSurface: AppColors.white,
+      error: AppColors.error,
+      onError: AppColors.black,
+    ),
     scaffoldBackgroundColor: AppColors.black,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.transparent,
-      foregroundColor: AppColors.white,
       elevation: 0,
+      foregroundColor: AppColors.white,
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
@@ -84,39 +95,26 @@ class AppThemes {
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide.none,
       ),
-      contentPadding: const EdgeInsets.symmetric(
-        vertical: 14,
-        horizontal: 16,
-      ),
+      contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
       hintStyle: const TextStyle(color: Colors.grey),
       prefixIconColor: AppColors.mustard,
     ),
-    colorScheme: const ColorScheme.dark(
-      primary: AppColors.yellow,
-      secondary: AppColors.brightBlue,
-      surface: Color(0xFF1E1E2C),
-      surfaceContainer: AppColors.white,
-      onPrimary: AppColors.white,
-      onSecondary: AppColors.white,
-      onSurface: AppColors.white,
-      onError: Colors.black,
-    ),
-    textTheme: const TextTheme(
-      displayLarge: TextStyle(
+    textTheme: TextTheme(
+      displayLarge: const TextStyle(
         fontSize: AppFontSizes.xxl,
         fontWeight: FontWeight.bold,
         color: Colors.white,
       ),
-      titleLarge: TextStyle(
+      titleLarge: const TextStyle(
         fontSize: AppFontSizes.xl,
         fontWeight: FontWeight.bold,
         color: Colors.white,
       ),
-      bodyLarge: TextStyle(
+      bodyLarge: const TextStyle(
         fontSize: AppFontSizes.md,
         color: Colors.white,
       ),
-      bodyMedium: TextStyle(
+      bodyMedium: const TextStyle(
         fontSize: AppFontSizes.base,
         color: Colors.grey,
       ),
@@ -125,7 +123,7 @@ class AppThemes {
         color: AppColors.mustard,
       ),
     ),
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: AppColors.mustard,
       foregroundColor: AppColors.black,
     ),

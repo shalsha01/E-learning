@@ -24,16 +24,20 @@ class OTPVerificationPage extends HookWidget {
 
     final pinController = useTextEditingController();
     final secondsRemaining = useState(59);
+    final timerRef = useRef<Timer?>(null);
 
     useEffect(() {
-      final timer = Timer.periodic(const Duration(seconds: 1), (t) {
+      timerRef.value = Timer.periodic(const Duration(seconds: 1), (timer) {
         if (secondsRemaining.value == 0) {
-          t.cancel();
+          timer.cancel();
         } else {
           secondsRemaining.value--;
         }
       });
-      return timer.cancel;
+
+      return () {
+        timerRef.value?.cancel();
+      };
     }, []);
 
     void verifyCode() {
@@ -116,7 +120,7 @@ class OTPVerificationPage extends HookWidget {
                   color: colorScheme.onPrimary,
                   boxShadow: [
                     BoxShadow(
-                      color: colorScheme.shadow.withOpacity(0.2),
+                      color: colorScheme.shadow.withAlpha(80),
                       blurRadius: Spacing.medium,
                       offset: const Offset(0, 4),
                     ),

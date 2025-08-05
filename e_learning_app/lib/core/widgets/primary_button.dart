@@ -30,8 +30,7 @@ class PrimaryButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(40),
           boxShadow: [
             BoxShadow(
-              // ignore: deprecated_member_use
-              color: Colors.black.withOpacity(0.3),
+              color: colorScheme.onSecondary.withAlpha(80),
               offset: const Offset(1, 2),
               blurRadius: 8,
             ),

@@ -23,10 +23,10 @@ class ThemeToggleIconButton extends ConsumerWidget {
           height: 36,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: colorScheme.primary.withOpacity(0.1),
+            color: colorScheme.primary.withAlpha(30),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withAlpha(30),
                 blurRadius: 4,
                 offset: const Offset(0, 2),
               ),

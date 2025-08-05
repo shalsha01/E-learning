@@ -112,7 +112,7 @@ class IntroductionScreen extends HookWidget {
                 dotWidth: 8,
                 type: WormType.thin,
                 spacing: 8,
-                dotColor: colorScheme.surfaceContainer,
+                dotColor: colorScheme.primary.withAlpha(50),
                 activeDotColor: colorScheme.primary,
               ),
             ),

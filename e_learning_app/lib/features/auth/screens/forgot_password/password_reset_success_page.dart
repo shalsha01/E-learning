@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -9,23 +10,35 @@ import 'package:e_learning_app/features/router/app_router.dart';
 class PasswordResetSuccessPage extends HookWidget {
   const PasswordResetSuccessPage({super.key});
 
-   @override
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
     final l10n = AppLocalizations.of(context)!;
 
-    // Redirect to login after 3 seconds
+    final counter = useState(3);
+    final timerRef = useRef<Timer?>(null);
+    final isRedirected = useRef(false); 
+
     useEffect(() {
-      final timer = Future.delayed(const Duration(seconds: 3), () {
-        context.router.replace(const LoginRoute());
-      });
-      return null;
+      if (!isRedirected.value) {
+        isRedirected.value = true;
+        timerRef.value = Timer.periodic(const Duration(seconds: 1), (timer) {
+          if (counter.value > 1) {
+            counter.value--;
+          } else {
+            timer.cancel();
+            context.router.replace(const LoginRoute());
+          }
+        });
+      }
+
+      return () => timerRef.value?.cancel();
     }, []);
 
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.surface,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(Spacing.large),
@@ -36,7 +49,7 @@ class PasswordResetSuccessPage extends HookWidget {
               borderRadius: BorderRadius.circular(Spacing.large),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withAlpha(50),
                   blurRadius: 12,
                   offset: const Offset(0, 6),
                 ),
@@ -45,7 +58,7 @@ class PasswordResetSuccessPage extends HookWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.verified_user_rounded, size: 80, color: Colors.green),
+                Icon(Icons.verified_user_rounded, size:Spacing.huge, color:colorScheme.secondary),
                 const SizedBox(height: Spacing.medium),
                 Text(
                   l10n.password_reset_success_title,
@@ -63,7 +76,7 @@ class PasswordResetSuccessPage extends HookWidget {
                     const CircularProgressIndicator(),
                     const SizedBox(height: Spacing.small),
                     Text(
-                      l10n.redirecting_to_login,
+                      '${l10n.redirecting_to_login} (${counter.value})',
                       style: textTheme.bodySmall,
                     ),
                   ],

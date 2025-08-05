@@ -21,33 +21,31 @@ class CreateNewPasswordPage extends HookWidget {
     final confirmPasswordController = useTextEditingController();
     final formKey = useMemoized(() => GlobalKey<FormState>());
 
-   return Scaffold(
+    return Scaffold(
+       backgroundColor: colorScheme.surface,
       appBar: AppBar(
         title: Text(
           l10n.create_new_password_title,
           style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: colorScheme.surface,
         elevation: 0,
       ),
-      backgroundColor: colorScheme.surface,
+      
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
             return SingleChildScrollView(
               padding: const EdgeInsets.all(Spacing.large),
               child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight,
-                ),
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
                 child: IntrinsicHeight(
                   child: Form(
                     key: formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Spacer(),
-
+                       const Spacer(),
+                        const SizedBox(height: Spacing.large),
                         Text(
                           l10n.create_new_password_title,
                           style: textTheme.titleLarge?.copyWith(
@@ -85,13 +83,14 @@ class CreateNewPasswordPage extends HookWidget {
                             return null;
                           },
                         ),
-                        const Spacer(),
+                        const SizedBox(height: Spacing.xxxLarge),
+                        
                         PrimaryButton(
                           text: l10n.continueLabel,
                           onPressed: () {
                             if (formKey.currentState?.validate() ?? false) {
-                              context.router
-                                  .push(const PasswordResetSuccessRoute());
+                              context.router.push(
+                                  const PasswordResetSuccessRoute());
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -101,7 +100,8 @@ class CreateNewPasswordPage extends HookWidget {
                             }
                           },
                         ),
-                        const SizedBox(height: Spacing.xxLarge),
+                        const Spacer(),
+                        const SizedBox(height: Spacing.huge),
                       ],
                     ),
                   ),
