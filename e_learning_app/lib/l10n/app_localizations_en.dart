@@ -181,4 +181,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get redirecting_to_login => 'Redirect to login';
+
+  @override
+  String get congratulations => 'Congratulations';
+
+  @override
+  String get account_ready_redirecting =>
+      'Your Account is Ready to Use.\nYou will be redirected to the Home Page in a Few Seconds.';
 }

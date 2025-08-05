@@ -177,4 +177,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get redirecting_to_login => 'إعادة التوجيه لتسجيل الدخول';
+
+  @override
+  String get congratulations => 'تهانينا';
+
+  @override
+  String get account_ready_redirecting =>
+      'تم تفعيل حسابك بنجاح.\nسيتم تحويلك إلى الصفحة الرئيسية خلال ثوانٍ.';
 }

@@ -72,7 +72,9 @@
   "fix_errors_first": "يرجى تصحيح الأخطاء أولاً",
   "enter_code_message": "ادخل الكود المكون من  اربع ارقام",
   "confirm_password": "تأكيد كلمة السر ",
-  "redirecting_to_login": "إعادة التوجيه لتسجيل الدخول"
+  "redirecting_to_login": "إعادة التوجيه لتسجيل الدخول",
+  "congratulations": "تهانينا",
+  "account_ready_redirecting": "تم تفعيل حسابك بنجاح.\nسيتم تحويلك إلى الصفحة الرئيسية خلال ثوانٍ."
 }
 
 

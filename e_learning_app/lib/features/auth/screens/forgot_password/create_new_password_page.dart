@@ -1,10 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:e_learning_app/features/auth/screens/forgot_password/password_reset_success_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
 import 'package:e_learning_app/core/widgets/primary_button.dart';
-import 'package:e_learning_app/features/router/app_router.dart';
+
 
 @RoutePage()
 class CreateNewPasswordPage extends HookWidget {
@@ -22,7 +23,7 @@ class CreateNewPasswordPage extends HookWidget {
     final formKey = useMemoized(() => GlobalKey<FormState>());
 
     return Scaffold(
-       backgroundColor: colorScheme.surface,
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
         title: Text(
           l10n.create_new_password_title,
@@ -30,7 +31,6 @@ class CreateNewPasswordPage extends HookWidget {
         ),
         elevation: 0,
       ),
-      
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -44,7 +44,7 @@ class CreateNewPasswordPage extends HookWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                       const Spacer(),
+                        const Spacer(),
                         const SizedBox(height: Spacing.large),
                         Text(
                           l10n.create_new_password_title,
@@ -84,13 +84,11 @@ class CreateNewPasswordPage extends HookWidget {
                           },
                         ),
                         const SizedBox(height: Spacing.xxxLarge),
-                        
                         PrimaryButton(
                           text: l10n.continueLabel,
                           onPressed: () {
                             if (formKey.currentState?.validate() ?? false) {
-                              context.router.push(
-                                  const PasswordResetSuccessRoute());
+                              showPasswordResetSuccessDialog(context);
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(

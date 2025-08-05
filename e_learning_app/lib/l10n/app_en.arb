@@ -72,7 +72,9 @@
   "fix_errors_first": "Please correct errors first",
   "enter_code_message": "Please enter the 4-digit code",
   "confirm_password": "confirm password",
-  "redirecting_to_login":"Redirect to login"
+  "redirecting_to_login":"Redirect to login",
+  "congratulations": "Congratulations",
+  "account_ready_redirecting": "Your Account is Ready to Use.\nYou will be redirected to the Home Page in a Few Seconds."
 
 }
 

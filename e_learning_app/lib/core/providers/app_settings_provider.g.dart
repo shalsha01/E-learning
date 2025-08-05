@@ -28,7 +28,7 @@ const _$ThemeModeEnumMap = {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appSettingsHash() => r'a48b7826261f1c52fa431f22505816b4d48b9f20';
+String _$appSettingsHash() => r'4a5236db43d38aa3a9b88802e57bf20ce103329f';
 
 /// See also [AppSettings].
 @ProviderFor(AppSettings)

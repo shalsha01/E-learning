@@ -427,6 +427,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Redirect to login'**
   String get redirecting_to_login;
+
+  /// No description provided for @congratulations.
+  ///
+  /// In en, this message translates to:
+  /// **'Congratulations'**
+  String get congratulations;
+
+  /// No description provided for @account_ready_redirecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Account is Ready to Use.\nYou will be redirected to the Home Page in a Few Seconds.'**
+  String get account_ready_redirecting;
 }
 
 class _AppLocalizationsDelegate

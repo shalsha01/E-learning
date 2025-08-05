@@ -170,22 +170,6 @@ class OTPVerificationRouteArgs {
 }
 
 /// generated route for
-/// [PasswordResetSuccessPage]
-class PasswordResetSuccessRoute extends PageRouteInfo<void> {
-  const PasswordResetSuccessRoute({List<PageRouteInfo>? children})
-      : super(PasswordResetSuccessRoute.name, initialChildren: children);
-
-  static const String name = 'PasswordResetSuccessRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const PasswordResetSuccessPage();
-    },
-  );
-}
-
-/// generated route for
 /// [RegisterPage]
 class RegisterRoute extends PageRouteInfo<void> {
   const RegisterRoute({List<PageRouteInfo>? children})

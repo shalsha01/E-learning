@@ -12,7 +12,6 @@ import 'package:e_learning_app/features/onboarding/introduction_screen%20.dart';
 import 'package:e_learning_app/features/auth/screens/forgot_password/forgot_password_method_page.dart';
 import 'package:e_learning_app/features/auth/screens/forgot_password/otp_verification_page.dart';
 import 'package:e_learning_app/features/auth/screens/forgot_password/create_new_password_page.dart';
-import 'package:e_learning_app/features/auth/screens/forgot_password/password_reset_success_page.dart';
 import 'package:e_learning_app/home.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -40,7 +39,6 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: ForgotPasswordMethodRoute.page),
         AutoRoute(page: OTPVerificationRoute.page),
         AutoRoute(page: CreateNewPasswordRoute.page),
-        AutoRoute(page: PasswordResetSuccessRoute.page),
         AutoRoute(page: CreatePinRoute.page),
         
       ];
