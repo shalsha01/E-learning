@@ -74,7 +74,11 @@
   "confirm_password": "confirm password",
   "redirecting_to_login":"Redirect to login",
   "congratulations": "Congratulations",
-  "account_ready_redirecting": "Your Account is Ready to Use.\nYou will be redirected to the Home Page in a Few Seconds."
+  "account_ready_redirecting": "Your Account is Ready to Use.\nYou will be redirected to the Home Page in a Few Seconds.",
+  "resend_code_in": "Resend code in",
+  "resend_code": "Resend Code",
+  "code_resent": "A new code has been sent.",
+  "failed_to_send_code": "Failed to send the code. Please try again."
 
 }
 

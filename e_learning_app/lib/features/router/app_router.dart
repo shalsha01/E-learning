@@ -9,9 +9,9 @@ import 'package:e_learning_app/features/auth/screens/fill_profile_screen.dart';
 import 'package:e_learning_app/features/auth/screens/login_screen.dart';
 import 'package:e_learning_app/features/auth/screens/register_screen.dart';
 import 'package:e_learning_app/features/onboarding/introduction_screen%20.dart';
-import 'package:e_learning_app/features/auth/screens/forgot_password/forgot_password_method_page.dart';
-import 'package:e_learning_app/features/auth/screens/forgot_password/otp_verification_page.dart';
-import 'package:e_learning_app/features/auth/screens/forgot_password/create_new_password_page.dart';
+import 'package:e_learning_app/features/auth/forgot_password/forgot_password_method_page.dart';
+import 'package:e_learning_app/features/auth/forgot_password/otp/otp_verification_page.dart';
+import 'package:e_learning_app/features/auth/forgot_password/create_new_password_page.dart';
 import 'package:e_learning_app/home.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

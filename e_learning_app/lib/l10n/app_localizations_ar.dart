@@ -123,7 +123,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String resend_code_in(Object seconds) {
-    return 'يمكنك إعادة إرسال الكود خلال $seconds ثانية';
+    return 'إعادة إرسال الرمز';
   }
 
   @override
@@ -184,4 +184,13 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get account_ready_redirecting =>
       'تم تفعيل حسابك بنجاح.\nسيتم تحويلك إلى الصفحة الرئيسية خلال ثوانٍ.';
+
+  @override
+  String get resend_code => 'إعادة إرسال الرمز';
+
+  @override
+  String get code_resent => 'تم إرسال رمز جديد';
+
+  @override
+  String get failed_to_send_code => 'فشل إرسال الرمز. يُرجى المحاولة مرة أخرى';
 }

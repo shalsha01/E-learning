@@ -1,6 +1,6 @@
 import 'package:e_learning_app/app.dart';
 import 'package:e_learning_app/features/auth/providers/shared_preferences_provider.dart';
-import 'package:e_learning_app/features/auth/repository/auth_repository.dart';
+import 'package:e_learning_app/features/auth/data/repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';

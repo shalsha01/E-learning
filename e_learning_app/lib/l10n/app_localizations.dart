@@ -323,7 +323,7 @@ abstract class AppLocalizations {
   /// Message showing seconds remaining before code can be resent
   ///
   /// In en, this message translates to:
-  /// **'Resend Code in {seconds}s'**
+  /// **'Resend code in'**
   String resend_code_in(Object seconds);
 
   /// No description provided for @verify.
@@ -439,6 +439,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your Account is Ready to Use.\nYou will be redirected to the Home Page in a Few Seconds.'**
   String get account_ready_redirecting;
+
+  /// No description provided for @resend_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend Code'**
+  String get resend_code;
+
+  /// No description provided for @code_resent.
+  ///
+  /// In en, this message translates to:
+  /// **'A new code has been sent.'**
+  String get code_resent;
+
+  /// No description provided for @failed_to_send_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send the code. Please try again.'**
+  String get failed_to_send_code;
 }
 
 class _AppLocalizationsDelegate

@@ -10,8 +10,8 @@ import 'package:e_learning_app/core/constants/spacing.dart';
 import 'package:e_learning_app/core/widgets/primary_button.dart';
 import 'package:e_learning_app/core/widgets/theme_toggle_icon_button.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
-import 'package:e_learning_app/features/auth/models/login_request.dart';
-import 'package:e_learning_app/features/auth/models/user_model.dart';
+import 'package:e_learning_app/features/auth/data/models/login_request.dart';
+import 'package:e_learning_app/features/auth/data/models/user_model.dart';
 import 'package:e_learning_app/features/auth/providers/authentication_provider.dart'; 
 @RoutePage()
 class RegisterPage extends HookConsumerWidget {

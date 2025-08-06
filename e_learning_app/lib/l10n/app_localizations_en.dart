@@ -127,7 +127,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String resend_code_in(Object seconds) {
-    return 'Resend Code in ${seconds}s';
+    return 'Resend code in';
   }
 
   @override
@@ -188,4 +188,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get account_ready_redirecting =>
       'Your Account is Ready to Use.\nYou will be redirected to the Home Page in a Few Seconds.';
+
+  @override
+  String get resend_code => 'Resend Code';
+
+  @override
+  String get code_resent => 'A new code has been sent.';
+
+  @override
+  String get failed_to_send_code =>
+      'Failed to send the code. Please try again.';
 }

@@ -74,7 +74,11 @@
   "confirm_password": "تأكيد كلمة السر ",
   "redirecting_to_login": "إعادة التوجيه لتسجيل الدخول",
   "congratulations": "تهانينا",
-  "account_ready_redirecting": "تم تفعيل حسابك بنجاح.\nسيتم تحويلك إلى الصفحة الرئيسية خلال ثوانٍ."
+  "account_ready_redirecting": "تم تفعيل حسابك بنجاح.\nسيتم تحويلك إلى الصفحة الرئيسية خلال ثوانٍ.",
+  "resend_code_in": "إعادة إرسال الرمز",
+  "resend_code": "إعادة إرسال الرمز",
+  "code_resent": "تم إرسال رمز جديد",
+  "failed_to_send_code": "فشل إرسال الرمز. يُرجى المحاولة مرة أخرى"
 }
 
 

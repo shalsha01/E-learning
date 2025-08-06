@@ -1,6 +1,6 @@
-import 'package:e_learning_app/features/auth/models/login_request.dart';
-import 'package:e_learning_app/features/auth/models/user_model.dart';
-import 'package:e_learning_app/features/auth/repository/auth_repository.dart';
+import 'package:e_learning_app/features/auth/data/models/login_request.dart';
+import 'package:e_learning_app/features/auth/data/models/user_model.dart';
+import 'package:e_learning_app/features/auth/data/repository/auth_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'authentication_provider.g.dart';

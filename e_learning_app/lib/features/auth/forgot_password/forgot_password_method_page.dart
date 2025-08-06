@@ -5,7 +5,7 @@ import 'package:e_learning_app/l10n/app_localizations.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
 import 'package:e_learning_app/core/widgets/primary_button.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
-import 'package:e_learning_app/features/auth/screens/forgot_password/widget/contact_option.dart';
+import 'package:e_learning_app/features/auth/forgot_password/widget/contact_option.dart';
 
 enum ForgotMethod { email, sms }
 @RoutePage()
@@ -25,7 +25,6 @@ class ForgotPasswordMethodPage extends HookWidget {
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: colorScheme.surface,
         elevation: 0,
         leading: const BackButton(),
         title: Text(
@@ -84,7 +83,7 @@ class ForgotPasswordMethodPage extends HookWidget {
                   }
 
                   context.router.push(
-                    OTPVerificationRoute(method: methodString),
+                    OTPVerificationRoute(method: methodString, destination: inputValue),
                   );
                 },
               ),

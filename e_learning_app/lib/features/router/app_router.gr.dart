@@ -128,10 +128,15 @@ class OTPVerificationRoute extends PageRouteInfo<OTPVerificationRouteArgs> {
   OTPVerificationRoute({
     Key? key,
     required String method,
+    required String destination,
     List<PageRouteInfo>? children,
   }) : super(
           OTPVerificationRoute.name,
-          args: OTPVerificationRouteArgs(key: key, method: method),
+          args: OTPVerificationRouteArgs(
+            key: key,
+            method: method,
+            destination: destination,
+          ),
           initialChildren: children,
         );
 
@@ -141,32 +146,44 @@ class OTPVerificationRoute extends PageRouteInfo<OTPVerificationRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<OTPVerificationRouteArgs>();
-      return OTPVerificationPage(key: args.key, method: args.method);
+      return OTPVerificationPage(
+        key: args.key,
+        method: args.method,
+        destination: args.destination,
+      );
     },
   );
 }
 
 class OTPVerificationRouteArgs {
-  const OTPVerificationRouteArgs({this.key, required this.method});
+  const OTPVerificationRouteArgs({
+    this.key,
+    required this.method,
+    required this.destination,
+  });
 
   final Key? key;
 
   final String method;
 
+  final String destination;
+
   @override
   String toString() {
-    return 'OTPVerificationRouteArgs{key: $key, method: $method}';
+    return 'OTPVerificationRouteArgs{key: $key, method: $method, destination: $destination}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! OTPVerificationRouteArgs) return false;
-    return key == other.key && method == other.method;
+    return key == other.key &&
+        method == other.method &&
+        destination == other.destination;
   }
 
   @override
-  int get hashCode => key.hashCode ^ method.hashCode;
+  int get hashCode => key.hashCode ^ method.hashCode ^ destination.hashCode;
 }
 
 /// generated route for

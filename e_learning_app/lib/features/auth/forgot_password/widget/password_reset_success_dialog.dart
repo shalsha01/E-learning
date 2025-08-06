@@ -37,7 +37,7 @@ class PasswordResetSuccessDialog extends HookWidget {
             counter.value--;
           } else {
             timer.cancel();
-            Navigator.of(context).pop(); // Close dialog
+            Navigator.of(context).pop(); 
             context.router.replace(const LoginRoute());
           }
         });

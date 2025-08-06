@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:e_learning_app/features/auth/models/user_model.dart';
-import 'package:e_learning_app/features/auth/models/login_request.dart';
+import 'package:e_learning_app/features/auth/data/models/user_model.dart';
+import 'package:e_learning_app/features/auth/data/models/login_request.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part 'auth_repository.mock.dart';
