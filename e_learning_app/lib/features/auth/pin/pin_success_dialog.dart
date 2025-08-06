@@ -25,7 +25,7 @@ Future<void> showPinSuccessDialog(BuildContext context) async {
           children: [
          
             SvgPicture.asset(
-              'assets/images/pin_success.svg', 
+              'assets/images/process.svg', 
               width: 120,
               height: 120,
             ),

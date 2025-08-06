@@ -205,4 +205,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get redirecting_to_home =>
       'You\'ll be redirected to the home screen shortly...';
+
+  @override
+  String get create_new_pin => 'Create New PIN';
+
+  @override
+  String get create_pin_description =>
+      'Add a PIN to keep your account more secure.';
+
+  @override
+  String get something_went_wrong => 'Something went wrong';
 }

@@ -200,4 +200,13 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get redirecting_to_home =>
       'سيتم تحويلك إلى الصفحة الرئيسية بعد قليل...';
+
+  @override
+  String get create_new_pin => 'إنشاء رمز PIN جديد';
+
+  @override
+  String get create_pin_description => 'أضف رمز PIN لجعل حسابك أكثر أمانًا.';
+
+  @override
+  String get something_went_wrong => 'حدث خطأ ما';
 }

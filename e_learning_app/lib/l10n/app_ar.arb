@@ -80,7 +80,11 @@
   "code_resent": "تم إرسال رمز جديد",
   "failed_to_send_code": "فشل إرسال الرمز. يُرجى المحاولة مرة أخرى",
   "pin_created_successfully": "تم إنشاء رمز PIN بنجاح!",
-  "redirecting_to_home": "سيتم تحويلك إلى الصفحة الرئيسية بعد قليل..."
+  "redirecting_to_home": "سيتم تحويلك إلى الصفحة الرئيسية بعد قليل...",
+   "create_new_pin": "إنشاء رمز PIN جديد",
+  "create_pin_description": "أضف رمز PIN لجعل حسابك أكثر أمانًا.",
+  "something_went_wrong": "حدث خطأ ما",
+  "continueLabel": "متابعة"
   
 }
 
