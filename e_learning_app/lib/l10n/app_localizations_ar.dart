@@ -193,4 +193,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get failed_to_send_code => 'فشل إرسال الرمز. يُرجى المحاولة مرة أخرى';
+
+  @override
+  String get pin_created_successfully => 'تم إنشاء رمز PIN بنجاح!';
+
+  @override
+  String get redirecting_to_home =>
+      'سيتم تحويلك إلى الصفحة الرئيسية بعد قليل...';
 }

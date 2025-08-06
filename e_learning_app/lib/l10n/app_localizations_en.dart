@@ -198,4 +198,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get failed_to_send_code =>
       'Failed to send the code. Please try again.';
+
+  @override
+  String get pin_created_successfully => 'PIN Created Successfully!';
+
+  @override
+  String get redirecting_to_home =>
+      'You\'ll be redirected to the home screen shortly...';
 }
