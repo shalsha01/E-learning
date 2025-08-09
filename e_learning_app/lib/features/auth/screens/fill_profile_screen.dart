@@ -55,8 +55,7 @@ class FillProfilePage extends HookWidget {
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
+      appBar: AppBar( 
         elevation: 0,
         title: Text(l10n.fill_profile),
         centerTitle: true,
