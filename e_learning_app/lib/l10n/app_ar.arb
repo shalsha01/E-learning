@@ -84,6 +84,7 @@
    "create_new_pin": "إنشاء رمز PIN جديد",
   "create_pin_description": "أضف رمز PIN لجعل حسابك أكثر أمانًا.",
   "something_went_wrong": "حدث خطأ ما",
+  "loading": "جار التحميل...",
   "continueLabel": "متابعة"
   
 }

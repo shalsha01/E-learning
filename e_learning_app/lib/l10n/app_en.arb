@@ -84,6 +84,7 @@
   "create_new_pin": "Create New PIN",
   "create_pin_description": "Add a PIN to keep your account more secure.",
   "something_went_wrong": "Something went wrong",
+  "loading": "Loading...",
   "continueLabel": "Continue"
 
 }

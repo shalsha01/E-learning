@@ -209,4 +209,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get something_went_wrong => 'حدث خطأ ما';
+
+  @override
+  String get loading => 'جار التحميل...';
 }
