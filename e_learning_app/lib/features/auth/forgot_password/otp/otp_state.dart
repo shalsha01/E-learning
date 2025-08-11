@@ -9,6 +9,8 @@ class OTPState {
 
   factory OTPState.initial() => const OTPState(isLoading: false, errorMessage: null);
 
+  get isVerified => null;
+
   OTPState copyWith({
     bool? isLoading,
     String? errorMessage,

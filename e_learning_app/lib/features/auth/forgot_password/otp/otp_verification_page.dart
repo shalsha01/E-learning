@@ -170,7 +170,14 @@ class OTPVerificationPage extends HookConsumerWidget {
             const SizedBox(height: Spacing.large),
             PrimaryButton(
               text: l10n.verify,
-              onPressed: verifyCode,
+              onPressed: () async {
+              verifyCode();
+              final isVerified = ref.read(otpProvider).isVerified;
+              if (isVerified && context.mounted) {
+                context.router.push(const CreateNewPasswordRoute());
+              }
+              },
+              isLoading: ref.watch(otpProvider.select((state) => state.isLoading)),
             ),
             const SizedBox(height: Spacing.medium),
             resendCooldown.value > 0
