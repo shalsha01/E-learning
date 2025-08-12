@@ -8,13 +8,13 @@ import 'package:e_learning_app/l10n/app_localizations.dart';
 import 'package:riverpod_hook_mutation/riverpod_hook_mutation.dart';
 
 import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/constants/prefs_keys.dart';
 import 'package:e_learning_app/core/widgets/primary_button.dart';
 import 'package:e_learning_app/core/widgets/theme_toggle_icon_button.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
 import 'package:e_learning_app/features/auth/providers/authentication_provider.dart';
 import 'package:e_learning_app/features/auth/data/models/login_request.dart';
-
-
+import 'package:e_learning_app/features/auth/providers/shared_preferences_provider.dart';
 
 @RoutePage()
 class LoginPage extends HookConsumerWidget {
@@ -33,8 +33,7 @@ class LoginPage extends HookConsumerWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
-    
-    
+
     final provider = ref.read(authenticationProvider.notifier);
     final mutation = useMutation<UserModel>();
 
@@ -115,8 +114,8 @@ class LoginPage extends HookConsumerWidget {
                               : Icons.visibility_off,
                           color: colorScheme.onSurface,
                         ),
-                        onPressed: () => isPasswordVisible.value =
-                            !isPasswordVisible.value,
+                        onPressed: () =>
+                            isPasswordVisible.value = !isPasswordVisible.value,
                       ),
                     ),
                     validator: (value) =>
@@ -170,7 +169,11 @@ class LoginPage extends HookConsumerWidget {
                         mutation.mutate(
                           () => provider.login(request),
                           context: context,
-                          data: (user) {
+                          data: (user) async {
+
+                            final prefs = ref.read(sharedPreferencesProvider);
+                            await prefs.setString(PrefsKeys.authToken, user.token);
+
                             context.router.replace(const FillProfileRoute());
                           },
                           error: (error, stackTrace) {

@@ -12,7 +12,12 @@ import 'package:e_learning_app/core/widgets/theme_toggle_icon_button.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
 import 'package:e_learning_app/features/auth/data/models/login_request.dart';
 import 'package:e_learning_app/features/auth/data/models/user_model.dart';
-import 'package:e_learning_app/features/auth/providers/authentication_provider.dart'; 
+import 'package:e_learning_app/features/auth/providers/authentication_provider.dart';
+
+
+import 'package:e_learning_app/core/constants/prefs_keys.dart';
+import 'package:e_learning_app/features/auth/providers/shared_preferences_provider.dart';
+
 @RoutePage()
 class RegisterPage extends HookConsumerWidget {
   const RegisterPage({super.key});
@@ -31,7 +36,7 @@ class RegisterPage extends HookConsumerWidget {
     final textTheme = theme.textTheme;
     final l10n = AppLocalizations.of(context)!;
 
-   return Scaffold(
+    return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
         elevation: 0,
@@ -149,7 +154,12 @@ class RegisterPage extends HookConsumerWidget {
                         mutation.mutate(
                           () => ref.read(authenticationProvider.notifier).register(request),
                           context: context,
-                          data: (user) {
+                          data: (user) async {
+                          
+                            final prefs = ref.read(sharedPreferencesProvider);
+                            await prefs.setBool(PrefsKeys.isSeenOnboarding, true);
+                            await prefs.setString(PrefsKeys.authToken, user.token ?? "");
+
                             context.router.replace(const FillProfileRoute());
                           },
                           error: (error, stackTrace) {

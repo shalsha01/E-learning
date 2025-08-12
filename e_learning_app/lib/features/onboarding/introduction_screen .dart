@@ -11,12 +11,16 @@ import 'package:e_learning_app/core/widgets/primary_button.dart';
 import 'package:e_learning_app/core/widgets/theme_toggle_icon_button.dart';
 import 'package:e_learning_app/core/widgets/language_toggle_icon_button.dart';
 
+import 'package:e_learning_app/features/auth/providers/shared_preferences_provider.dart';
+import 'package:e_learning_app/core/constants/prefs_keys.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 @RoutePage()
-class IntroductionScreen extends HookWidget {
+class IntroductionScreen extends HookConsumerWidget {
   const IntroductionScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final pageController = usePageController();
@@ -41,7 +45,10 @@ class IntroductionScreen extends HookWidget {
       ),
     ];
 
-    void onFinish() {
+    Future<void> onFinish() async {
+      final prefs = ref.read(sharedPreferencesProvider);
+      await prefs.setBool(PrefsKeys.isSeenOnboarding, true);
+
       context.router.replace(const LoginRoute());
     }
 
@@ -55,13 +62,12 @@ class IntroductionScreen extends HookWidget {
         onFinish();
       }
     }
-       return Scaffold(
+
+    return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
-         elevation: 0,
-        leading:  ThemeToggleIconButton(),
-        
-
+        elevation: 0,
+        leading: const ThemeToggleIconButton(),
         actions: [
           const LanguageToggleIconButton(),
           if (currentIndex.value != pages.length - 1)
@@ -101,7 +107,7 @@ class IntroductionScreen extends HookWidget {
           right: Spacing.large,
           top: Spacing.medium,
           bottom: Spacing.xxxxLarge,
-        ), 
+        ),
         child: Row(
           children: [
             SmoothPageIndicator(
@@ -128,8 +134,7 @@ class IntroductionScreen extends HookWidget {
                     onPressed: onNext,
                     backgroundColor: colorScheme.primary,
                     elevation: 0,
-                    child:
-                        Icon(Icons.arrow_forward, color: colorScheme.onPrimary),
+                    child: Icon(Icons.arrow_forward, color: colorScheme.onPrimary),
                   ),
           ],
         ),
@@ -137,4 +142,3 @@ class IntroductionScreen extends HookWidget {
     );
   }
 }
-

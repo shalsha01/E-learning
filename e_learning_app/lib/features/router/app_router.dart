@@ -31,21 +31,62 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: IntroductionRoute.page,initial: true),
+        AutoRoute(
+          page: IntroductionRoute.page,
+          initial: true,
+          guards: [OnboardingCompletedGuard(ref)], 
+        ),
         AutoRoute(page: LoginRoute.page),
         AutoRoute(page: RegisterRoute.page),
-        AutoRoute(page: FillProfileRoute.page),
-        AutoRoute(page: HomeRoute.page),
         AutoRoute(page: ForgotPasswordMethodRoute.page),
         AutoRoute(page: OTPVerificationRoute.page),
         AutoRoute(page: CreateNewPasswordRoute.page),
-        AutoRoute(page: CreatePinRoute.page),
-        
+
+        AutoRoute(
+          page: FillProfileRoute.page,
+          guards: [AuthAndOnboardingGuard(ref)],
+        ),
+        AutoRoute(
+          page: HomeRoute.page,
+          guards: [AuthAndOnboardingGuard(ref)],
+        ),
+        AutoRoute(
+          page: CreatePinRoute.page,
+          guards: [AuthAndOnboardingGuard(ref)],
+        ),
       ];
 }
 
-class IsSeeOnboardingGuard implements AutoRouteGuard {
-  const IsSeeOnboardingGuard(this.ref);
+class AuthAndOnboardingGuard implements AutoRouteGuard {
+  const AuthAndOnboardingGuard(this.ref);
+  final Ref ref;
+
+  @override
+  Future<void> onNavigation(
+    NavigationResolver resolver,
+    StackRouter router,
+  ) async {
+    final prefs = ref.read(sharedPreferencesProvider);
+
+    final isSeenOnboarding = prefs.getBool(PrefsKeys.isSeenOnboarding) ?? false;
+    final token = prefs.getString(PrefsKeys.authToken);
+
+    if (!isSeenOnboarding) {
+      router.replace(const IntroductionRoute());
+      return;
+    }
+
+    if (token == null || token.isEmpty) {
+      router.replace(const LoginRoute());
+      return;
+    }
+
+    resolver.next(true);
+  }
+}
+
+class OnboardingCompletedGuard implements AutoRouteGuard {
+  const OnboardingCompletedGuard(this.ref);
   final Ref ref;
 
   @override
@@ -57,30 +98,14 @@ class IsSeeOnboardingGuard implements AutoRouteGuard {
     final isSeenOnboarding = prefs.getBool(PrefsKeys.isSeenOnboarding) ?? false;
 
     if (isSeenOnboarding) {
-      resolver.next(true);
+      final token = prefs.getString(PrefsKeys.authToken);
+      if (token == null || token.isEmpty) {
+        router.replace(const LoginRoute());
+      } else {
+        router.replace(const HomeRoute());
+      }
     } else {
-      resolver.next(false);
-      router.replace(const IntroductionRoute());
-    }
-  }
-}
-
-class IsNotSeenOnboardingGuard implements AutoRouteGuard {
-  const IsNotSeenOnboardingGuard(this.ref);
-  final Ref ref;
-
-  @override
-  Future<void> onNavigation(
-    NavigationResolver resolver,
-    StackRouter router,
-  ) async {
-    final prefs = ref.read(sharedPreferencesProvider);
-    final isSeenOnboarding = prefs.getBool(PrefsKeys.isSeenOnboarding) ?? false;
-
-    if (!isSeenOnboarding) {
-      resolver.next(true);
-    } else {
-      router.replace(const HomeRoute());
+      resolver.next(true); 
     }
   }
 }
