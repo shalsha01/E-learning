@@ -75,7 +75,7 @@ class ForgotPasswordMethodRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [HomePage]
+/// [HomeScreen]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
       : super(HomeRoute.name, initialChildren: children);
@@ -85,7 +85,7 @@ class HomeRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const HomePage();
+      return const HomeScreen();
     },
   );
 }

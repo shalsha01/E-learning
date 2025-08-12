@@ -12,7 +12,7 @@ import 'package:e_learning_app/features/onboarding/introduction_screen%20.dart';
 import 'package:e_learning_app/features/auth/forgot_password/forgot_password_method_page.dart';
 import 'package:e_learning_app/features/auth/forgot_password/otp/otp_verification_page.dart';
 import 'package:e_learning_app/features/auth/forgot_password/create_new_password_page.dart';
-import 'package:e_learning_app/home.dart';
+import 'package:e_learning_app/features/home/screens/home_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_router.gr.dart';

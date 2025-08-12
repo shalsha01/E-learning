@@ -70,13 +70,13 @@ class FillProfilePage extends HookWidget {
             child: Column(
               children: [
                 const SizedBox(height: Spacing.large),
-                // Profile image picker
+           
                 Stack(
                   alignment: Alignment.bottomRight,
                   children: [
                     CircleAvatar(
                       radius: 50,
-                      // ignore: deprecated_member_use
+              
                       backgroundColor: colorScheme.primary.withOpacity(0.1),
                       backgroundImage: selectedImage.value != null
                           ? FileImage(selectedImage.value!)
@@ -97,7 +97,7 @@ class FillProfilePage extends HookWidget {
                 ),
                 const SizedBox(height: Spacing.large),
 
-                // Full Name
+           
                 TextFormField(
                   controller: fullName,
                   decoration: InputDecoration(
@@ -109,7 +109,7 @@ class FillProfilePage extends HookWidget {
                 ),
                 const SizedBox(height: Spacing.medium),
 
-                // Nick Name
+            
                 TextFormField(
                   controller: nickName,
                   decoration: InputDecoration(
@@ -121,7 +121,7 @@ class FillProfilePage extends HookWidget {
                 ),
                 const SizedBox(height: Spacing.medium),
 
-                // Date of Birth
+           
                 GestureDetector(
                   onTap: pickDate,
                   child: AbsorbPointer(
@@ -138,7 +138,7 @@ class FillProfilePage extends HookWidget {
                 ),
                 const SizedBox(height: Spacing.medium),
 
-                // Email
+      
                 TextFormField(
                   controller: email,
                   keyboardType: TextInputType.emailAddress,
@@ -151,7 +151,7 @@ class FillProfilePage extends HookWidget {
                 ),
                 const SizedBox(height: Spacing.medium),
 
-                // Phone
+            
                 TextFormField(
                   controller: phone,
                   keyboardType: TextInputType.phone,
@@ -173,7 +173,7 @@ class FillProfilePage extends HookWidget {
                 ),
                 const SizedBox(height: Spacing.medium),
 
-                // Gender
+          
                 DropdownButtonFormField<String>(
                   value: gender.value,
                   decoration: InputDecoration(
