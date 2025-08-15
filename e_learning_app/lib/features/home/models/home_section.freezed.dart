@@ -290,7 +290,6 @@ class HeaderSection implements HomeSection {
   const HeaderSection({required this.greetingName, required this.subtitle});
 
   final String greetingName;
-// ex: "Ronald A. Martin"
   final String subtitle;
 
   /// Create a copy of HomeSection
@@ -385,7 +384,6 @@ class BannerSection implements HomeSection {
       {required this.imageAsset, required this.title, required this.subtitle});
 
   final String imageAsset;
-// use local asset svg/png
   final String title;
   final String subtitle;
 

@@ -15,7 +15,6 @@ import 'package:e_learning_app/features/home/widgets/top_mentors_widget.dart';
 import 'package:e_learning_app/features/home/widgets/shimmer_blocks.dart';
 
 @RoutePage()
-
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
@@ -37,6 +36,7 @@ class HomePage extends ConsumerWidget {
           title: title,
           subtitle: subtitle,
         ),
+
         categories: (cats, selected) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -45,9 +45,11 @@ class HomePage extends ConsumerWidget {
               onSeeAll: null,
             ),
             const SizedBox(height: Spacing.small),
+            // هذا الويجت داخله ListView أفقي مُحدّد الارتفاع
             CategoriesWidget(categories: cats, selectedIndex: selected),
           ],
         ),
+
         popularCourses: (courses, selectedFilter) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -59,6 +61,7 @@ class HomePage extends ConsumerWidget {
             PopularCoursesWidget(courses: courses),
           ],
         ),
+
         topMentors: (mentors) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -102,8 +105,7 @@ class HomePage extends ConsumerWidget {
                 ),
                 const SizedBox(height: Spacing.medium),
                 FilledButton(
-                  onPressed: () =>
-                      ref.read(homeProvider.notifier).refresh(),
+                  onPressed: () => ref.read(homeProvider.notifier).refresh(),
                   child: Text(l10n.retry),
                 ),
               ],

@@ -39,7 +39,7 @@ class HomeRepository {
     return [
       HomeSection.header(
         greetingName: 'Ronald A. Martin',
-        subtitle: 'What Would you like to learn Today?', // TODO l10n
+        subtitle: 'What Would you like to learn Today?', 
       ),
       const HomeSection.searchBar(),
       HomeSection.banner(
