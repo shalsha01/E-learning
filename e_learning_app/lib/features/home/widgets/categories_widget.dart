@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:e_learning_app/core/constants/spacing.dart';
 
 class CategoriesWidget extends StatelessWidget {
   final List<String> categories;
@@ -12,23 +13,35 @@ class CategoriesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
+
     return SizedBox(
       height: 40,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 12),
-        itemBuilder: (context, index) {
-          final selected = index == selectedIndex;
-          return ChoiceChip(
-            label: Text(categories[index]),
-            selected: selected,
-            onSelected: (_) {},
-            selectedColor: Colors.blue,
-            labelStyle: TextStyle(
-              color: selected ? Colors.white : Colors.black,
+        separatorBuilder: (_, __) => const SizedBox(width: Spacing.small),
+        itemBuilder: (context, i) {
+          final selected = i == selectedIndex;
+          return Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: Spacing.medium,
+              vertical: 8,
             ),
-            backgroundColor: Colors.grey.shade200,
+            decoration: BoxDecoration(
+              color: selected ? colorScheme.secondary : colorScheme.onPrimary,
+              borderRadius: BorderRadius.circular(22),
+            ),
+            child: Text(
+              categories[i],
+              style: textTheme.labelLarge?.copyWith(
+                color: selected ? colorScheme.onSecondary : colorScheme.onSurface,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           );
         },
       ),

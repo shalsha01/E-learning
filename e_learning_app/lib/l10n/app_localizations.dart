@@ -493,6 +493,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Loading...'**
   String get loading;
+
+  /// No description provided for @home_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home_title;
+
+  /// No description provided for @home_greeting.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, {name}'**
+  String home_greeting(Object name);
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Greeting text on the home page. {name} is the user\'s name.'**
+  String description(Object name);
+
+  /// No description provided for @home_featured_courses.
+  ///
+  /// In en, this message translates to:
+  /// **'Featured Courses'**
+  String get home_featured_courses;
+
+  /// No description provided for @home_continue_learning.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue Learning'**
+  String get home_continue_learning;
+
+  /// No description provided for @home_categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get home_categories;
+
+  /// No description provided for @home_see_all.
+  ///
+  /// In en, this message translates to:
+  /// **'See All'**
+  String get home_see_all;
+
+  /// No description provided for @home_empty_featured.
+  ///
+  /// In en, this message translates to:
+  /// **'No featured courses available.'**
+  String get home_empty_featured;
+
+  /// No description provided for @home_empty_continue.
+  ///
+  /// In en, this message translates to:
+  /// **'No courses in progress.'**
+  String get home_empty_continue;
+
+  /// No description provided for @home_empty_categories.
+  ///
+  /// In en, this message translates to:
+  /// **'No categories found.'**
+  String get home_empty_categories;
+
+  /// No description provided for @home_error_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get home_error_message;
+
+  /// No description provided for @home_retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get home_retry;
+
+  /// No description provided for @searchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for courses, categories...'**
+  String get searchHint;
+
+  /// No description provided for @home_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Hint text shown inside the search bar on the home screen.'**
+  String get home_description;
+
+  /// No description provided for @categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categories;
+
+  /// No description provided for @topMentor.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Mentors'**
+  String get topMentor;
+
+  /// No description provided for @home_popularCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular Courses'**
+  String get home_popularCourses;
+
+  /// No description provided for @somethingWentWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get somethingWentWrong;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @home_loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get home_loading;
 }
 
 class _AppLocalizationsDelegate

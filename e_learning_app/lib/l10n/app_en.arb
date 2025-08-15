@@ -85,7 +85,27 @@
   "create_pin_description": "Add a PIN to keep your account more secure.",
   "something_went_wrong": "Something went wrong",
   "loading": "Loading...",
-  "continueLabel": "Continue"
-
+  "continueLabel": "Continue",
+   "home_title": "Home",
+  "home_greeting": "Hello, {name}",
+  "description": "Greeting text on the home page. {name} is the user's name.",
+  "home_featured_courses": "Featured Courses",
+  "home_continue_learning": "Continue Learning",
+  "home_categories": "Categories",
+  "home_see_all": "See All",
+  "home_empty_featured": "No featured courses available.",
+  "home_empty_continue": "No courses in progress.",
+  "home_empty_categories": "No categories found.",
+  "home_error_message": "Something went wrong. Please try again.",
+  "home_retry": "Retry",
+  "searchHint": "Search for courses, categories...",
+  "home_description": "Hint text shown inside the search bar on the home screen.",
+  "categories": "Categories",
+  "topMentor": "Top Mentors",
+  "home_popularCourses": "Popular Courses",
+  "somethingWentWrong": "Something went wrong",
+  "retry": "Retry",
+  "home_loading": "Loading..."
 }
+
 

@@ -212,4 +212,69 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get loading => 'جار التحميل...';
+
+  @override
+  String get home_title => 'الرئيسية';
+
+  @override
+  String home_greeting(Object name) {
+    return 'مرحباً، $name';
+  }
+
+  @override
+  String description(Object name) {
+    return 'نص الترحيب في الصفحة الرئيسية. $name هو اسم المستخدم.';
+  }
+
+  @override
+  String get home_featured_courses => 'الدورات المميزة';
+
+  @override
+  String get home_continue_learning => 'متابعة التعلم';
+
+  @override
+  String get home_categories => 'التصنيفات';
+
+  @override
+  String get home_see_all => 'عرض الكل';
+
+  @override
+  String get home_empty_featured => 'لا توجد دورات مميزة حالياً.';
+
+  @override
+  String get home_empty_continue => 'لا توجد دورات قيد التقدم.';
+
+  @override
+  String get home_empty_categories => 'لا توجد تصنيفات.';
+
+  @override
+  String get home_error_message => 'حدث خطأ ما. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get home_retry => 'إعادة المحاولة';
+
+  @override
+  String get searchHint => 'ابحث عن الدورات أو الفئات...';
+
+  @override
+  String get home_description =>
+      'النص الإرشادي الذي يظهر داخل شريط البحث في صفحة الرئيسية.';
+
+  @override
+  String get categories => 'الفئات';
+
+  @override
+  String get topMentor => 'أفضل المدربين';
+
+  @override
+  String get home_popularCourses => 'الدورات الشائعة';
+
+  @override
+  String get somethingWentWrong => 'حدث خطأ ما';
+
+  @override
+  String get retry => 'إعادة المحاولة';
+
+  @override
+  String get home_loading => 'جاري التحميل...';
 }

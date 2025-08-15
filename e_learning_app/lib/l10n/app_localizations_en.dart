@@ -218,4 +218,69 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loading => 'Loading...';
+
+  @override
+  String get home_title => 'Home';
+
+  @override
+  String home_greeting(Object name) {
+    return 'Hello, $name';
+  }
+
+  @override
+  String description(Object name) {
+    return 'Greeting text on the home page. $name is the user\'s name.';
+  }
+
+  @override
+  String get home_featured_courses => 'Featured Courses';
+
+  @override
+  String get home_continue_learning => 'Continue Learning';
+
+  @override
+  String get home_categories => 'Categories';
+
+  @override
+  String get home_see_all => 'See All';
+
+  @override
+  String get home_empty_featured => 'No featured courses available.';
+
+  @override
+  String get home_empty_continue => 'No courses in progress.';
+
+  @override
+  String get home_empty_categories => 'No categories found.';
+
+  @override
+  String get home_error_message => 'Something went wrong. Please try again.';
+
+  @override
+  String get home_retry => 'Retry';
+
+  @override
+  String get searchHint => 'Search for courses, categories...';
+
+  @override
+  String get home_description =>
+      'Hint text shown inside the search bar on the home screen.';
+
+  @override
+  String get categories => 'Categories';
+
+  @override
+  String get topMentor => 'Top Mentors';
+
+  @override
+  String get home_popularCourses => 'Popular Courses';
+
+  @override
+  String get somethingWentWrong => 'Something went wrong';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get home_loading => 'Loading...';
 }

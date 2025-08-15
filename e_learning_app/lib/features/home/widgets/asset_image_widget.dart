@@ -18,18 +18,8 @@ class AssetImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (path.toLowerCase().endsWith('.svg')) {
-      return SvgPicture.asset(
-        path,
-        width: width,
-        height: height,
-        fit: fit,
-      );
+      return SvgPicture.asset(path, width: width, height: height, fit: fit);
     }
-    return Image.asset(
-      path,
-      width: width,
-      height: height,
-      fit: fit,
-    );
+    return Image.asset(path, width: width, height: height, fit: fit);
   }
 }

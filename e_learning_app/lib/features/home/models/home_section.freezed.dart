@@ -50,6 +50,8 @@ extension HomeSectionPatterns on HomeSection {
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(HeaderSection value)? header,
+    TResult Function(SearchBarSection value)? searchBar,
     TResult Function(BannerSection value)? banner,
     TResult Function(CategoriesSection value)? categories,
     TResult Function(PopularCoursesSection value)? popularCourses,
@@ -58,6 +60,10 @@ extension HomeSectionPatterns on HomeSection {
   }) {
     final _that = this;
     switch (_that) {
+      case HeaderSection() when header != null:
+        return header(_that);
+      case SearchBarSection() when searchBar != null:
+        return searchBar(_that);
       case BannerSection() when banner != null:
         return banner(_that);
       case CategoriesSection() when categories != null:
@@ -86,6 +92,8 @@ extension HomeSectionPatterns on HomeSection {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(HeaderSection value) header,
+    required TResult Function(SearchBarSection value) searchBar,
     required TResult Function(BannerSection value) banner,
     required TResult Function(CategoriesSection value) categories,
     required TResult Function(PopularCoursesSection value) popularCourses,
@@ -93,6 +101,10 @@ extension HomeSectionPatterns on HomeSection {
   }) {
     final _that = this;
     switch (_that) {
+      case HeaderSection():
+        return header(_that);
+      case SearchBarSection():
+        return searchBar(_that);
       case BannerSection():
         return banner(_that);
       case CategoriesSection():
@@ -120,6 +132,8 @@ extension HomeSectionPatterns on HomeSection {
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(HeaderSection value)? header,
+    TResult? Function(SearchBarSection value)? searchBar,
     TResult? Function(BannerSection value)? banner,
     TResult? Function(CategoriesSection value)? categories,
     TResult? Function(PopularCoursesSection value)? popularCourses,
@@ -127,6 +141,10 @@ extension HomeSectionPatterns on HomeSection {
   }) {
     final _that = this;
     switch (_that) {
+      case HeaderSection() when header != null:
+        return header(_that);
+      case SearchBarSection() when searchBar != null:
+        return searchBar(_that);
       case BannerSection() when banner != null:
         return banner(_that);
       case CategoriesSection() when categories != null:
@@ -154,20 +172,26 @@ extension HomeSectionPatterns on HomeSection {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String imageUrl, String title, String subtitle)? banner,
+    TResult Function(String greetingName, String subtitle)? header,
+    TResult Function()? searchBar,
+    TResult Function(String imageAsset, String title, String subtitle)? banner,
     TResult Function(List<String> categories, int selectedIndex)? categories,
-    TResult Function(List<Course> courses)? popularCourses,
+    TResult Function(List<Course> courses, int selectedFilter)? popularCourses,
     TResult Function(List<Mentor> mentors)? topMentors,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
+      case HeaderSection() when header != null:
+        return header(_that.greetingName, _that.subtitle);
+      case SearchBarSection() when searchBar != null:
+        return searchBar();
       case BannerSection() when banner != null:
-        return banner(_that.imageUrl, _that.title, _that.subtitle);
+        return banner(_that.imageAsset, _that.title, _that.subtitle);
       case CategoriesSection() when categories != null:
         return categories(_that.categories, _that.selectedIndex);
       case PopularCoursesSection() when popularCourses != null:
-        return popularCourses(_that.courses);
+        return popularCourses(_that.courses, _that.selectedFilter);
       case TopMentorsSection() when topMentors != null:
         return topMentors(_that.mentors);
       case _:
@@ -190,21 +214,28 @@ extension HomeSectionPatterns on HomeSection {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String imageUrl, String title, String subtitle)
+    required TResult Function(String greetingName, String subtitle) header,
+    required TResult Function() searchBar,
+    required TResult Function(String imageAsset, String title, String subtitle)
         banner,
     required TResult Function(List<String> categories, int selectedIndex)
         categories,
-    required TResult Function(List<Course> courses) popularCourses,
+    required TResult Function(List<Course> courses, int selectedFilter)
+        popularCourses,
     required TResult Function(List<Mentor> mentors) topMentors,
   }) {
     final _that = this;
     switch (_that) {
+      case HeaderSection():
+        return header(_that.greetingName, _that.subtitle);
+      case SearchBarSection():
+        return searchBar();
       case BannerSection():
-        return banner(_that.imageUrl, _that.title, _that.subtitle);
+        return banner(_that.imageAsset, _that.title, _that.subtitle);
       case CategoriesSection():
         return categories(_that.categories, _that.selectedIndex);
       case PopularCoursesSection():
-        return popularCourses(_that.courses);
+        return popularCourses(_that.courses, _that.selectedFilter);
       case TopMentorsSection():
         return topMentors(_that.mentors);
       case _:
@@ -226,19 +257,25 @@ extension HomeSectionPatterns on HomeSection {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String imageUrl, String title, String subtitle)? banner,
+    TResult? Function(String greetingName, String subtitle)? header,
+    TResult? Function()? searchBar,
+    TResult? Function(String imageAsset, String title, String subtitle)? banner,
     TResult? Function(List<String> categories, int selectedIndex)? categories,
-    TResult? Function(List<Course> courses)? popularCourses,
+    TResult? Function(List<Course> courses, int selectedFilter)? popularCourses,
     TResult? Function(List<Mentor> mentors)? topMentors,
   }) {
     final _that = this;
     switch (_that) {
+      case HeaderSection() when header != null:
+        return header(_that.greetingName, _that.subtitle);
+      case SearchBarSection() when searchBar != null:
+        return searchBar();
       case BannerSection() when banner != null:
-        return banner(_that.imageUrl, _that.title, _that.subtitle);
+        return banner(_that.imageAsset, _that.title, _that.subtitle);
       case CategoriesSection() when categories != null:
         return categories(_that.categories, _that.selectedIndex);
       case PopularCoursesSection() when popularCourses != null:
-        return popularCourses(_that.courses);
+        return popularCourses(_that.courses, _that.selectedFilter);
       case TopMentorsSection() when topMentors != null:
         return topMentors(_that.mentors);
       case _:
@@ -249,11 +286,106 @@ extension HomeSectionPatterns on HomeSection {
 
 /// @nodoc
 
+class HeaderSection implements HomeSection {
+  const HeaderSection({required this.greetingName, required this.subtitle});
+
+  final String greetingName;
+// ex: "Ronald A. Martin"
+  final String subtitle;
+
+  /// Create a copy of HomeSection
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $HeaderSectionCopyWith<HeaderSection> get copyWith =>
+      _$HeaderSectionCopyWithImpl<HeaderSection>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is HeaderSection &&
+            (identical(other.greetingName, greetingName) ||
+                other.greetingName == greetingName) &&
+            (identical(other.subtitle, subtitle) ||
+                other.subtitle == subtitle));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, greetingName, subtitle);
+
+  @override
+  String toString() {
+    return 'HomeSection.header(greetingName: $greetingName, subtitle: $subtitle)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $HeaderSectionCopyWith<$Res>
+    implements $HomeSectionCopyWith<$Res> {
+  factory $HeaderSectionCopyWith(
+          HeaderSection value, $Res Function(HeaderSection) _then) =
+      _$HeaderSectionCopyWithImpl;
+  @useResult
+  $Res call({String greetingName, String subtitle});
+}
+
+/// @nodoc
+class _$HeaderSectionCopyWithImpl<$Res>
+    implements $HeaderSectionCopyWith<$Res> {
+  _$HeaderSectionCopyWithImpl(this._self, this._then);
+
+  final HeaderSection _self;
+  final $Res Function(HeaderSection) _then;
+
+  /// Create a copy of HomeSection
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? greetingName = null,
+    Object? subtitle = null,
+  }) {
+    return _then(HeaderSection(
+      greetingName: null == greetingName
+          ? _self.greetingName
+          : greetingName // ignore: cast_nullable_to_non_nullable
+              as String,
+      subtitle: null == subtitle
+          ? _self.subtitle
+          : subtitle // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class SearchBarSection implements HomeSection {
+  const SearchBarSection();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is SearchBarSection);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'HomeSection.searchBar()';
+  }
+}
+
+/// @nodoc
+
 class BannerSection implements HomeSection {
   const BannerSection(
-      {required this.imageUrl, required this.title, required this.subtitle});
+      {required this.imageAsset, required this.title, required this.subtitle});
 
-  final String imageUrl;
+  final String imageAsset;
+// use local asset svg/png
   final String title;
   final String subtitle;
 
@@ -269,19 +401,19 @@ class BannerSection implements HomeSection {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is BannerSection &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
+            (identical(other.imageAsset, imageAsset) ||
+                other.imageAsset == imageAsset) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.subtitle, subtitle) ||
                 other.subtitle == subtitle));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, imageUrl, title, subtitle);
+  int get hashCode => Object.hash(runtimeType, imageAsset, title, subtitle);
 
   @override
   String toString() {
-    return 'HomeSection.banner(imageUrl: $imageUrl, title: $title, subtitle: $subtitle)';
+    return 'HomeSection.banner(imageAsset: $imageAsset, title: $title, subtitle: $subtitle)';
   }
 }
 
@@ -292,7 +424,7 @@ abstract mixin class $BannerSectionCopyWith<$Res>
           BannerSection value, $Res Function(BannerSection) _then) =
       _$BannerSectionCopyWithImpl;
   @useResult
-  $Res call({String imageUrl, String title, String subtitle});
+  $Res call({String imageAsset, String title, String subtitle});
 }
 
 /// @nodoc
@@ -307,14 +439,14 @@ class _$BannerSectionCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? imageUrl = null,
+    Object? imageAsset = null,
     Object? title = null,
     Object? subtitle = null,
   }) {
     return _then(BannerSection(
-      imageUrl: null == imageUrl
-          ? _self.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      imageAsset: null == imageAsset
+          ? _self.imageAsset
+          : imageAsset // ignore: cast_nullable_to_non_nullable
               as String,
       title: null == title
           ? _self.title
@@ -413,7 +545,8 @@ class _$CategoriesSectionCopyWithImpl<$Res>
 /// @nodoc
 
 class PopularCoursesSection implements HomeSection {
-  const PopularCoursesSection({required final List<Course> courses})
+  const PopularCoursesSection(
+      {required final List<Course> courses, required this.selectedFilter})
       : _courses = courses;
 
   final List<Course> _courses;
@@ -422,6 +555,8 @@ class PopularCoursesSection implements HomeSection {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_courses);
   }
+
+  final int selectedFilter;
 
   /// Create a copy of HomeSection
   /// with the given fields replaced by the non-null parameter values.
@@ -436,16 +571,18 @@ class PopularCoursesSection implements HomeSection {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is PopularCoursesSection &&
-            const DeepCollectionEquality().equals(other._courses, _courses));
+            const DeepCollectionEquality().equals(other._courses, _courses) &&
+            (identical(other.selectedFilter, selectedFilter) ||
+                other.selectedFilter == selectedFilter));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_courses));
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_courses), selectedFilter);
 
   @override
   String toString() {
-    return 'HomeSection.popularCourses(courses: $courses)';
+    return 'HomeSection.popularCourses(courses: $courses, selectedFilter: $selectedFilter)';
   }
 }
 
@@ -456,7 +593,7 @@ abstract mixin class $PopularCoursesSectionCopyWith<$Res>
           $Res Function(PopularCoursesSection) _then) =
       _$PopularCoursesSectionCopyWithImpl;
   @useResult
-  $Res call({List<Course> courses});
+  $Res call({List<Course> courses, int selectedFilter});
 }
 
 /// @nodoc
@@ -472,12 +609,17 @@ class _$PopularCoursesSectionCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   $Res call({
     Object? courses = null,
+    Object? selectedFilter = null,
   }) {
     return _then(PopularCoursesSection(
       courses: null == courses
           ? _self._courses
           : courses // ignore: cast_nullable_to_non_nullable
               as List<Course>,
+      selectedFilter: null == selectedFilter
+          ? _self.selectedFilter
+          : selectedFilter // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
