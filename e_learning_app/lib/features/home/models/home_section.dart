@@ -1,3 +1,4 @@
+import 'package:e_learning_app/features/home/models/home_banner.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'course_model.dart';
 import 'mentor_model.dart';
@@ -16,9 +17,7 @@ class HomeSection with _$HomeSection {
   const factory HomeSection.searchBar() = SearchBarSection;
 
   const factory HomeSection.banner({
-    required String imageAsset, 
-    required String title,
-    required String subtitle,
+    required List<HomeBanner> banners,
 
   }) = BannerSection;
 
@@ -37,3 +36,4 @@ class HomeSection with _$HomeSection {
     required List<Mentor> mentors,
   }) = TopMentorsSection;
 }
+

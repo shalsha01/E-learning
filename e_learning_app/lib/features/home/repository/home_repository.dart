@@ -1,12 +1,31 @@
 import 'dart:async';
+import 'package:e_learning_app/features/home/models/home_banner.dart';
 import 'package:e_learning_app/features/home/models/home_section.dart';
 import 'package:e_learning_app/features/home/models/course_model.dart';
 import 'package:e_learning_app/features/home/models/mentor_model.dart';
 
 class HomeRepository {
   Future<List<HomeSection>> fetchHomeSections() async {
-    // simulating API
     await Future.delayed(const Duration(milliseconds: 700));
+
+    
+final banners =[
+  HomeBanner(
+    image: 'assets/images/Graphic_Design.png',
+    title: "",
+    subtitle: "",
+  ),
+  HomeBanner(
+    image: 'assets/images/mentor_1.png',
+    title: "New Courses Available",
+    subtitle: "Explore the latest courses added to our platform.",
+  ),
+  HomeBanner(
+    image: 'assets/images/coursera-top-courses.png',
+    title: "25% OFF",
+    subtitle: "Get a Discount for Every Course Order only Valid for Today!.",
+  ),
+];
 
     final categories = ['All', 'Graphic Design', '3D Design', 'Arts & Humanities'];
 
@@ -17,7 +36,7 @@ class HomeRepository {
         price: '\$28',
         rating: 4.2,
         studentsCount: 7830,
-        imageUrl: 'assets/images/Graphic_Design.png', // local asset
+        imageUrl: 'assets/images/Graphic_Design.png', 
       ),
       Course(
         title: 'Advertisment Design',
@@ -28,6 +47,8 @@ class HomeRepository {
         imageUrl: 'assets/images/Graphic_Design.png',
       ),
     ];
+
+
 
     final mentors = <Mentor>[
       Mentor(name: 'Sonja', imageUrl: 'assets/images/mentor_1.png'),
@@ -43,9 +64,7 @@ class HomeRepository {
       ),
       const HomeSection.searchBar(),
       HomeSection.banner(
-        imageAsset: 'assets/images/home_banner.svg',
-        title: "25% OFF* Today’s Special",               
-        subtitle: "Get a Discount for Every Course Order only Valid for Today!.",
+        banners: banners,
       ),
       HomeSection.categories(categories: categories, selectedIndex: 1),
       HomeSection.popularCourses(courses: courses, selectedFilter: 1),

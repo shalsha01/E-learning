@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
@@ -7,7 +8,7 @@ import 'package:e_learning_app/features/home/models/home_section.dart';
 import 'package:e_learning_app/features/home/providers/home_provider.dart';
 import 'package:e_learning_app/features/home/widgets/header_widget.dart';
 import 'package:e_learning_app/features/home/widgets/search_bar_widget.dart';
-import 'package:e_learning_app/features/home/widgets/banner_widget.dart';
+import 'package:e_learning_app/features/home/widgets/home_banner_carousel.dart';
 import 'package:e_learning_app/features/home/widgets/section_header_widget.dart';
 import 'package:e_learning_app/features/home/widgets/categories_widget.dart';
 import 'package:e_learning_app/features/home/widgets/popular_courses_widget.dart';
@@ -31,12 +32,7 @@ class HomePage extends ConsumerWidget {
           subtitle: subtitle,
         ),
         searchBar: () => const SearchBarWidget(),
-        banner: (image, title, subtitle) => BannerWidget(
-          imageAsset: image,
-          title: title,
-          subtitle: subtitle,
-        ),
-
+        banner: (banners) => HomeBannerCarousel(banners: banners),
         categories: (cats, selected) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -49,7 +45,6 @@ class HomePage extends ConsumerWidget {
             CategoriesWidget(categories: cats, selectedIndex: selected),
           ],
         ),
-
         popularCourses: (courses, selectedFilter) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -61,7 +56,6 @@ class HomePage extends ConsumerWidget {
             PopularCoursesWidget(courses: courses),
           ],
         ),
-
         topMentors: (mentors) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -88,7 +82,8 @@ class HomePage extends ConsumerWidget {
                 vertical: Spacing.large,
               ),
               itemBuilder: (_, i) => buildSection(sections[i]),
-              separatorBuilder: (_, __) => const SizedBox(height: Spacing.large),
+              separatorBuilder: (_, __) =>
+                  const SizedBox(height: Spacing.large),
               itemCount: sections.length,
             ),
             loading: () => const HomeShimmerList(),
