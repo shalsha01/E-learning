@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:e_learning_app/features/auth/forgot_password/widget/password_reset_success_dialog.dart';
+import 'package:e_learning_app/features/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
 import 'package:e_learning_app/core/widgets/primary_button.dart';
-
 
 @RoutePage()
 class CreateNewPasswordPage extends HookWidget {
@@ -60,10 +60,9 @@ class CreateNewPasswordPage extends HookWidget {
                             prefixIcon: const Icon(Icons.lock_outline),
                             hintText: l10n.password,
                           ),
-                          validator: (value) =>
-                              value == null || value.isEmpty
-                                  ? l10n.password_required
-                                  : null,
+                          validator: (value) => value == null || value.isEmpty
+                              ? l10n.password_required
+                              : null,
                         ),
                         const SizedBox(height: Spacing.medium),
                         TextFormField(
@@ -88,7 +87,12 @@ class CreateNewPasswordPage extends HookWidget {
                           text: l10n.continueLabel,
                           onPressed: () {
                             if (formKey.currentState?.validate() ?? false) {
-                              showPasswordResetSuccessDialog(context);
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (_) =>
+                                    const PasswordResetSuccessDialog(),
+                              );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(

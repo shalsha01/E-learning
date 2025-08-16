@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pinput/pinput.dart';
+import 'package:riverpod_hook_mutation/riverpod_hook_mutation.dart';
 
 import 'package:e_learning_app/core/constants/spacing.dart';
 import 'package:e_learning_app/core/widgets/primary_button.dart';
@@ -19,13 +19,13 @@ class CreatePinScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pinController = useTextEditingController();
-    final pinState = ref.watch(pinControllerProvider);
-    final pinNotifier = ref.read(pinControllerProvider.notifier);
     final l10n = AppLocalizations.of(context)!;
 
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
+
+    final submitPinMutation = useMutation<bool>();
 
     void onKeyboardTap(String value) {
       if (value == 'del') {
@@ -82,7 +82,7 @@ class CreatePinScreen extends HookConsumerWidget {
                 controller: pinController,
                 length: 4,
                 obscureText: true,
-                keyboardType: TextInputType.none, 
+                keyboardType: TextInputType.none,
                 animationCurve: Curves.easeInOut,
                 animationDuration: const Duration(milliseconds: 300),
                 defaultPinTheme: PinTheme(
@@ -105,27 +105,38 @@ class CreatePinScreen extends HookConsumerWidget {
 
               const SizedBox(height: Spacing.xxLarge),
 
-              pinState.isLoading
-                  ? const CircularProgressIndicator()
-                  : PrimaryButton(
-                      text: l10n.continueLabel,
-                      onPressed: () async {
-                        final success = await pinNotifier.submitPin(pinController.text);
+              PrimaryButton(
+                text: l10n.continueLabel,
+                isLoading: submitPinMutation.isLoading,
+                onPressed: () {
+                  if (pinController.text.length == 4) {
+                    submitPinMutation.mutate(
+                      () => ref.read(pinProvider.notifier).submitPin(pinController.text),
+                      context: context,
+                      data: (success) async {
                         if (success) {
                           await showPinSuccessDialog(context);
-                        } else if (pinState.hasError) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(pinState.error ?? l10n.something_went_wrong),
-                            ),
-                          );
+                          context.router.pop(); 
                         }
                       },
-                    ),
+                      error: (error, stackTrace) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              error.toString().isNotEmpty
+                                  ? error.toString()
+                                  : l10n.something_went_wrong,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
 
               const SizedBox(height: Spacing.xxLarge),
 
-           
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 3,
@@ -150,4 +161,4 @@ class CreatePinScreen extends HookConsumerWidget {
       ),
     );
   }
-}
+}   

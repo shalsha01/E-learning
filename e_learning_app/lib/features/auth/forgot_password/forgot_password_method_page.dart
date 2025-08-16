@@ -83,7 +83,7 @@ class ForgotPasswordMethodPage extends HookWidget {
                   }
 
                   context.router.push(
-                    OTPVerificationRoute(method: methodString, destination: inputValue),
+                    CreateNewPasswordRoute(),
                   );
                 },
               ),

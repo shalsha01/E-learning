@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:auto_route/auto_route.dart';
-import 'package:e_learning_app/features/auth/forgot_password/widget/password_reset_success_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +9,7 @@ import 'package:e_learning_app/l10n/app_localizations.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
 import 'package:e_learning_app/core/widgets/primary_button.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_hook_mutation/riverpod_hook_mutation.dart';
 import 'otp_provider.dart';
 
 @RoutePage()
@@ -31,7 +30,6 @@ class OTPVerificationPage extends HookConsumerWidget {
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
 
-    final otpController = ref.read(otpProvider.notifier);
     final pinController = useTextEditingController();
 
     final verifyCountdown = useState(59);
@@ -39,8 +37,12 @@ class OTPVerificationPage extends HookConsumerWidget {
     final verifyTimerRef = useRef<Timer?>(null);
     final resendTimerRef = useRef<Timer?>(null);
 
+    final verifyOtpMutation = useMutation<bool>();
+    final resendOtpMutation = useMutation<bool>();
+
     useEffect(() {
-      verifyTimerRef.value = Timer.periodic(const Duration(seconds: 1), (timer) {
+      verifyTimerRef.value =
+          Timer.periodic(const Duration(seconds: 1), (timer) {
         if (verifyCountdown.value == 0) {
           timer.cancel();
         } else {
@@ -48,7 +50,8 @@ class OTPVerificationPage extends HookConsumerWidget {
         }
       });
 
-      resendTimerRef.value = Timer.periodic(const Duration(seconds: 1), (timer) {
+      resendTimerRef.value =
+          Timer.periodic(const Duration(seconds: 1), (timer) {
         if (resendCooldown.value == 0) {
           timer.cancel();
         } else {
@@ -61,25 +64,6 @@ class OTPVerificationPage extends HookConsumerWidget {
         resendTimerRef.value?.cancel();
       };
     }, []);
-
-    void verifyCode() async {
-      if (pinController.text.length == 4) {
-        final success = await otpController.verifyOtp(method, destination, pinController.text);
-        if (success && context.mounted) {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (_) => const PasswordResetSuccessDialog(),
-          );
-        } else {
-          if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(l10n.enter_code_message)),
-            );
-          }
-        }
-      }
-    }
 
     void onKeyboardTap(String value) {
       if (value == 'del') {
@@ -101,7 +85,8 @@ class OTPVerificationPage extends HookConsumerWidget {
           alignment: Alignment.center,
           child: Text(
             number,
-            style: textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
+            style:
+                textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
       );
@@ -170,52 +155,75 @@ class OTPVerificationPage extends HookConsumerWidget {
             const SizedBox(height: Spacing.large),
             PrimaryButton(
               text: l10n.verify,
-              onPressed: () async {
-              verifyCode();
-              final isVerified = ref.read(otpProvider).isVerified;
-              if (isVerified && context.mounted) {
-                context.router.push(const CreateNewPasswordRoute());
-              }
+              onPressed: () {
+                if (pinController.text.length == 4) {
+                  verifyOtpMutation.mutate(
+                    () => ref
+                        .read(otpProvider.notifier)
+                        .verifyOtp(method, destination, pinController.text),
+                    context: context,
+                    data: (data) {
+                      context.router.push(const CreateNewPasswordRoute());
+                    },
+                    error: (error, stackTrace) => ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text(error.toString()))),
+                  );
+                }
               },
-              isLoading: ref.watch(otpProvider.select((state) => state.isLoading)),
+              isLoading: verifyOtpMutation.isLoading,
             ),
             const SizedBox(height: Spacing.medium),
             resendCooldown.value > 0
                 ? Text(
                     '${l10n.resend_code_in('')} ${resendCooldown.value}s',
-                    style: textTheme.bodySmall?.copyWith(color: colorScheme.onSurfaceVariant),
+                    style: textTheme.bodySmall
+                        ?.copyWith(color: colorScheme.onSurfaceVariant),
                   )
                 : TextButton(
-                    onPressed: () async {
-                      final success = await otpController.sendOtp(method, destination);
-                      if (success) {
-                        resendCooldown.value = 60;
-                        resendTimerRef.value?.cancel();
-                        resendTimerRef.value = Timer.periodic(const Duration(seconds: 1), (timer) {
-                          if (resendCooldown.value > 0) {
-                            resendCooldown.value--;
-                          } else {
-                            timer.cancel();
-                          }
-                        });
+                    onPressed: () {
+                      resendOtpMutation.mutate(
+                        () => ref
+                            .read(otpProvider.notifier)
+                            .sendOtp(method, destination),
+                        context: context,
+                        data: (success) {
+                         
+                            resendCooldown.value = 60;
+                            resendTimerRef.value?.cancel();
+                            resendTimerRef.value = Timer.periodic(
+                              const Duration(seconds: 1),
+                              (timer) {
+                                if (resendCooldown.value > 0) {
+                                  resendCooldown.value--;
+                                } else {
+                                  timer.cancel();
+                                }
+                              },
+                            );
 
-                        if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(l10n.code_resent)),
-                          );
-                        }
-                      } else {
-                        if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(l10n.code_resent)),
+                            );
+                          
+                        },
+                        error: (error, stackTrace) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(l10n.failed_to_send_code)),
                           );
-                        }
-                      }
+                        },
+                      );
                     },
-                    child: Text(
-                      l10n.resend_code,
-                      style: textTheme.labelLarge?.copyWith(color: colorScheme.primary),
-                    ),
+                    child: resendOtpMutation.isLoading
+                        ? const SizedBox(
+                            width: 18,
+                            height: 18,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Text(
+                            l10n.resend_code,
+                            style: textTheme.labelLarge
+                                ?.copyWith(color: colorScheme.primary),
+                          ),
                   ),
             const SizedBox(height: Spacing.large),
             Expanded(
@@ -226,7 +234,8 @@ class OTPVerificationPage extends HookConsumerWidget {
                 childAspectRatio: 1.6,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  ...List.generate(9, (index) => buildNumberButton('${index + 1}')),
+                  ...List.generate(
+                      9, (index) => buildNumberButton('${index + 1}')),
                   const SizedBox(),
                   buildNumberButton('0'),
                   GestureDetector(

@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
@@ -41,8 +40,14 @@ class HomePage extends ConsumerWidget {
               onSeeAll: null,
             ),
             const SizedBox(height: Spacing.small),
-            // هذا الويجت داخله ListView أفقي مُحدّد الارتفاع
-            CategoriesWidget(categories: cats, selectedIndex: selected),
+
+            CategoriesWidget(
+              categories: cats,
+              selectedIndex: selected,
+              onCategorySelected: (int value) {
+                ref.read(homeProvider.notifier).selectCategory(value);
+              },
+            ),
           ],
         ),
         popularCourses: (courses, selectedFilter) => Column(
