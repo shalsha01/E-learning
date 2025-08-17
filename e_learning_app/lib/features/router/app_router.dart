@@ -34,7 +34,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           page: IntroductionRoute.page,
           initial: true,
-          guards: [OnboardingCompletedGuard(ref)], 
+          guards: [OnboardingCompletedGuard(ref)],
         ),
         AutoRoute(page: LoginRoute.page),
         AutoRoute(page: RegisterRoute.page),
@@ -44,21 +44,22 @@ class AppRouter extends RootStackRouter {
 
         AutoRoute(
           page: FillProfileRoute.page,
-          guards: [AuthAndOnboardingGuard(ref)],
+          guards: [OnboardingGuard(ref), AuthGuard(ref)],
         ),
         AutoRoute(
           page: HomeRoute.page,
-          guards: [AuthAndOnboardingGuard(ref)],
+          guards: [OnboardingGuard(ref), AuthGuard(ref)],
         ),
         AutoRoute(
           page: CreatePinRoute.page,
-          guards: [AuthAndOnboardingGuard(ref)],
+          guards: [OnboardingGuard(ref), AuthGuard(ref)],
         ),
       ];
 }
 
-class AuthAndOnboardingGuard implements AutoRouteGuard {
-  const AuthAndOnboardingGuard(this.ref);
+
+class AuthGuard implements AutoRouteGuard {
+  const AuthGuard(this.ref);
   final Ref ref;
 
   @override
@@ -67,14 +68,7 @@ class AuthAndOnboardingGuard implements AutoRouteGuard {
     StackRouter router,
   ) async {
     final prefs = ref.read(sharedPreferencesProvider);
-
-    final isSeenOnboarding = prefs.getBool(PrefsKeys.isSeenOnboarding) ?? false;
     final token = prefs.getString(PrefsKeys.authToken);
-
-    if (!isSeenOnboarding) {
-      router.replace(const IntroductionRoute());
-      return;
-    }
 
     if (token == null || token.isEmpty) {
       router.replace(const LoginRoute());
@@ -84,6 +78,29 @@ class AuthAndOnboardingGuard implements AutoRouteGuard {
     resolver.next(true);
   }
 }
+
+
+class OnboardingGuard implements AutoRouteGuard {
+  const OnboardingGuard(this.ref);
+  final Ref ref;
+
+  @override
+  Future<void> onNavigation(
+    NavigationResolver resolver,
+    StackRouter router,
+  ) async {
+    final prefs = ref.read(sharedPreferencesProvider);
+    final isSeenOnboarding = prefs.getBool(PrefsKeys.isSeenOnboarding) ?? false;
+
+    if (!isSeenOnboarding) {
+      router.replace(const IntroductionRoute());
+      return;
+    }
+
+    resolver.next(true);
+  }
+}
+
 
 class OnboardingCompletedGuard implements AutoRouteGuard {
   const OnboardingCompletedGuard(this.ref);
@@ -105,7 +122,7 @@ class OnboardingCompletedGuard implements AutoRouteGuard {
         router.replace(const HomeRoute());
       }
     } else {
-      resolver.next(true); 
+      resolver.next(true);
     }
   }
 }
