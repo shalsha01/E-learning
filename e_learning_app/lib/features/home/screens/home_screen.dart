@@ -20,98 +20,112 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
+    final localizations = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
-    final state = ref.watch(homeProvider);
-
-    Widget buildSection(HomeSection s) {
-      return s.when(
-        header: (name, subtitle) => HeaderWidget(
-          name: name,
-          subtitle: subtitle,
-        ),
-        searchBar: () => const SearchBarWidget(),
-        banner: (banners) => HomeBannerCarousel(banners: banners),
-        categories: (cats, selected) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SectionHeaderWidget(
-              title: l10n.categories,
-              onSeeAll: null,
-            ),
-            const SizedBox(height: Spacing.small),
-
-            CategoriesWidget(
-              categories: cats,
-              selectedIndex: selected,
-              onCategorySelected: (int value) {
-                ref.read(homeProvider.notifier).selectCategory(value);
-              },
-            ),
-          ],
-        ),
-        popularCourses: (courses, selectedFilter) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SectionHeaderWidget(
-              title: l10n.home_popularCourses,
-              onSeeAll: () {},
-            ),
-            const SizedBox(height: Spacing.small),
-            PopularCoursesWidget(courses: courses),
-          ],
-        ),
-        topMentors: (mentors) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SectionHeaderWidget(
-              title: l10n.topMentor,
-              onSeeAll: () {},
-            ),
-            const SizedBox(height: Spacing.small),
-            TopMentorsWidget(mentors: mentors),
-          ],
-        ),
-      );
-    }
+    final homeState = ref.watch(homeProvider);
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: RefreshIndicator(
-          onRefresh: () => ref.read(homeProvider.notifier).refresh(),
-          child: state.when(
-            data: (sections) => ListView.separated(
+          onRefresh: () => ref.refresh(homeProvider.future),
+          child: homeState.when(
+            data: (homeSections) => ListView.separated(
               padding: const EdgeInsets.symmetric(
                 horizontal: Spacing.large,
                 vertical: Spacing.large,
               ),
-              itemBuilder: (_, i) => buildSection(sections[i]),
+              itemBuilder: (_, index) => HomeSectionBuilder(
+                section: homeSections[index],
+                localizations: localizations,
+              ),
               separatorBuilder: (_, __) =>
                   const SizedBox(height: Spacing.large),
-              itemCount: sections.length,
+              itemCount: homeSections.length,
             ),
             loading: () => const HomeShimmerList(),
-            error: (e, st) => ListView(
+            error: (error, stackTrace) => ListView(
               padding: const EdgeInsets.all(Spacing.large),
               children: [
                 const SizedBox(height: Spacing.huge),
                 Icon(Icons.error_outline, color: colorScheme.error, size: 48),
                 const SizedBox(height: Spacing.medium),
                 Text(
-                  l10n.somethingWentWrong,
+                  localizations.somethingWentWrong,
                   style: Theme.of(context).textTheme.titleMedium,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: Spacing.medium),
                 FilledButton(
-                  onPressed: () => ref.read(homeProvider.notifier).refresh(),
-                  child: Text(l10n.retry),
+                  onPressed: () => ref.refresh(homeProvider.future),
+                  child: Text(localizations.retry),
                 ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class HomeSectionBuilder extends ConsumerWidget {
+  final HomeSection section;
+  final AppLocalizations localizations;
+
+  const HomeSectionBuilder({
+    super.key,
+    required this.section,
+    required this.localizations,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return section.when(
+      header: (name, subtitle) => HeaderWidget(
+        name: name,
+        subtitle: subtitle,
+      ),
+      searchBar: () => const SearchBarWidget(),
+      banner: (banners) => HomeBannerCarousel(banners: banners),
+      categories: (categories, selectedIndex) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SectionHeaderWidget(
+            title: localizations.categories,
+            onSeeAll: null,
+          ),
+          const SizedBox(height: Spacing.small),
+          CategoriesWidget(
+            categories: categories,
+            selectedIndex: selectedIndex,
+            onCategorySelected: (int value) {
+              ref.read(homeProvider.notifier).selectCategory(value);
+            },
+          ),
+        ],
+      ),
+      popularCourses: (courses, selectedFilter) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SectionHeaderWidget(
+            title: localizations.home_popularCourses,
+            onSeeAll: () {},
+          ),
+          const SizedBox(height: Spacing.small),
+          PopularCoursesWidget(courses: courses),
+        ],
+      ),
+      topMentors: (mentors) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SectionHeaderWidget(
+            title: localizations.topMentor,
+            onSeeAll: () {},
+          ),
+          const SizedBox(height: Spacing.small),
+          TopMentorsWidget(mentors: mentors),
+        ],
       ),
     );
   }

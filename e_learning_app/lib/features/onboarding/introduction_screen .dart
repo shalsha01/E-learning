@@ -10,7 +10,6 @@ import 'package:e_learning_app/l10n/app_localizations.dart';
 import 'package:e_learning_app/core/widgets/primary_button.dart';
 import 'package:e_learning_app/core/widgets/theme_toggle_icon_button.dart';
 import 'package:e_learning_app/core/widgets/language_toggle_icon_button.dart';
-
 import 'package:e_learning_app/features/auth/providers/shared_preferences_provider.dart';
 import 'package:e_learning_app/core/constants/prefs_keys.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

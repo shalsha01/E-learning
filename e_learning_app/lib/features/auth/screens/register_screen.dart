@@ -13,8 +13,6 @@ import 'package:e_learning_app/features/router/app_router.dart';
 import 'package:e_learning_app/features/auth/data/models/login_request.dart';
 import 'package:e_learning_app/features/auth/data/models/user_model.dart';
 import 'package:e_learning_app/features/auth/providers/authentication_provider.dart';
-
-
 import 'package:e_learning_app/core/constants/prefs_keys.dart';
 import 'package:e_learning_app/features/auth/providers/shared_preferences_provider.dart';
 

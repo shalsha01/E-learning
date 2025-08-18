@@ -9,44 +9,38 @@ class PopularCoursesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
-    return SizedBox(
-      height: 260,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: courses.length,
-        separatorBuilder: (_, __) => const SizedBox(width: Spacing.medium),
-        itemBuilder: (_, i) {
-          final course = courses[i];
-          return _CourseCard( course: course,);
-        },
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      clipBehavior: Clip.none,
+      child: Row(
+        children: courses.map(_CourseCard.new).toList(),
       ),
     );
   }
 }
 
 class _CourseCard extends StatelessWidget {
-  const _CourseCard({
-    required this.course,
-  });
+  const _CourseCard(this.course);
   final Course course;
 
   @override
   Widget build(BuildContext context) {
-      final theme = Theme.of(context);
+    final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
 
     return Container(
       width: 220,
+      margin: const EdgeInsets.all( Spacing.small),
       decoration: BoxDecoration(
         color: colorScheme.onPrimary,
         borderRadius: BorderRadius.circular(18),
         boxShadow: [
           BoxShadow(
-            color: colorScheme.shadow.withAlpha(32),
-            blurRadius: 12,
-            offset: const Offset(0, 6),
+            color: colorScheme.shadow.withOpacity(0.12),
+            blurRadius: 20,
+            spreadRadius: 2,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
@@ -54,11 +48,10 @@ class _CourseCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(18)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
             child: AssetImageWidget(
               path: course.imageUrl,
-              height: 110,
+              height: 120,
               width: 220,
               fit: BoxFit.cover,
             ),
@@ -84,48 +77,46 @@ class _CourseCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-              Row(
-  children: [
-    Expanded(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(course.price,
-              style: textTheme.titleSmall?.copyWith(
-                  color: colorScheme.primary,
-                  fontWeight: FontWeight.w800)),
-          const SizedBox(width: 10),
-          Icon(Icons.star, size: 16, color: Colors.amber[600]),
-          const SizedBox(width: 4),
-          
-          Text('${course.rating}',
-              style: textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant)),
-          const SizedBox(width: 10),
-          Container(
-            width: 1.2,
-            height: 12,
-            color: colorScheme.onSurfaceVariant.withAlpha(60),
-          ),
-          const SizedBox(width: 10),
-          Flexible(
-            child: Text('${course.studentsCount} Std',
-                overflow: TextOverflow.ellipsis,
-                style: textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurfaceVariant)),
-          ),
-        ],
-      ),
-    ),
-    IconButton(
-      onPressed: () {},
-      padding: EdgeInsets.zero,
-      icon: Icon(Icons.bookmark_border,
-          color: colorScheme.secondary),
-    )
-  ],
-)
-
+                Row(
+                  children: [
+                    Expanded(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(course.price,
+                              style: textTheme.titleSmall?.copyWith(
+                                  color: colorScheme.primary,
+                                  fontWeight: FontWeight.w800)),
+                          const SizedBox(width: 10),
+                          Icon(Icons.star, size: 16, color: Colors.amber[600]),
+                          const SizedBox(width: 4),
+                          Text('${course.rating}',
+                              style: textTheme.bodySmall?.copyWith(
+                                  color: colorScheme.onSurfaceVariant)),
+                          const SizedBox(width: 10),
+                          Container(
+                            width: 1.2,
+                            height: 12,
+                            color: colorScheme.onSurfaceVariant.withAlpha(60),
+                          ),
+                          const SizedBox(width: 10),
+                          Flexible(
+                            child: Text('${course.studentsCount} Std',
+                                overflow: TextOverflow.ellipsis,
+                                style: textTheme.bodySmall?.copyWith(
+                                    color: colorScheme.onSurfaceVariant)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      padding: EdgeInsets.zero,
+                      icon: Icon(Icons.bookmark_border,
+                          color: colorScheme.secondary),
+                    )
+                  ],
+                )
               ],
             ),
           ),

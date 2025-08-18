@@ -11,6 +11,7 @@ class HomeSection with _$HomeSection {
 
     required String greetingName, 
     required String subtitle,    
+    
 
   }) = HeaderSection;
 
@@ -18,7 +19,7 @@ class HomeSection with _$HomeSection {
 
   const factory HomeSection.banner({
     required List<HomeBanner> banners,
-
+ 
   }) = BannerSection;
 
   const factory HomeSection.categories({

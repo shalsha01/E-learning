@@ -2,8 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_learning_app/features/home/models/home_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
-import 'package:e_learning_app/features/home/widgets/asset_image_widget.dart';
-
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class HomeBannerCarousel extends HookWidget {

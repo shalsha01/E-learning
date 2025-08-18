@@ -36,7 +36,9 @@ class AppRouter extends RootStackRouter {
           initial: true,
           guards: [OnboardingCompletedGuard(ref)],
         ),
-        AutoRoute(page: LoginRoute.page),
+        AutoRoute(page: LoginRoute.page,
+          guards: [OnboardingNotCompletedGuard(ref), NoAuthGuard(ref)],
+        ),
         AutoRoute(page: RegisterRoute.page),
         AutoRoute(page: ForgotPasswordMethodRoute.page),
         AutoRoute(page: OTPVerificationRoute.page),
@@ -44,18 +46,19 @@ class AppRouter extends RootStackRouter {
 
         AutoRoute(
           page: FillProfileRoute.page,
-          guards: [OnboardingGuard(ref), AuthGuard(ref)],
+          guards: [OnboardingNotCompletedGuard(ref), AuthGuard(ref)],
         ),
         AutoRoute(
           page: HomeRoute.page,
-          guards: [OnboardingGuard(ref), AuthGuard(ref)],
+          guards: [OnboardingNotCompletedGuard(ref), AuthGuard(ref)],
         ),
         AutoRoute(
           page: CreatePinRoute.page,
-          guards: [OnboardingGuard(ref), AuthGuard(ref)],
+          guards: [OnboardingNotCompletedGuard(ref), AuthGuard(ref)],
         ),
       ];
 }
+
 
 
 class AuthGuard implements AutoRouteGuard {
@@ -80,8 +83,31 @@ class AuthGuard implements AutoRouteGuard {
 }
 
 
-class OnboardingGuard implements AutoRouteGuard {
-  const OnboardingGuard(this.ref);
+class NoAuthGuard implements AutoRouteGuard {
+  const NoAuthGuard(this.ref);
+  final Ref ref;
+
+  @override
+  Future<void> onNavigation(
+    NavigationResolver resolver,
+    StackRouter router,
+  ) async {
+    final prefs = ref.read(sharedPreferencesProvider);
+    final token = prefs.getString(PrefsKeys.authToken);
+
+    if (token != null && token.isNotEmpty) {
+      router.replace(const HomeRoute());
+      return;
+    }
+
+    resolver.next(true);
+  }
+}
+
+
+class OnboardingNotCompletedGuard
+ implements AutoRouteGuard {
+  const OnboardingNotCompletedGuard(this.ref);
   final Ref ref;
 
   @override

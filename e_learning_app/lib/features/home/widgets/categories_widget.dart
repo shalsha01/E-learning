@@ -25,10 +25,10 @@ class CategoriesWidget extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
         separatorBuilder: (_, __) => const SizedBox(width: Spacing.small),
-        itemBuilder: (context, i) {
-          final selected = i == selectedIndex;
+        itemBuilder: (context, index) {
+          final selected = index == selectedIndex;
           return GestureDetector(
-            onTap: () => onCategorySelected(i),
+            onTap: () => onCategorySelected(index),
             child: Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: Spacing.medium,
@@ -39,7 +39,7 @@ class CategoriesWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(22),
               ),
               child: Text(
-                categories[i],
+                categories[index],
                 style: textTheme.labelLarge?.copyWith(
                   color: selected
                       ? colorScheme.onSecondary
