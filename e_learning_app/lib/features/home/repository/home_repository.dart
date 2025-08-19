@@ -6,13 +6,24 @@ import 'package:e_learning_app/features/home/models/mentor_model.dart';
 
 class HomeRepository {
   Future<List<HomeSection>> fetchHomeByCategory(int index) async {
-    await Future.delayed(const Duration(milliseconds: 700));
+    await Future.delayed(const Duration(milliseconds: 500));
 
-    return homeResponse;
+    final selectedCategory = categories[index];
+
+    final filtered = selectedCategory == 'All'
+        ? courses
+        : courses.where((c) => c.category == selectedCategory).toList();
+
+    return [
+      HomeSection.popularCourses(
+        courses: filtered,
+        selectedFilter: index,
+      ),
+    ];
   }
 
   Future<List<HomeSection>> fetchHomeSections() async {
-    await Future.delayed(const Duration(milliseconds: 700));
+    await Future.delayed(const Duration(milliseconds: 500));
     return homeResponse;
   }
 }
@@ -54,6 +65,30 @@ final courses = <Course>[
     studentsCount: 6520,
     imageUrl: 'assets/images/Graphic_Design.png',
   ),
+  Course(
+    title: '3D Design Basics',
+    category: '3D Design',
+    price: '\$35',
+    rating: 4.0,
+    studentsCount: 4500,
+    imageUrl: 'assets/images/Graphic_Design.png',
+  ),
+  Course(
+    title: '3D Design',
+    category: '3D Design',
+    price: '\$60',
+    rating: 4.7,
+    studentsCount: 3200,
+    imageUrl: 'assets/images/Graphic_Design.png',
+  ),
+  Course(
+    title: 'Arts & Humanities Overview',
+    category: 'Arts & Humanities',
+    price: '\$50',
+    rating: 4.8,
+    studentsCount: 1200,
+    imageUrl: 'assets/images/Graphic_Design.png',
+  ),
 ];
 
 final mentors = <Mentor>[
@@ -72,7 +107,7 @@ final homeResponse = [
   HomeSection.banner(
     banners: banners,
   ),
-  HomeSection.categories(categories: categories, selectedIndex: 1),
-  HomeSection.popularCourses(courses: courses, selectedFilter: 1),
+  HomeSection.categories(categories: categories, selectedIndex: 0),
+  HomeSection.popularCourses(courses: courses, selectedFilter: 0),
   HomeSection.topMentors(mentors: mentors),
 ];
