@@ -20,7 +20,6 @@ class PopularCoursesCategories extends StatelessWidget {
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
 
-
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.symmetric(vertical: Spacing.small),
@@ -30,18 +29,20 @@ class PopularCoursesCategories extends StatelessWidget {
           final category = entry.value;
           final isSelected = index == selectedIndex;
 
-          return GestureDetector(
-            onTap: () => onCategorySelected(index),
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: Spacing.medium,
-                vertical: 8,
+          return TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: isSelected
+                    ? colorScheme.secondary
+                    : colorScheme.onSecondary,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Spacing.medium,
+                  vertical: Spacing.small,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40),
+                ),
               ),
-              margin: const EdgeInsets.only(right: Spacing.small),
-              decoration: BoxDecoration(
-                color: isSelected ? colorScheme.secondary : colorScheme.onPrimary,
-                borderRadius: BorderRadius.circular(22),
-              ),
+             onPressed: () => onCategorySelected(index),
               child: Text(
                 category.title,
                 style: textTheme.labelLarge?.copyWith(
@@ -50,12 +51,9 @@ class PopularCoursesCategories extends StatelessWidget {
                       : colorScheme.onSurface,
                   fontWeight: FontWeight.w600,
                 ),
-              ),
-            ),
-          );
+              ));
         }).toList(),
       ),
     );
-
   }
 }
