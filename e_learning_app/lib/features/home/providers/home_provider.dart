@@ -16,7 +16,24 @@ class Home extends _$Home {
     return repository.fetchHomeSections();
   }
 
-  Future<void> selectCategory(int index) async {
+Future<void> selectCategory(int index) async {
+  final current = state.valueOrNull;
+  if (current == null) return;
+
+  final updated = current.map((section) {
+    return section.maybeWhen(
+      categories: (categories, _) =>
+          HomeSection.categories(categories: categories, selectedIndex: index),
+      orElse: () => section,
+    );
+  }).toList();
+
+  state = AsyncValue.data(updated);
+}
+
+
+  
+  Future<void> selectPopularCoursesCategory(int index) async {
     final repository = ref.read(homeRepositoryProvider);
 
     final current = state.valueOrNull;
@@ -24,8 +41,8 @@ class Home extends _$Home {
 
     final updated = current.map((section) {
       return section.maybeWhen(
-        categories: (categories, _) =>
-            HomeSection.categories(categories: categories, selectedIndex: index),
+        popularCourses: (courses, i,categories) =>
+            HomeSection.popularCourses(courses: courses, selectedFilter: index, pupularCoursesCategoreies: categories),
         orElse: () => section,
       );
     }).toList();
@@ -35,11 +52,12 @@ class Home extends _$Home {
 
     final finalSections = updated.map((section) {
       return section.maybeWhen(
-        popularCourses: (_, __) => filteredCoursesSection.first,
+        popularCourses: (_, __,c) => filteredCoursesSection.first,
         orElse: () => section,
       );
     }).toList();
 
     state = AsyncValue.data(finalSections);
   }
+
 }

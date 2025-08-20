@@ -1,4 +1,5 @@
 import 'package:e_learning_app/features/home/models/home_banner.dart';
+import 'package:e_learning_app/features/home/models/pupular_courses_category.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'course_model.dart';
 import 'mentor_model.dart';
@@ -31,6 +32,7 @@ class HomeSection with _$HomeSection {
   const factory HomeSection.popularCourses({
     required List<Course> courses,
     required int selectedFilter, 
+    required List<PupularCoursesCategory> pupularCoursesCategoreies,
   }) = PopularCoursesSection;
 
   const factory HomeSection.topMentors({

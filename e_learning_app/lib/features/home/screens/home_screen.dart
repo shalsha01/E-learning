@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:e_learning_app/features/home/widgets/popular_courses_categories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
@@ -95,23 +96,36 @@ class HomeSectionBuilder extends ConsumerWidget {
             title: localizations.categories,
             onSeeAll: null,
           ),
+         
           const SizedBox(height: Spacing.small),
+         
           CategoriesWidget(
             categories: categories,
             selectedIndex: selectedIndex,
             onCategorySelected: (int value) {
-              ref.read(homeProvider.notifier).selectCategory(value);
+
+            ref.read(homeProvider.notifier).selectCategory(value);
             },
           ),
+     
         ],
       ),
-      popularCourses: (courses, selectedFilter) => Column(
+      popularCourses: (courses, selectedFilter,categories) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SectionHeaderWidget(
+              SectionHeaderWidget(
             title: localizations.home_popularCourses,
             onSeeAll: () {},
           ),
+          const SizedBox(height: Spacing.medium),
+            PopularCoursesCategories(
+            categories:categories,
+            selectedIndex: selectedFilter,
+            onCategorySelected: (int value) {
+              ref.read(homeProvider.notifier).selectPopularCoursesCategory(value);
+            },
+          ),
+      
           const SizedBox(height: Spacing.small),
           PopularCoursesWidget(courses: courses),
         ],

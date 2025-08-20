@@ -28,13 +28,11 @@ class HomeBannerCarousel extends HookWidget {
       items: banners.asMap().entries.map((entry) {
         final banner = entry.value;
 
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: _BannerWidget(
+        return  _BannerWidget(
             banner: banner,
             currentIndex: currentIndex.value,
             totalBanners: banners.length,
-          ),
+        
         );
       }).toList(),
     );
@@ -59,67 +57,76 @@ class _BannerWidget extends StatelessWidget {
     final textTheme = theme.textTheme;
 
     return Container(
-      height: 168,
-      decoration: BoxDecoration(
-        color: colorScheme.primary,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: colorScheme.shadow.withAlpha(36),
-            blurRadius: 14,
-            offset: const Offset(0, 8),
-          ),
-        ],
-        image: banner.image == null
-            ? null
-            : DecorationImage(
-                image: AssetImage(banner.image!),
-                fit: BoxFit.cover,
-              ),
+  margin: const EdgeInsets.symmetric(horizontal: Spacing.small),
+  decoration: BoxDecoration(
+    color: colorScheme.primary,
+    borderRadius: BorderRadius.circular(20),
+    boxShadow: [
+      BoxShadow(
+        color: colorScheme.shadow.withAlpha(36),
+        blurRadius: 14,
+        offset: const Offset(0, 8),
       ),
-      child: Padding(
-        padding: const EdgeInsets.only(right: Spacing.large),
-        child: Row(
+    ],
+    image: banner.image == null
+        ? null
+        : DecorationImage(
+            image: AssetImage(banner.image!),
+            fit: BoxFit.cover,
+          ),
+  ),
+  child: Stack(
+    fit: StackFit.expand,
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(Spacing.medium),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(width: Spacing.large),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(banner.title,
-                      style: textTheme.titleLarge?.copyWith(
-                        color: colorScheme.onPrimary,
-                        fontWeight: FontWeight.w800,
-                      )),
-                  const SizedBox(height: 8),
-                  Text(banner.subtitle,
-                      style: textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onPrimary.withAlpha(220),
-                      )),
-                  const SizedBox(height: 12),
-                  Row(
-                    children: List.generate(totalBanners, (i) {
-                      final isActive = i == currentIndex;
-                      return Container(
-                        margin: const EdgeInsets.only(right: 6),
-                        width: isActive ? 16 : 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          color: isActive
-                              ? colorScheme.onPrimary
-                              : colorScheme.onPrimary.withAlpha(120),
-                          borderRadius: BorderRadius.circular(3),
-                        ),
-                      );
-                    }),
-                  ),
-                ],
+            Text(
+              banner.title,
+              style: textTheme.titleLarge?.copyWith(
+                color: colorScheme.onPrimary,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              banner.subtitle,
+              style: textTheme.bodySmall?.copyWith(
+                color: colorScheme.onPrimary.withAlpha(220),
               ),
             ),
           ],
         ),
       ),
-    );
-  }
+
+      Positioned(
+        bottom: 12,
+        left: 0,
+        right: 0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(totalBanners, (i) {
+            final isActive = i == currentIndex;
+            return AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              margin: const EdgeInsets.only(right: 6),
+              width: isActive ? 16 : 6,
+              height: 6,
+              decoration: BoxDecoration(
+                color: isActive
+                    ? colorScheme.onPrimary
+                    : colorScheme.onPrimary.withAlpha(120),
+                borderRadius: BorderRadius.circular(3),
+              ),
+            );
+          }),
+        ),
+      ),
+    ],
+  ),
+);
+ }
 }

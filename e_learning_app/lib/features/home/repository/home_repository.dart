@@ -3,6 +3,7 @@ import 'package:e_learning_app/features/home/models/home_banner.dart';
 import 'package:e_learning_app/features/home/models/home_section.dart';
 import 'package:e_learning_app/features/home/models/course_model.dart';
 import 'package:e_learning_app/features/home/models/mentor_model.dart';
+import 'package:e_learning_app/features/home/models/pupular_courses_category.dart';
 
 class HomeRepository {
   Future<List<HomeSection>> fetchHomeByCategory(int index) async {
@@ -17,6 +18,7 @@ class HomeRepository {
     return [
       HomeSection.popularCourses(
         courses: filtered,
+        pupularCoursesCategoreies: pupularCoursesCategories,
         selectedFilter: index,
       ),
     ];
@@ -49,6 +51,7 @@ final banners = [
 final categories = ['All', 'Graphic Design', '3D Design', 'Arts & Humanities'];
 
 final courses = <Course>[
+
   Course(
     title: 'Graphic Design Advanced',
     category: 'Graphic Design',
@@ -108,6 +111,15 @@ final homeResponse = [
     banners: banners,
   ),
   HomeSection.categories(categories: categories, selectedIndex: 0),
-  HomeSection.popularCourses(courses: courses, selectedFilter: 0),
+  HomeSection.popularCourses(courses: courses, selectedFilter: 0,
+    pupularCoursesCategoreies: pupularCoursesCategories,
+  ),
   HomeSection.topMentors(mentors: mentors),
+];
+
+final pupularCoursesCategories = [
+  PupularCoursesCategory(id: 1, title: 'All'),
+  PupularCoursesCategory(id: 2, title: 'Graphic Design'),
+  PupularCoursesCategory(id: 3, title: '3D Design'),
+  PupularCoursesCategory(id: 4, title: 'Arts & Humanities'),
 ];

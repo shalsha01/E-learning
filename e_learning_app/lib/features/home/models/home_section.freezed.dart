@@ -176,7 +176,9 @@ extension HomeSectionPatterns on HomeSection {
     TResult Function()? searchBar,
     TResult Function(List<HomeBanner> banners)? banner,
     TResult Function(List<String> categories, int selectedIndex)? categories,
-    TResult Function(List<Course> courses, int selectedFilter)? popularCourses,
+    TResult Function(List<Course> courses, int selectedFilter,
+            List<PupularCoursesCategory> pupularCoursesCategoreies)?
+        popularCourses,
     TResult Function(List<Mentor> mentors)? topMentors,
     required TResult orElse(),
   }) {
@@ -191,7 +193,8 @@ extension HomeSectionPatterns on HomeSection {
       case CategoriesSection() when categories != null:
         return categories(_that.categories, _that.selectedIndex);
       case PopularCoursesSection() when popularCourses != null:
-        return popularCourses(_that.courses, _that.selectedFilter);
+        return popularCourses(_that.courses, _that.selectedFilter,
+            _that.pupularCoursesCategoreies);
       case TopMentorsSection() when topMentors != null:
         return topMentors(_that.mentors);
       case _:
@@ -219,7 +222,8 @@ extension HomeSectionPatterns on HomeSection {
     required TResult Function(List<HomeBanner> banners) banner,
     required TResult Function(List<String> categories, int selectedIndex)
         categories,
-    required TResult Function(List<Course> courses, int selectedFilter)
+    required TResult Function(List<Course> courses, int selectedFilter,
+            List<PupularCoursesCategory> pupularCoursesCategoreies)
         popularCourses,
     required TResult Function(List<Mentor> mentors) topMentors,
   }) {
@@ -234,7 +238,8 @@ extension HomeSectionPatterns on HomeSection {
       case CategoriesSection():
         return categories(_that.categories, _that.selectedIndex);
       case PopularCoursesSection():
-        return popularCourses(_that.courses, _that.selectedFilter);
+        return popularCourses(_that.courses, _that.selectedFilter,
+            _that.pupularCoursesCategoreies);
       case TopMentorsSection():
         return topMentors(_that.mentors);
       case _:
@@ -260,7 +265,9 @@ extension HomeSectionPatterns on HomeSection {
     TResult? Function()? searchBar,
     TResult? Function(List<HomeBanner> banners)? banner,
     TResult? Function(List<String> categories, int selectedIndex)? categories,
-    TResult? Function(List<Course> courses, int selectedFilter)? popularCourses,
+    TResult? Function(List<Course> courses, int selectedFilter,
+            List<PupularCoursesCategory> pupularCoursesCategoreies)?
+        popularCourses,
     TResult? Function(List<Mentor> mentors)? topMentors,
   }) {
     final _that = this;
@@ -274,7 +281,8 @@ extension HomeSectionPatterns on HomeSection {
       case CategoriesSection() when categories != null:
         return categories(_that.categories, _that.selectedIndex);
       case PopularCoursesSection() when popularCourses != null:
-        return popularCourses(_that.courses, _that.selectedFilter);
+        return popularCourses(_that.courses, _that.selectedFilter,
+            _that.pupularCoursesCategoreies);
       case TopMentorsSection() when topMentors != null:
         return topMentors(_that.mentors);
       case _:
@@ -533,8 +541,11 @@ class _$CategoriesSectionCopyWithImpl<$Res>
 
 class PopularCoursesSection implements HomeSection {
   const PopularCoursesSection(
-      {required final List<Course> courses, required this.selectedFilter})
-      : _courses = courses;
+      {required final List<Course> courses,
+      required this.selectedFilter,
+      required final List<PupularCoursesCategory> pupularCoursesCategoreies})
+      : _courses = courses,
+        _pupularCoursesCategoreies = pupularCoursesCategoreies;
 
   final List<Course> _courses;
   List<Course> get courses {
@@ -544,6 +555,13 @@ class PopularCoursesSection implements HomeSection {
   }
 
   final int selectedFilter;
+  final List<PupularCoursesCategory> _pupularCoursesCategoreies;
+  List<PupularCoursesCategory> get pupularCoursesCategoreies {
+    if (_pupularCoursesCategoreies is EqualUnmodifiableListView)
+      return _pupularCoursesCategoreies;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_pupularCoursesCategoreies);
+  }
 
   /// Create a copy of HomeSection
   /// with the given fields replaced by the non-null parameter values.
@@ -560,16 +578,21 @@ class PopularCoursesSection implements HomeSection {
             other is PopularCoursesSection &&
             const DeepCollectionEquality().equals(other._courses, _courses) &&
             (identical(other.selectedFilter, selectedFilter) ||
-                other.selectedFilter == selectedFilter));
+                other.selectedFilter == selectedFilter) &&
+            const DeepCollectionEquality().equals(
+                other._pupularCoursesCategoreies, _pupularCoursesCategoreies));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_courses), selectedFilter);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_courses),
+      selectedFilter,
+      const DeepCollectionEquality().hash(_pupularCoursesCategoreies));
 
   @override
   String toString() {
-    return 'HomeSection.popularCourses(courses: $courses, selectedFilter: $selectedFilter)';
+    return 'HomeSection.popularCourses(courses: $courses, selectedFilter: $selectedFilter, pupularCoursesCategoreies: $pupularCoursesCategoreies)';
   }
 }
 
@@ -580,7 +603,10 @@ abstract mixin class $PopularCoursesSectionCopyWith<$Res>
           $Res Function(PopularCoursesSection) _then) =
       _$PopularCoursesSectionCopyWithImpl;
   @useResult
-  $Res call({List<Course> courses, int selectedFilter});
+  $Res call(
+      {List<Course> courses,
+      int selectedFilter,
+      List<PupularCoursesCategory> pupularCoursesCategoreies});
 }
 
 /// @nodoc
@@ -597,6 +623,7 @@ class _$PopularCoursesSectionCopyWithImpl<$Res>
   $Res call({
     Object? courses = null,
     Object? selectedFilter = null,
+    Object? pupularCoursesCategoreies = null,
   }) {
     return _then(PopularCoursesSection(
       courses: null == courses
@@ -607,6 +634,10 @@ class _$PopularCoursesSectionCopyWithImpl<$Res>
           ? _self.selectedFilter
           : selectedFilter // ignore: cast_nullable_to_non_nullable
               as int,
+      pupularCoursesCategoreies: null == pupularCoursesCategoreies
+          ? _self._pupularCoursesCategoreies
+          : pupularCoursesCategoreies // ignore: cast_nullable_to_non_nullable
+              as List<PupularCoursesCategory>,
     ));
   }
 }

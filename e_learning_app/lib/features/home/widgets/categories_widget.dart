@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:e_learning_app/core/constants/spacing.dart';
 
 class CategoriesWidget extends StatelessWidget {
   final List<String> categories;
@@ -19,37 +18,25 @@ class CategoriesWidget extends StatelessWidget {
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
 
-    return SizedBox(
-      height: 40,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: categories.length,
-        separatorBuilder: (_, __) => const SizedBox(width: Spacing.small),
-        itemBuilder: (context, index) {
-          final selected = index == selectedIndex;
-          return GestureDetector(
-            onTap: () => onCategorySelected(index),
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: Spacing.medium,
-                vertical: 8,
-              ),
-              decoration: BoxDecoration(
-                color: selected ? colorScheme.secondary : colorScheme.onPrimary,
-                borderRadius: BorderRadius.circular(22),
-              ),
-              child: Text(
-                categories[index],
-                style: textTheme.labelLarge?.copyWith(
-                  color: selected
-                      ? colorScheme.onSecondary
-                      : colorScheme.onSurface,
-                  fontWeight: FontWeight.w600,
-                ),
+  return  SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: categories.asMap().entries.map((entry) {
+          final index = entry.key;
+          final category = entry.value;
+          final isSelected = index == selectedIndex; 
+
+          return TextButton(
+            onPressed: () => onCategorySelected(index),
+            child: Text(
+              category,
+              style: textTheme.labelLarge?.copyWith(
+                color: isSelected ? colorScheme.primary : colorScheme.onSurface,
+                fontWeight: FontWeight.w600,
               ),
             ),
           );
-        },
+        }).toList(),
       ),
     );
   }

@@ -7,7 +7,7 @@ class AppColors {
   static const Color onPrimary = white;
 
   static const Color secondary = Color(0xFF167F71); // tealGreen
-  static const Color onSecondary = black;
+  static const Color onSecondary = white;
   
 
   // Backgrounds and Surfaces
