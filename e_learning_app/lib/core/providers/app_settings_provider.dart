@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:e_learning_app/core/constants/prefs_keys.dart';
 import 'package:e_learning_app/features/auth/providers/shared_preferences_provider.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,7 +37,7 @@ class AppSettings extends _$AppSettings {
       } catch (e) {
         return const AppSettingsState();
       }
-    }
+    } 
     return const AppSettingsState();
   }
 

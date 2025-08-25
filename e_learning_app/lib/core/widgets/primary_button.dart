@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
-import 'package:e_learning_app/core/constants/padding.dart';
 import 'package:e_learning_app/core/constants/font_sizes.dart';
 
 class PrimaryButton extends StatelessWidget {
@@ -36,7 +35,7 @@ class PrimaryButton extends StatelessWidget {
             ),
           ],
         ),
-        padding: const EdgeInsets.symmetric(horizontal: PaddingSizes.xxSmall),
+        padding: const EdgeInsets.symmetric(horizontal: Spacing.extraSmall),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -56,7 +55,7 @@ class PrimaryButton extends StatelessWidget {
             ),
             const SizedBox(width: Spacing.medium),
             Container(
-              height: Spacing.xxLarge,
+              height: Spacing.xxLarge,  
               width: Spacing.xxLarge,
               alignment: Alignment.center,
               decoration: BoxDecoration(
