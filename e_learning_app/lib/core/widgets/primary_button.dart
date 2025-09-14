@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../constants/spacing.dart';
-import '../constants/padding.dart';
-import '../constants/font_sizes.dart';
+import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/constants/font_sizes.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;
@@ -10,12 +9,16 @@ class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
     super.key,
     required this.text,
-    required this.onPressed,
+    required this.onPressed, 
+    bool? isLoading,
   });
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme =Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
 
     return GestureDetector(
       onTap: onPressed,
@@ -26,13 +29,13 @@ class PrimaryButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(40),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.3),
+              color: colorScheme.onSecondary.withAlpha(80),
               offset: const Offset(1, 2),
               blurRadius: 8,
             ),
           ],
         ),
-        padding: const EdgeInsets.symmetric(horizontal: PaddingSizes.xxSmall),
+        padding: const EdgeInsets.symmetric(horizontal: Spacing.extraSmall),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -42,17 +45,17 @@ class PrimaryButton extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style:textTheme.titleMedium!.copyWith(
                   color: colorScheme.onPrimary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: AppFontSizes.sm,
-                  height: 2.2,
+                  fontSize: AppFontSizes.md,
+               
                 ),
+            
               ),
             ),
             const SizedBox(width: Spacing.medium),
             Container(
-              height: Spacing.xxLarge,
+              height: Spacing.xxLarge,  
               width: Spacing.xxLarge,
               alignment: Alignment.center,
               decoration: BoxDecoration(

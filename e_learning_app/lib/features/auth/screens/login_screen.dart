@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:e_learning_app/features/auth/models/user_model.dart';
+import 'package:e_learning_app/features/auth/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,16 +7,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
 import 'package:riverpod_hook_mutation/riverpod_hook_mutation.dart';
 
-import '../../../../../core/constants/app_text_styles.dart';
-import '../../../../../core/constants/spacing.dart';
-import '../../../../core/widgets/primary_button.dart';
-import '../../../../core/widgets/theme_toggle_icon_button.dart';
-import '../../../../features/router/app_router.dart';
-import '../models/login_request.dart';
-import '../providers/auth_notifier.dart';
-import '../providers/auth_state.dart';
-
-
+import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/constants/prefs_keys.dart';
+import 'package:e_learning_app/core/widgets/primary_button.dart';
+import 'package:e_learning_app/core/widgets/theme_toggle_icon_button.dart';
+import 'package:e_learning_app/features/router/app_router.dart';
+import 'package:e_learning_app/features/auth/providers/authentication_provider.dart';
+import 'package:e_learning_app/features/auth/data/models/login_request.dart';
+import 'package:e_learning_app/features/auth/providers/shared_preferences_provider.dart';
 
 @RoutePage()
 class LoginPage extends HookConsumerWidget {
@@ -24,30 +22,20 @@ class LoginPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-  
-
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final formKey = useMemoized(() => GlobalKey<FormState>());
-    
+
     final rememberMe = useState(false);
     final isPasswordVisible = useState(false);
 
-    final colorScheme = Theme.of(context).colorScheme;
-    final tr = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
 
-    final authState = ref.watch(authNotifierProvider);
-    final authNotifier = ref.read(authNotifierProvider.notifier);
+    final provider = ref.read(authenticationProvider.notifier);
     final mutation = useMutation<UserModel>();
-
-    // useEffect(() {
-    //   if (authState is AuthSuccess) {
-    //     Future.microtask(() {
-    //       context.router.replace(const FillProfileRoute());
-    //     });
-    //   }
-    //   return null;
-    // }, [authState]);
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
@@ -63,55 +51,58 @@ class LoginPage extends HookConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: Spacing.large),
           child: SingleChildScrollView(
             child: Form(
-              key:formKey ,
+              key: formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: Spacing.huge),
                   SvgPicture.asset('assets/images/telead.svg', height: 80),
                   const SizedBox(height: Spacing.xxxLarge),
+
                   Align(
                     alignment: AlignmentDirectional.centerStart,
                     child: Text(
-                      tr.sign_in,
-                      style: AppTextStyles.title.copyWith(
-                        color: colorScheme.onSurface,
+                      l10n.sign_in,
+                      style: textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
+
                   const SizedBox(height: Spacing.small),
+
                   Align(
                     alignment: AlignmentDirectional.centerStart,
                     child: Text(
-                      tr.login_subtitle,
-                      style: AppTextStyles.body.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
+                      l10n.login_subtitle,
+                      style: textTheme.bodyMedium,
                     ),
                   ),
+
                   const SizedBox(height: Spacing.xxLarge),
+
                   TextFormField(
                     controller: emailController,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.email_outlined),
-                      hintText: tr.email,
+                      hintText: l10n.email,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none,
                       ),
                     ),
                     keyboardType: TextInputType.emailAddress,
-                 validator: (value) => value == null || value.isEmpty
-                        ? "tr.email_required"
-                        : null,
+                    validator: (value) =>
+                        value == null || value.isEmpty ? l10n.email_required : null,
                   ),
+
                   const SizedBox(height: Spacing.large),
+
                   TextFormField(
-                   controller: passwordController,
+                    controller: passwordController,
                     obscureText: !isPasswordVisible.value,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.lock_outline),
-                      hintText: tr.password,
+                      hintText: l10n.password,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none,
@@ -123,17 +114,16 @@ class LoginPage extends HookConsumerWidget {
                               : Icons.visibility_off,
                           color: colorScheme.onSurface,
                         ),
-                        onPressed: () {
-                          isPasswordVisible.value = !isPasswordVisible.value;
-                        },
+                        onPressed: () =>
+                            isPasswordVisible.value = !isPasswordVisible.value,
                       ),
                     ),
-                 
-                    validator: (value) => value == null || value.isEmpty
-                        ? "tr.password_required"
-                        : null,
+                    validator: (value) =>
+                        value == null || value.isEmpty ? l10n.password_required : null,
                   ),
+
                   const SizedBox(height: Spacing.small),
+
                   Row(
                     children: [
                       Checkbox(
@@ -144,70 +134,69 @@ class LoginPage extends HookConsumerWidget {
                         side: BorderSide(color: colorScheme.primary, width: 2.0),
                       ),
                       Text(
-                        tr.remember_me,
-                        style: TextStyle(color: colorScheme.onSurface),
+                        l10n.remember_me,
+                        style: textTheme.bodyMedium,
                       ),
                       const Spacer(),
                       TextButton(
                         onPressed: () {
-                          // TODO: handle forgot password
+                          context.router.push(const ForgotPasswordMethodRoute());
                         },
                         child: Text(
-                          tr.forgot_password,
-                          style: TextStyle(color: colorScheme.primary),
+                          l10n.forgot_password,
+                          style: textTheme.bodyMedium?.copyWith(
+                            color: colorScheme.primary,
+                          ),
                         ),
                       ),
                     ],
                   ),
+
                   const SizedBox(height: Spacing.medium),
-                  if (authState is AuthError)
-                    Text(
-                      authState.message,
-                      style: TextStyle(color: colorScheme.error),
-                    ),
-                  if (authState is AuthLoading)
+
+                  if (mutation.isLoading)
                     const CircularProgressIndicator()
                   else
                     PrimaryButton(
-                      text: tr.sign_in,
+                      text: l10n.sign_in,
                       onPressed: () {
                         if (!formKey.currentState!.validate()) return;
                         final request = LoginRequest(
                           email: emailController.text.trim(),
                           password: passwordController.text.trim(),
                         );
-                        // final notifier =ref.read(authNotifierProvider.notifier);
+
                         mutation.mutate(
-                         ()=> authNotifier.login(request) ,
+                          () => provider.login(request),
                           context: context,
-                          data: (data) {
-                            print(data);
+                          data: (user) async {
+
+                            final prefs = ref.read(sharedPreferencesProvider);
+                            await prefs.setString(PrefsKeys.authToken, user.token);
+
                             context.router.replace(const FillProfileRoute());
                           },
                           error: (error, stackTrace) {
-                            print("Error: $error");
-              
-                            // Handle error if needed
+                            print('Login error: $error');
                           },
-                          loading: () => 
-                            const CircularProgressIndicator(),
                         );
-                        // authNotifier.login(request);
                       },
                     ),
+
                   const SizedBox(height: Spacing.xxxLarge),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "${tr.dont_have_acount} ",
-                        style: TextStyle(color: colorScheme.onSurface),
+                        "${l10n.dont_have_acount} ",
+                        style: textTheme.bodyMedium,
                       ),
                       GestureDetector(
                         onTap: () => context.router.push(const RegisterRoute()),
                         child: Text(
-                          tr.sign_up,
-                          style: AppTextStyles.body.copyWith(
+                          l10n.sign_up,
+                          style: textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                             color: colorScheme.primary,
                             decoration: TextDecoration.underline,
@@ -216,6 +205,7 @@ class LoginPage extends HookConsumerWidget {
                       ),
                     ],
                   ),
+
                   const SizedBox(height: Spacing.large),
                 ],
               ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'font_sizes.dart';
-import '../theme/app_colors.dart';
+import 'package:e_learning_app/core/theme/app_colors.dart';
 
 final class AppTextStyles {
   static const TextStyle title = TextStyle(

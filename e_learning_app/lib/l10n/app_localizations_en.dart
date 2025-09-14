@@ -56,7 +56,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get full_name => 'Full Name';
 
   @override
-  String get nick_name => 'Nick Name';
+  String get nick_name => 'Nickname';
 
   @override
   String get dob => 'Date of Birth';
@@ -108,4 +108,179 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dont_have_acount => 'Don’t have an Account?';
+
+  @override
+  String get forgot_password_title => 'Forgot Password';
+
+  @override
+  String get reset_password_instruction =>
+      'Select which contact details should we use to reset your password';
+
+  @override
+  String get via_email => 'Via Email';
+
+  @override
+  String get via_sms => 'Via SMS';
+
+  @override
+  String get code_sent_to => 'Code has been sent to';
+
+  @override
+  String resend_code_in(Object seconds) {
+    return 'Resend code in';
+  }
+
+  @override
+  String get verify => 'Verify';
+
+  @override
+  String get create_new_password_title => 'Create Your New Password';
+
+  @override
+  String get password_reset_success_title => 'Congratulations';
+
+  @override
+  String get password_reset_success_message =>
+      'Your account is ready to use. You will be redirected to the Home Page in a few seconds.';
+
+  @override
+  String get otp_example => '* * 8 *';
+
+  @override
+  String get email_required => 'Email is required';
+
+  @override
+  String get password_required => 'The password is required';
+
+  @override
+  String get full_name_required => 'Full name is required';
+
+  @override
+  String get nick_name_required => 'Nickname is required';
+
+  @override
+  String get dob_required => 'Date of birth is required';
+
+  @override
+  String get phone_required => 'Phone number is required';
+
+  @override
+  String get gender_required => 'Please select your gender';
+
+  @override
+  String get passwords_do_not_match => 'The passwords do not match';
+
+  @override
+  String get fix_errors_first => 'Please correct errors first';
+
+  @override
+  String get enter_code_message => 'Please enter the 4-digit code';
+
+  @override
+  String get confirm_password => 'confirm password';
+
+  @override
+  String get redirecting_to_login => 'Redirect to login';
+
+  @override
+  String get congratulations => 'Congratulations';
+
+  @override
+  String get account_ready_redirecting =>
+      'Your Account is Ready to Use.\nYou will be redirected to the Home Page in a Few Seconds.';
+
+  @override
+  String get resend_code => 'Resend Code';
+
+  @override
+  String get code_resent => 'A new code has been sent.';
+
+  @override
+  String get failed_to_send_code =>
+      'Failed to send the code. Please try again.';
+
+  @override
+  String get pin_created_successfully => 'PIN Created Successfully!';
+
+  @override
+  String get redirecting_to_home =>
+      'You\'ll be redirected to the home screen shortly...';
+
+  @override
+  String get create_new_pin => 'Create New PIN';
+
+  @override
+  String get create_pin_description =>
+      'Add a PIN to keep your account more secure.';
+
+  @override
+  String get something_went_wrong => 'Something went wrong';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get home_title => 'Home';
+
+  @override
+  String home_greeting(Object name) {
+    return 'Hello, $name';
+  }
+
+  @override
+  String description(Object name) {
+    return 'Greeting text on the home page. $name is the user\'s name.';
+  }
+
+  @override
+  String get home_featured_courses => 'Featured Courses';
+
+  @override
+  String get home_continue_learning => 'Continue Learning';
+
+  @override
+  String get home_categories => 'Categories';
+
+  @override
+  String get home_see_all => 'See All';
+
+  @override
+  String get home_empty_featured => 'No featured courses available.';
+
+  @override
+  String get home_empty_continue => 'No courses in progress.';
+
+  @override
+  String get home_empty_categories => 'No categories found.';
+
+  @override
+  String get home_error_message => 'Something went wrong. Please try again.';
+
+  @override
+  String get home_retry => 'Retry';
+
+  @override
+  String get searchHint => 'Search for courses, categories...';
+
+  @override
+  String get home_description =>
+      'Hint text shown inside the search bar on the home screen.';
+
+  @override
+  String get categories => 'Categories';
+
+  @override
+  String get topMentor => 'Top Mentors';
+
+  @override
+  String get home_popularCourses => 'Popular Courses';
+
+  @override
+  String get somethingWentWrong => 'Something went wrong';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get home_loading => 'Loading...';
 }

@@ -24,7 +24,14 @@ dependencies:
   riverpod_cache: ^0.0.5
   flutter_riverpod: ^2.5.1
   riverpod_hook_mutation: ^1.0.0
-
+  riverpod_annotation: ^2.6.1
+  pinput: ^2.0.0
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.9.0
+  shimmer: ^3.0.0
+  carousel_slider: ^5.1.1
+  firebase_core: ^4.0.0
+  firebase_messaging: ^16.0.0
 
 
 dev_dependencies:
@@ -33,6 +40,11 @@ dev_dependencies:
   auto_route_generator: ^10.1.0
   build_runner: ^2.5.4
   flutter_native_splash: ^2.4.6
+  flutter_launcher_icons: ^0.13.1
+  riverpod_generator: ^2.6.5
+  riverpod_lint: ^2.6.5
+  freezed: ^3.1.0
+  json_serializable: ^6.9.5
 
 flutter:
   generate: true 
@@ -42,7 +54,9 @@ flutter:
 
 flutter_native_splash:
   color: "#0961F5"
+  color_dark: "#000000"          
   image: assets/images/splash.png
+  image_dark: assets/images/splash.png
   android: true
   ios: true
   fullscreen: true
@@ -53,3 +67,10 @@ flutter_native_splash:
   android_12:
     image: assets/images/splash.png
     icon_background_color: "#0961F5"
+    image_dark: assets/images/splash.png
+    icon_background_color_dark: "#000000"
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png" 

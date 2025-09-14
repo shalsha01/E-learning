@@ -1,20 +1,19 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:e_learning_app/core/constants/app_text_styles.dart';
-import 'package:e_learning_app/core/constants/prefs_keys.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
 import 'package:e_learning_app/core/notifiers/shared_preferences_provider.dart';
 import 'package:e_learning_app/features/onboarding/model/intro_item_data.dart';
+import 'package:e_learning_app/features/onboarding/widgets/onboarding_widget.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
-
-import '../../../core/widgets/primary_button.dart';
-import '../../../core/widgets/theme_toggle_icon_button.dart';
-import '../../../core/widgets/language_toggle_icon_button.dart';
+import 'package:e_learning_app/core/widgets/primary_button.dart';
+import 'package:e_learning_app/core/widgets/theme_toggle_icon_button.dart';
+import 'package:e_learning_app/core/widgets/language_toggle_icon_button.dart';
+import 'package:e_learning_app/features/auth/providers/shared_preferences_provider.dart';
+import 'package:e_learning_app/core/constants/prefs_keys.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 @RoutePage()
 class IntroductionScreen extends HookConsumerWidget {
@@ -49,7 +48,7 @@ class IntroductionScreen extends HookConsumerWidget {
     Future<void> onFinish() async {
       final prefs = ref.read(sharedPreferencesProvider);
       await prefs.setBool(PrefsKeys.isSeenOnboarding, true);
-      if (!context.mounted) return;
+
       context.router.replace(const LoginRoute());
     }
 
@@ -68,10 +67,7 @@ class IntroductionScreen extends HookConsumerWidget {
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
         elevation: 0,
-        leading: const Padding(
-          padding: EdgeInsets.only(left: Spacing.medium),
-          child: ThemeToggleIconButton(),
-        ),
+        leading: const ThemeToggleIconButton(),
         actions: [
           const LanguageToggleIconButton(),
           if (currentIndex.value != pages.length - 1)
@@ -98,7 +94,7 @@ class IntroductionScreen extends HookConsumerWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: pages.length,
               onPageChanged: (index) => currentIndex.value = index,
-              itemBuilder: (context, index) => _OnboardingPage(
+              itemBuilder: (context, index) => OnboardingPage(
                 data: pages[index],
               ),
             ),
@@ -122,7 +118,7 @@ class IntroductionScreen extends HookConsumerWidget {
                 dotWidth: 8,
                 type: WormType.thin,
                 spacing: 8,
-                dotColor: colorScheme.surfaceContainer,
+                dotColor: colorScheme.primary.withAlpha(50),
                 activeDotColor: colorScheme.primary,
               ),
             ),
@@ -138,58 +134,8 @@ class IntroductionScreen extends HookConsumerWidget {
                     onPressed: onNext,
                     backgroundColor: colorScheme.primary,
                     elevation: 0,
-                    child:
-                        Icon(Icons.arrow_forward, color: colorScheme.onPrimary),
+                    child: Icon(Icons.arrow_forward, color: colorScheme.onPrimary),
                   ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _OnboardingPage extends StatelessWidget {
-  final IntroItemData data;
-
-  const _OnboardingPage({required this.data});
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final screenHeight = MediaQuery.of(context).size.height;
-
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: Spacing.large),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              data.imagePath,
-              height: screenHeight * 0.28,
-              fit: BoxFit.contain,
-              placeholderBuilder: (context) =>
-                  const CircularProgressIndicator(),
-            ),
-            const SizedBox(height: Spacing.xxLarge),
-            Text(
-              data.title,
-              style: AppTextStyles.title.copyWith(
-                color: colorScheme.onSurface,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: Spacing.small),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Spacing.medium),
-              child: Text(
-                data.description,
-                textAlign: TextAlign.center,
-                style: AppTextStyles.body.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ),
           ],
         ),
       ),

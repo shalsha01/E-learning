@@ -11,6 +11,38 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [CreateNewPasswordPage]
+class CreateNewPasswordRoute extends PageRouteInfo<void> {
+  const CreateNewPasswordRoute({List<PageRouteInfo>? children})
+      : super(CreateNewPasswordRoute.name, initialChildren: children);
+
+  static const String name = 'CreateNewPasswordRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CreateNewPasswordPage();
+    },
+  );
+}
+
+/// generated route for
+/// [CreatePinScreen]
+class CreatePinRoute extends PageRouteInfo<void> {
+  const CreatePinRoute({List<PageRouteInfo>? children})
+      : super(CreatePinRoute.name, initialChildren: children);
+
+  static const String name = 'CreatePinRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CreatePinScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [FillProfilePage]
 class FillProfileRoute extends PageRouteInfo<void> {
   const FillProfileRoute({List<PageRouteInfo>? children})
@@ -22,6 +54,22 @@ class FillProfileRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const FillProfilePage();
+    },
+  );
+}
+
+/// generated route for
+/// [ForgotPasswordMethodPage]
+class ForgotPasswordMethodRoute extends PageRouteInfo<void> {
+  const ForgotPasswordMethodRoute({List<PageRouteInfo>? children})
+      : super(ForgotPasswordMethodRoute.name, initialChildren: children);
+
+  static const String name = 'ForgotPasswordMethodRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ForgotPasswordMethodPage();
     },
   );
 }
@@ -72,6 +120,70 @@ class LoginRoute extends PageRouteInfo<void> {
       return const LoginPage();
     },
   );
+}
+
+/// generated route for
+/// [OTPVerificationPage]
+class OTPVerificationRoute extends PageRouteInfo<OTPVerificationRouteArgs> {
+  OTPVerificationRoute({
+    Key? key,
+    required String method,
+    required String destination,
+    List<PageRouteInfo>? children,
+  }) : super(
+          OTPVerificationRoute.name,
+          args: OTPVerificationRouteArgs(
+            key: key,
+            method: method,
+            destination: destination,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'OTPVerificationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<OTPVerificationRouteArgs>();
+      return OTPVerificationPage(
+        key: args.key,
+        method: args.method,
+        destination: args.destination,
+      );
+    },
+  );
+}
+
+class OTPVerificationRouteArgs {
+  const OTPVerificationRouteArgs({
+    this.key,
+    required this.method,
+    required this.destination,
+  });
+
+  final Key? key;
+
+  final String method;
+
+  final String destination;
+
+  @override
+  String toString() {
+    return 'OTPVerificationRouteArgs{key: $key, method: $method, destination: $destination}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! OTPVerificationRouteArgs) return false;
+    return key == other.key &&
+        method == other.method &&
+        destination == other.destination;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ method.hashCode ^ destination.hashCode;
 }
 
 /// generated route for

@@ -5,5 +5,9 @@ class PrefsKeys {
   static const String isDarkMode = 'isDarkMode';
   static const String isLoggedIn = 'isLoggedIn';
   static const String userToken = 'userToken';
-  static const String userEmail = 'userEmail';  
+  static const String userEmail = 'userEmail'; 
+  static const String appSettings = 'appSettings';
+  static const String authMethod = 'authMethod';
+  static String authToken= 'authToken';
+
 }
