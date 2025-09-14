@@ -24,7 +24,7 @@ Raw<AppRouter> appRouter(Ref ref) {
 }
 
 final routerProvider = Provider((ref) {
-  return AppRouter(ref);
+  return AppRouter(ref: ref);
 });
 
 @AutoRouterConfig(replaceInRouteName: 'Page|Screen,Route')

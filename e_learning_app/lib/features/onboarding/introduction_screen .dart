@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:e_learning_app/core/constants/spacing.dart';
-import 'package:e_learning_app/core/notifiers/shared_preferences_provider.dart';
+import 'package:e_learning_app/core/notifiers/shared_preferences_provider.dart' as core_prefs;
 import 'package:e_learning_app/features/onboarding/model/intro_item_data.dart';
 import 'package:e_learning_app/features/onboarding/widgets/onboarding_widget.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
@@ -46,7 +46,7 @@ class IntroductionScreen extends HookConsumerWidget {
     ];
 
     Future<void> onFinish() async {
-      final prefs = ref.read(sharedPreferencesProvider);
+      final prefs = ref.read(core_prefs.sharedPreferencesProvider);
       await prefs.setBool(PrefsKeys.isSeenOnboarding, true);
 
       context.router.replace(const LoginRoute());
