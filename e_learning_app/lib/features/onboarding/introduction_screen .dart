@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/theme/spacing.dart';
 import 'package:e_learning_app/features/onboarding/model/intro_item_data.dart';
 import 'package:e_learning_app/features/onboarding/widgets/onboarding_widget.dart';
 import 'package:e_learning_app/features/router/app_router.dart';

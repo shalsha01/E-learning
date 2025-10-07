@@ -3,7 +3,7 @@ import 'package:e_learning_app/features/home/widgets/popular_courses_categories.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
-import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/theme/spacing.dart';
 import 'package:e_learning_app/features/home/models/home_section.dart';
 import 'package:e_learning_app/features/home/providers/home_provider.dart';
 import 'package:e_learning_app/features/home/widgets/header_widget.dart';

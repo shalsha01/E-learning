@@ -3,7 +3,7 @@ import 'package:e_learning_app/features/auth/forgot_password/widget/password_res
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
-import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/theme/spacing.dart';
 import 'package:e_learning_app/core/widgets/primary_button.dart';
 
 @RoutePage()

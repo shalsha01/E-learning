@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/theme/spacing.dart';
 import 'package:e_learning_app/features/router/app_router.dart';
 import 'package:flutter_svg/svg.dart';
 

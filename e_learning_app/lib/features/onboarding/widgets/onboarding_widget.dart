@@ -1,4 +1,4 @@
-import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/theme/spacing.dart';
 import 'package:e_learning_app/features/onboarding/model/intro_item_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

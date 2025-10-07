@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/theme/spacing.dart';
 
 class HeaderWidget extends StatelessWidget {
   final String name;

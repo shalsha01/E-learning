@@ -1,6 +1,6 @@
 import 'package:e_learning_app/features/home/models/pupular_courses_category.dart';
 import 'package:flutter/material.dart';
-import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/theme/spacing.dart';
 
 class PopularCoursesCategories extends StatelessWidget {
   final List<PupularCoursesCategory> categories;

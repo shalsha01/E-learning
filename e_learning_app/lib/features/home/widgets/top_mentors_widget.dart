@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/theme/spacing.dart';
 import 'package:e_learning_app/features/home/models/mentor_model.dart';
 import 'asset_image_widget.dart';
 

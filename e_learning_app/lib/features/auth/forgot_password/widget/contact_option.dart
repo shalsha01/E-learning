@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:e_learning_app/core/constants/app_text_styles.dart';
-import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/theme/typography/app_text_styles.dart';
+import 'package:e_learning_app/core/theme/spacing.dart';
+import 'package:e_learning_app/core/theme/colors/app_colors_light.dart';
+import 'package:e_learning_app/core/theme/colors/app_colors_dark.dart';
+import 'package:e_learning_app/core/theme/colors/semantic_colors.dart';
 
 class ContactOption extends StatelessWidget {
   final IconData icon;
@@ -23,7 +26,10 @@ class ContactOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
+    final isLight = theme.brightness == Brightness.light;
+    final SemanticColors colors =
+        isLight ? AppColorsLight.colors : AppColorsDark.colors;
+        
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
@@ -31,15 +37,15 @@ class ContactOption extends StatelessWidget {
       padding: const EdgeInsets.all(Spacing.large),
       margin: const EdgeInsets.symmetric(vertical: Spacing.small),
       decoration: BoxDecoration(
-        color: colorScheme.onPrimary,
+        color: colors.onPrimary,
         borderRadius: BorderRadius.circular(Spacing.medium),
         border: Border.all(
-          color: isSelected ? colorScheme.secondary : colorScheme.onPrimary,
+          color: isSelected ? colors.secondary : colors.onPrimary,
           width: isSelected ? 2 : 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: colorScheme.shadow.withOpacity(0.08),
+            color: colors.onSurface.withOpacity(0.08),
             blurRadius: 6,
             offset: const Offset(0, 2),
           ),
@@ -57,13 +63,16 @@ class ContactOption extends StatelessWidget {
                   padding: const EdgeInsets.all(Spacing.small),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: colorScheme.secondary.withOpacity(0.1),
-                    border: Border.all(color: colorScheme.secondary),
+                    color: colors.secondary.withOpacity(0.1),
+                    border: Border.all(color: colors.secondary),
                   ),
-                  child: Icon(icon, size: Spacing.large, color: colorScheme.secondary),
+                  child: Icon(icon, size: Spacing.large, color: colors.secondary),
                 ),
                 const SizedBox(width: Spacing.large),
-                Text(title, style: AppTextStyles.body),
+                Text(
+                  title,
+                  style: AppTextStyles.body(colors),
+                ),
               ],
             ),
             if (isSelected) ...[

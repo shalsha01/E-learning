@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:e_learning_app/core/constants/spacing.dart';
-import 'package:e_learning_app/core/constants/font_sizes.dart';
+import 'package:e_learning_app/core/theme/spacing.dart';
+import 'package:e_learning_app/core/theme/typography/font_sizes.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;

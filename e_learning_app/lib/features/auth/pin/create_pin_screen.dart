@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pinput/pinput.dart';
 import 'package:riverpod_hook_mutation/riverpod_hook_mutation.dart';
 
-import 'package:e_learning_app/core/constants/spacing.dart';
+import 'package:e_learning_app/core/theme/spacing.dart';
 import 'package:e_learning_app/core/widgets/primary_button.dart';
 import 'package:e_learning_app/features/auth/pin/pin_provider.dart';
 import 'package:e_learning_app/features/auth/pin/pin_success_dialog.dart';
