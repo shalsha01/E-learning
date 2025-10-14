@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:e_learning_app/features/home/widgets/home_banner_carousel.dart';
 import 'package:e_learning_app/features/home/widgets/popular_courses_categories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +9,6 @@ import 'package:e_learning_app/features/home/models/home_section.dart';
 import 'package:e_learning_app/features/home/providers/home_provider.dart';
 import 'package:e_learning_app/features/home/widgets/header_widget.dart';
 import 'package:e_learning_app/features/home/widgets/search_bar_widget.dart';
-import 'package:e_learning_app/features/home/widgets/shimmer/home_banner_carousel.dart';
 import 'package:e_learning_app/features/home/widgets/section_header_widget.dart';
 import 'package:e_learning_app/features/home/widgets/categories/categories_widget.dart';
 import 'package:e_learning_app/features/home/widgets/popular_courses_widget.dart';

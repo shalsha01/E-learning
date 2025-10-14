@@ -20,14 +20,11 @@ class _MainAppState extends ConsumerState<MainApp> {
   @override
   void initState() {
     super.initState();
-    // AppRouter should be created only once
     _appRouter = ref.read(appRouterProvider);
 
     
-    // طلب إذن للإشعارات (iOS فقط)
     FirebaseMessaging.instance.requestPermission();
 
-    // استقبال الإشعارات أثناء فتح التطبيق
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Got a message while in the foreground!');
       print('Message data: ${message.data}');
@@ -36,7 +33,6 @@ class _MainAppState extends ConsumerState<MainApp> {
       }
     });
 
-    // الحصول على الـ FCM token
     FirebaseMessaging.instance.getToken().then((token) {
       print('FCM Token: $token');
     });

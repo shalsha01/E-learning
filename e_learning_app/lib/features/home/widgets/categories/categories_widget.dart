@@ -4,12 +4,14 @@ class CategoriesWidget extends StatelessWidget {
   final List<String> categories;
   final int selectedIndex;
   final ValueChanged<int> onCategorySelected;
+  final dynamic imagrePath;
 
   const CategoriesWidget({
     super.key,
     required this.categories,
     required this.selectedIndex,
     required this.onCategorySelected,
+    this.imagrePath,
   });
 
   @override
