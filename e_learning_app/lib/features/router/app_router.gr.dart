@@ -27,6 +27,22 @@ class AllCategoriesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AllCoursesPage]
+class AllCoursesRoute extends PageRouteInfo<void> {
+  const AllCoursesRoute({List<PageRouteInfo>? children})
+      : super(AllCoursesRoute.name, initialChildren: children);
+
+  static const String name = 'AllCoursesRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AllCoursesPage();
+    },
+  );
+}
+
+/// generated route for
 /// [CreateNewPasswordPage]
 class CreateNewPasswordRoute extends PageRouteInfo<void> {
   const CreateNewPasswordRoute({List<PageRouteInfo>? children})

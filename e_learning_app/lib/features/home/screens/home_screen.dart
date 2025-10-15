@@ -120,7 +120,9 @@ class HomeSectionBuilder extends ConsumerWidget {
         children: [
               SectionHeaderWidget(
             title: localizations.home_popularCourses,
-            onSeeAll: () {},
+            onSeeAll: () {
+              context.pushRoute(const AllCoursesRoute());
+            },
           ),
           const SizedBox(height: Spacing.medium),
             PopularCoursesCategories(

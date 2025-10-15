@@ -15,6 +15,7 @@ import 'package:e_learning_app/features/auth/forgot_password/create_new_password
 import 'package:e_learning_app/features/home/screens/home_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:e_learning_app/features/home/screens/all_category_screen.dart';
+import 'package:e_learning_app/features/home/screens/all_popular_courses.dart';
 
 part 'app_router.gr.dart';
 part 'app_router.g.dart';
@@ -58,6 +59,7 @@ class AppRouter extends RootStackRouter {
           guards: [OnboardingNotCompletedGuard(ref), AuthGuard(ref)],
         ),
         AutoRoute(page:AllCategoriesRoute.page),
+        AutoRoute(page:AllCoursesRoute.page),
       ];
 }
 
