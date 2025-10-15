@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:e_learning_app/features/home/widgets/home_banner_carousel.dart';
 import 'package:e_learning_app/features/home/widgets/popular_courses_categories.dart';
+import 'package:e_learning_app/features/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:e_learning_app/l10n/app_localizations.dart';
@@ -14,6 +15,7 @@ import 'package:e_learning_app/features/home/widgets/categories/categories_widge
 import 'package:e_learning_app/features/home/widgets/popular_courses_widget.dart';
 import 'package:e_learning_app/features/home/widgets/top_mentors_widget.dart';
 import 'package:e_learning_app/features/home/widgets/shimmer/shimmer_blocks.dart';
+
 
 @RoutePage()
 class HomePage extends ConsumerWidget {
@@ -94,7 +96,10 @@ class HomeSectionBuilder extends ConsumerWidget {
         children: [
           SectionHeaderWidget(
             title: localizations.categories,
-            onSeeAll: null,
+            onSeeAll:(){
+              context.pushRoute(const AllCategoriesRoute());
+              
+            },
           ),
          
           const SizedBox(height: Spacing.small),

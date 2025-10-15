@@ -48,7 +48,15 @@ final banners = [
   ),
 ];
 
-final categories = ['All', 'Graphic Design', '3D Design', 'Arts & Humanities'];
+final categories = [
+      'Graphic Design',
+      'Web Development',
+      'SEO & Marketing',
+      'Finance & Accounting',
+      'Personal Development',
+      'Office Productivity',
+      'HR Management',
+    ];
 
 final courses = <Course>[
 

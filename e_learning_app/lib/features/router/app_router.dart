@@ -14,6 +14,7 @@ import 'package:e_learning_app/features/auth/forgot_password/otp/otp_verificatio
 import 'package:e_learning_app/features/auth/forgot_password/create_new_password_page.dart';
 import 'package:e_learning_app/features/home/screens/home_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:e_learning_app/features/home/screens/all_category_screen.dart';
 
 part 'app_router.gr.dart';
 part 'app_router.g.dart';
@@ -56,8 +57,10 @@ class AppRouter extends RootStackRouter {
           page: CreatePinRoute.page,
           guards: [OnboardingNotCompletedGuard(ref), AuthGuard(ref)],
         ),
+        AutoRoute(page:AllCategoriesRoute.page),
       ];
 }
+
 
 
 
@@ -152,3 +155,6 @@ class OnboardingCompletedGuard implements AutoRouteGuard {
     }
   }
 }
+
+
+

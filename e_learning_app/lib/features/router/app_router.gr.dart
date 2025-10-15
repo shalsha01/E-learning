@@ -11,6 +11,22 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [AllCategoriesPage]
+class AllCategoriesRoute extends PageRouteInfo<void> {
+  const AllCategoriesRoute({List<PageRouteInfo>? children})
+      : super(AllCategoriesRoute.name, initialChildren: children);
+
+  static const String name = 'AllCategoriesRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AllCategoriesPage();
+    },
+  );
+}
+
+/// generated route for
 /// [CreateNewPasswordPage]
 class CreateNewPasswordRoute extends PageRouteInfo<void> {
   const CreateNewPasswordRoute({List<PageRouteInfo>? children})
