@@ -142,7 +142,9 @@ class HomeSectionBuilder extends ConsumerWidget {
         children: [
           SectionHeaderWidget(
             title: localizations.topMentor,
-            onSeeAll: () {},
+            onSeeAll: () {
+              
+            },
           ),
           const SizedBox(height: Spacing.small),
           TopMentorsWidget(mentors: mentors),

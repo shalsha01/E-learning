@@ -60,12 +60,23 @@ class AllCategoriesPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final category = categories[index];
                   return Column(
+
                     mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _getCategoryImage(category),
-                      const SizedBox(height: 8),
+                     children: [
+                      Container(
+                        width: 72,
+                        height: 72,
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: colorScheme.primary.withOpacity(0.05),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: _getCategoryImage(category),
+                      ),
+                      const SizedBox(height: 12),
                       Text(
-                        categories[index],
+                        category,
+                        textAlign: TextAlign.center,
                         style: textTheme.bodyLarge?.copyWith(
                           color: colorScheme.onSurface,
                           fontWeight: FontWeight.w600,

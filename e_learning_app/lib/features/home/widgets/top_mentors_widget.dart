@@ -25,8 +25,8 @@ class TopMentorsWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 64,
-                height: 64,
+                width: 80,
+                height: 100,
                 decoration: BoxDecoration(
                   color: colorScheme.onPrimary,
                   borderRadius: BorderRadius.circular(16),
@@ -60,5 +60,6 @@ class TopMentorsWidget extends StatelessWidget {
         },
       ),
     );
+    
   }
 }

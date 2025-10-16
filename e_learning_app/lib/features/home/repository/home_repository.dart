@@ -32,19 +32,19 @@ class HomeRepository {
 
 final banners = [
   HomeBanner(
-    image: 'assets/images/Graphic_Design.png',
+    image: 'assets/images/slid/slid1.webp',
     title: "",
     subtitle: "",
   ),
   HomeBanner(
-    image: 'assets/images/mentor_1.png',
-    title: "New Courses Available",
-    subtitle: "Explore the latest courses added to our platform.",
+    image: 'assets/images/slid/slid2.webp',
+    title: "",
+    subtitle: "",
   ),
   HomeBanner(
-    image: 'assets/images/coursera-top-courses.png',
-    title: "25% OFF",
-    subtitle: "Get a Discount for Every Course Order only Valid for Today!.",
+    image: 'assets/images/slid/slid3.webp',
+    title: "",
+    subtitle: "",
   ),
 ];
 
@@ -103,10 +103,10 @@ final courses = <Course>[
 ];
 
 final mentors = <Mentor>[
-  Mentor(name: 'Sonja', imageUrl: 'assets/images/mentor_1.png'),
-  Mentor(name: 'Jensen', imageUrl: 'assets/images/mentor_2.png'),
-  Mentor(name: 'Victoria', imageUrl: 'assets/images/mentor_3.png'),
-  Mentor(name: 'Castaldo', imageUrl: 'assets/images/mentor_4.png'),
+  Mentor(name: 'Sonja', imageUrl: 'assets/images/teachers/teacher1.webp'),
+  Mentor(name: 'Jensen', imageUrl: 'assets/images/teachers/teacher2.webp'),
+  Mentor(name: 'Victoria', imageUrl: 'assets/images/teachers/teacher3.webp'),
+  Mentor(name: 'Castaldo', imageUrl: 'assets/images/teachers/teacher4.webp'),
 ];
 
 final homeResponse = [
