@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:e_learning_app/features/auth/pin/create_pin_screen.dart';
+import 'package:e_learning_app/features/home/models/mentor_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:collection/collection.dart';
 
 import 'package:e_learning_app/core/constants/prefs_keys.dart';
 import 'package:e_learning_app/features/auth/providers/shared_preferences_provider.dart';
@@ -16,6 +18,7 @@ import 'package:e_learning_app/features/home/screens/home_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:e_learning_app/features/home/screens/all_category_screen.dart';
 import 'package:e_learning_app/features/home/screens/all_popular_courses.dart';
+import 'package:e_learning_app/features/home/screens/all_mentors_screen.dart';
 
 part 'app_router.gr.dart';
 part 'app_router.g.dart';
@@ -60,6 +63,8 @@ class AppRouter extends RootStackRouter {
         ),
         AutoRoute(page:AllCategoriesRoute.page),
         AutoRoute(page:AllCoursesRoute.page),
+        AutoRoute(page:AllMentorsRoute.page),
+        
       ];
 }
 

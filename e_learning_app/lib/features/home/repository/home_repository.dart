@@ -103,10 +103,10 @@ final courses = <Course>[
 ];
 
 final mentors = <Mentor>[
-  Mentor(name: 'Sonja', imageUrl: 'assets/images/teachers/teacher1.webp'),
-  Mentor(name: 'Jensen', imageUrl: 'assets/images/teachers/teacher2.webp'),
-  Mentor(name: 'Victoria', imageUrl: 'assets/images/teachers/teacher3.webp'),
-  Mentor(name: 'Castaldo', imageUrl: 'assets/images/teachers/teacher4.webp'),
+  Mentor(name: 'Sonja', imageUrl: 'assets/images/teachers/teacher1.webp',category: 'Graphic Design'),
+  Mentor(name: 'Jensen', imageUrl: 'assets/images/teachers/teacher2.webp',category: 'Web Development'),
+  Mentor(name: 'Victoria', imageUrl: 'assets/images/teachers/teacher3.webp',category: 'SEO & Marketing'),
+  Mentor(name: 'Castaldo', imageUrl: 'assets/images/teachers/teacher4.webp',category: 'Finance & Accounting'),
 ];
 
 final homeResponse = [

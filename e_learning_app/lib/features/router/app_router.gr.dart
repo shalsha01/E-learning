@@ -43,6 +43,54 @@ class AllCoursesRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [AllMentorsPage]
+class AllMentorsRoute extends PageRouteInfo<AllMentorsRouteArgs> {
+  AllMentorsRoute({
+    Key? key,
+    required List<Mentor> mentors,
+    List<PageRouteInfo>? children,
+  }) : super(
+          AllMentorsRoute.name,
+          args: AllMentorsRouteArgs(key: key, mentors: mentors),
+          initialChildren: children,
+        );
+
+  static const String name = 'AllMentorsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<AllMentorsRouteArgs>();
+      return AllMentorsPage(key: args.key, mentors: args.mentors);
+    },
+  );
+}
+
+class AllMentorsRouteArgs {
+  const AllMentorsRouteArgs({this.key, required this.mentors});
+
+  final Key? key;
+
+  final List<Mentor> mentors;
+
+  @override
+  String toString() {
+    return 'AllMentorsRouteArgs{key: $key, mentors: $mentors}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AllMentorsRouteArgs) return false;
+    return key == other.key &&
+        const ListEquality().equals(mentors, other.mentors);
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ const ListEquality().hash(mentors);
+}
+
+/// generated route for
 /// [CreateNewPasswordPage]
 class CreateNewPasswordRoute extends PageRouteInfo<void> {
   const CreateNewPasswordRoute({List<PageRouteInfo>? children})
